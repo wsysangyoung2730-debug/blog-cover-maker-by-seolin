@@ -17,6 +17,7 @@ assert info['CFBundlePackageType'] == 'APPL'
 assert re.fullmatch(r'\d+\.\d+(\.\d+)?', info['CFBundleShortVersionString'])
 assert info['CFBundleVersion'].isdigit()
 assert info['ITSAppUsesNonExemptEncryption'] is False
+assert info['NSHumanReadableCopyright'] == '© 2026 SEOLIN'
 assert info['CFBundleDevelopmentRegion'] == 'ko'
 assert privacy['NSPrivacyTracking'] is False
 assert privacy['NSPrivacyCollectedDataTypes'] == []

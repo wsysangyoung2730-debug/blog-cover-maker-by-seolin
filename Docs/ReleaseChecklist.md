@@ -10,7 +10,7 @@ macOS가 주력이며 iPadOS를 함께 지원한다. 개인정보보호 웹사�
 - iPad는 문서 브라우저 및 파일 원본 열기를 지원하도록 선언했다. 사용자가 선택한 파일 제공자에 저장하며 앱 자체 동기화 서버는 없다.
 - 자체 암호화 구현이 없어 `ITSAppUsesNonExemptEncryption = NO`를 선언했다.
 - macOS 14+, iPadOS 17+, iPad 전용. Mac은 arm64/x86_64 두 아키텍처를 검증한다.
-- 출시 버전은 기존 `0.1.0 (1)`을 보존했다. 실제 제출 전에 버전과 빌드 번호를 확정하고, 동일 버전 재업로드 시 빌드 번호를 올린다.
+- macOS 첫 출시 버전은 사용자 확인에 따라 `1.0.0 (1)`, 저작권은 `© 2026 SEOLIN`으로 설정했다. iPad 개발 버전은 `0.1.0 (1)`을 유지한다. 동일 버전 재업로드 시 빌드 번호를 올린다.
 - 번들에 50개 디자인, 오프라인 폰트와 OFL 라이선스, 플랫폼별 아이콘을 포함한다.
 - CI는 macOS 26 환경에서 Debug 검증에 이어 두 플랫폼 Release 아카이브를 검사한다. 이전 Xcode 16 빌드 성공만으로는 현재 iPad 업로드 SDK 요구 조건을 충족하지 못한다.
 
@@ -35,7 +35,7 @@ Mac 서명 후 `--signed`를 추가하면 코드 서명과 내장 샌드박스 �
 - 한국어 스크린샷 등록, 리뷰 담당자에게 문서 생성→편집→저장·내보내기 경로 제공
 - 실제 Mac/iPad에서 배포 서명 빌드로 파일 제공자 저장·재열기, 여러 창, 회전·작은 창 사용 확인
 
-이 점검은 Apple 심사 승인이나 App Store Connect 업로드 성공을 보장하지 않는다. 계정에 접근해 업로드하거나 앱을 출시하지 않았다.
+이 점검은 Apple 심사 승인을 보장하지 않는다. 계정 등록·서명 준비 결과는 아래 배포 연결 기록을 따른다. 앱 빌드 업로드와 심사 제출·출시는 별도 단계다.
 
 ## 근거
 
@@ -77,3 +77,30 @@ Mac 서명 후 `--signed`를 추가하면 코드 서명과 내장 샌드박스 �
 - macOS와 iPadOS 최종 Release archive 및 촬영 코드 제외 검증을 통과했다.
 - [한국어 스크린샷 8장과 스토어 설명 초안](../Marketing/AppStore/README.md)을 준비했다. AI로 생성한 가상의 태권도 수업 사진을 실제 편집기에 적용했다.
 - iPad Simulator에서 편집 화면과 튜토리얼의 시각 검수를 완료했다. 배포 서명된 실제 iPad의 파일 저장·회전·Pencil 테스트는 제출 전에 별도로 수행한다.
+
+## 2026-10-13 macOS 배포 연결
+
+- 사용자 지정 팀: Sangyoung Woo (`36545XSWN8`). Mac 타깃의 Debug·Release 자동 서명에 연결했다.
+- 사용자 확인 후 Apple Distribution 및 Mac Installer Distribution 인증서를 Xcode에서 생성했다. 개인 키는 Mac 키체인에 보관하며 저장소에 포함하지 않는다.
+- 설치 인증서는 키체인에서 `3rd Party Mac Developer Installer: Sangyoung Woo (36545XSWN8)`로 표시된다.
+- 명시적 Bundle ID `com.seolin.blogcovermaker`를 Apple Developer에 등록했다.
+- [App Store Connect macOS 앱](https://appstoreconnect.apple.com/apps/6822050062/distribution/macos/version/inflight) 생성 완료. Apple ID `6822050062`, SKU `seolin-blog-cover-maker-macos`, 기본 언어 한국어. 사용자 액세스는 제한된 액세스로 생성했으며 추가 팀원을 지정하지 않았다.
+- 스토어 버전 `1.0.0`, 저작권 `2026 SEOLIN`, 로그인 불필요 및 수동 출시로 저장했다.
+- Xcode 27에서 `1.0.0 (1)` 범용 Release archive 생성과 Apple Distribution 서명 앱 검증에 성공했다. 샌드박스·파일 선택 읽기/쓰기·디버깅 권한 제외·개인정보 명세·촬영 전용 코드 제외를 확인했다.
+- `Configuration/ExportOptions-macOS.plist`는 App Store Connect용 **로컬 내보내기** 설정이다. 자동 업로드하지 않는다.
+
+재현:
+
+```sh
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild \
+  -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerMac \
+  -configuration Release -destination 'generic/platform=macOS' \
+  -archivePath .build-output/Mac-1.0.0.xcarchive -allowProvisioningUpdates archive
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild \
+  -exportArchive -archivePath .build-output/Mac-1.0.0.xcarchive \
+  -exportOptionsPlist Configuration/ExportOptions-macOS.plist \
+  -exportPath .build-output/AppStore-1.0.0 -allowProvisioningUpdates
+pkgutil --check-signature .build-output/AppStore-1.0.0/BlogCoverMakerMac.pkg
+```
+
+다음 단계: 완성된 패키지 업로드·Apple 서버 검증, 지원 URL·심사 연락처·카테고리·연령 등급·가격/판매 지역·개인정보 설문 확정, 제출용 빌드 선택, 심사 요청. 개인정보보호 웹사이트는 요청에 따라 이번 범위에서 제외한다. iPad 인증서/앱 등록은 macOS 후 진행한다.
