@@ -160,6 +160,8 @@ final class CoverCoreTests: XCTestCase {
     XCTAssertNotEqual(normal, bold)
     let restored = try CoverProject.decode(project.encoded())
     XCTAssertEqual(try renderer.png(project: restored, mode: .all), bold)
+    project.elements[0].set("fw", "400")
+    XCTAssertEqual(try renderer.png(project: project, mode: .all), normal)
   }
   private func rect(_ x: Double, _ y: Double, _ w: Double, _ h: Double) -> CoverElement {
     CoverElement([
