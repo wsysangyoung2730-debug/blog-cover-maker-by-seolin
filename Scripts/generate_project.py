@@ -26,6 +26,7 @@ sources=sorted(root.glob('App/**/*.swift'))+sorted(root.glob('Sources/CoverCore/
 resources=[p for p in sorted(root.glob('Sources/CoverCore/Resources/**/*')) if p.is_file() and p.name != 'README.txt']
 catalogs=sorted(root.glob('App/**/*.xcassets'))
 resources+=catalogs
+resources+=sorted(root.glob('App/Resources/*.xcprivacy'))
 # Navigator references include supporting files, but only sources/resources
 # above are added to app build phases. Test fixtures never enter the app bundle.
 navigator_files=set(sources+resources)
@@ -39,7 +40,7 @@ for name in ['README.md', 'AGENTS.md', 'Package.swift', '.gitignore']:
 refs={}
 for p in sorted(navigator_files):
  rel=str(p.relative_to(root)); ext=p.suffix
- typ={'.swift':'sourcecode.swift', '.json':'text.json', '.plist':'text.plist.xml', '.md':'net.daringfireball.markdown', '.py':'text.script.python', '.mjs':'sourcecode.javascript', '.html':'text.html', '.png':'image.png', '.txt':'text', '.xcassets':'folder.assetcatalog'}.get(ext, 'file')
+ typ={'.swift':'sourcecode.swift', '.json':'text.json', '.plist':'text.plist.xml', '.entitlements':'text.plist.entitlements', '.xcprivacy':'text.xml', '.md':'net.daringfireball.markdown', '.py':'text.script.python', '.mjs':'sourcecode.javascript', '.html':'text.html', '.png':'image.png', '.txt':'text', '.xcassets':'folder.assetcatalog'}.get(ext, 'file')
  refs[rel]=add('ref:'+rel, f'{{isa=PBXFileReference;lastKnownFileType={q(typ)};path={q(p.name)};sourceTree="<group>";}}')
 products=[]; targets=[]; cfgs=[]
 for platform, name, sdk, supported in [('mac','BlogCoverMakerMac','macosx','macosx'),('ipad','BlogCoverMakerPad','iphoneos','iphoneos iphonesimulator')]:
@@ -58,6 +59,13 @@ for platform, name, sdk, supported in [('mac','BlogCoverMakerMac','macosx','maco
   if platform=='ipad':settings.update({'TARGETED_DEVICE_FAMILY':'2','SUPPORTS_MACCATALYST':'NO','SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD':'NO'})
   settings.update(previous_settings(name+config))
   settings['INFOPLIST_FILE']='App/Configuration/Info.plist'
+  settings['DEBUG_INFORMATION_FORMAT']='dwarf' if config=='Debug' else 'dwarf-with-dsym'
+  settings['ENABLE_TESTABILITY']='YES' if config=='Debug' else 'NO'
+  settings['SKIP_INSTALL']='NO'
+  if platform=='mac':
+   settings['CODE_SIGN_ENTITLEMENTS']='App/Configuration/BlogCoverMakerMac.entitlements'
+   settings['ENABLE_APP_SANDBOX']='YES'
+   settings['ENABLE_USER_SELECTED_FILES']='readwrite'
   settings['ASSETCATALOG_COMPILER_APPICON_NAME']='AppIconMac' if platform=='mac' else 'AppIconPad'
   configs.append(add(name+config,'{isa=XCBuildConfiguration;name='+config+';buildSettings='+props(settings)+';}'))
  cl=add(name+'configs','{isa=XCConfigurationList;buildConfigurations='+seq(configs)+';defaultConfigurationIsVisible=0;defaultConfigurationName=Release;}')
