@@ -27,7 +27,7 @@ resources=[p for p in sorted(root.glob('Sources/CoverCore/Resources/**/*')) if p
 # Navigator references include supporting files, but only sources/resources
 # above are added to app build phases. Test fixtures never enter the app bundle.
 navigator_files=set(sources+resources)
-for folder in ['App', 'Sources', 'Tests', 'Docs', 'Scripts', 'Reference']:
+for folder in ['App', 'Sources', 'Tests', 'Docs', 'Scripts', 'Reference', '.github']:
  navigator_files.update(p for p in (root/folder).rglob('*')
   if p.is_file() and not any(part.startswith('.') or part == '__pycache__'
    for part in p.relative_to(root/folder).parts))
@@ -42,7 +42,8 @@ products=[]; targets=[]; cfgs=[]
 for platform, name, sdk, supported in [('mac','BlogCoverMakerMac','macosx','macosx'),('ipad','BlogCoverMakerPad','iphoneos','iphoneos iphonesimulator')]:
  product=add('product:'+name, f'{{isa=PBXFileReference;explicitFileType=wrapper.application;includeInIndex=0;path={name}.app;sourceTree=BUILT_PRODUCTS_DIR;}}');products.append(product)
  phases=[]
- for kind,files in [('Sources',sources),('Resources',resources)]:
+ platform_sources=[p for p in sources if not (root/'App/Platforms'/('iPadOS' if platform=='mac' else 'macOS')) in p.parents]
+ for kind,files in [('Sources',platform_sources),('Resources',resources)]:
   bfs=[]
   for p in files:
    rel=str(p.relative_to(root)); bfs.append(add('build:'+name+':'+rel, f'{{isa=PBXBuildFile;fileRef={refs[rel]};}}'))
@@ -71,7 +72,7 @@ def directory_group(directory):
   children.append(directory_group(p) if p.is_dir() else refs[str(p.relative_to(root))])
  rel=str(directory.relative_to(root))
  return add('group:'+rel, '{isa=PBXGroup;children='+seq(children)+';path='+q(directory.name)+';sourceTree="<group>";}')
-root_children=[directory_group(root/folder) for folder in ['App', 'Sources', 'Tests', 'Docs', 'Scripts', 'Reference'] if (root/folder).exists()]
+root_children=[directory_group(root/folder) for folder in ['App', 'Sources', 'Tests', 'Docs', 'Scripts', 'Reference', '.github'] if (root/folder).exists()]
 root_children.extend(refs[name] for name in ['README.md', 'AGENTS.md', 'Package.swift', '.gitignore'] if name in refs)
 main=add('group','{isa=PBXGroup;children='+seq(root_children+[pg])+';sourceTree="<group>";}')
 for config in ['Debug','Release']:
