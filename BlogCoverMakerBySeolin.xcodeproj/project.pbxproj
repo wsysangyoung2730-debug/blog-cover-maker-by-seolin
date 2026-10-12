@@ -2,6 +2,7 @@
 {archiveVersion=1;classes={};objectVersion=56;objects={
 8BEB18FA47506140B1836C07 = {isa=PBXFileReference;lastKnownFileType="net.daringfireball.markdown";path="work.md";sourceTree="<group>";};
 EA1A6F83BD2D62FC00BEEDCE = {isa=PBXFileReference;lastKnownFileType="net.daringfireball.markdown";path="pull_request_template.md";sourceTree="<group>";};
+11748935DE231FC54E7EC961 = {isa=PBXFileReference;lastKnownFileType="file";path="build.yml";sourceTree="<group>";};
 0A96B3BCAA1631A9B97FE223 = {isa=PBXFileReference;lastKnownFileType="file";path=".gitignore";sourceTree="<group>";};
 657A8B61925CB77BF601BA56 = {isa=PBXFileReference;lastKnownFileType="net.daringfireball.markdown";path="AGENTS.md";sourceTree="<group>";};
 BE0B4A2AF5B681EA66E8805C = {isa=PBXFileReference;lastKnownFileType="sourcecode.swift";path="BlogCoverMakerApp.swift";sourceTree="<group>";};
@@ -35,6 +36,7 @@ DF11E7479C24D5AB5A23C185 = {isa=PBXFileReference;lastKnownFileType="text.html";p
 6BF502D39215E9A4FA3BFA11 = {isa=PBXFileReference;lastKnownFileType="text.script.python";path="download_fonts.py";sourceTree="<group>";};
 DF9265CBC414A6CED319C0D2 = {isa=PBXFileReference;lastKnownFileType="sourcecode.javascript";path="extract_catalog.mjs";sourceTree="<group>";};
 76867586C9A2EB04883CD7AD = {isa=PBXFileReference;lastKnownFileType="text.script.python";path="generate_project.py";sourceTree="<group>";};
+86747705149D4B3498844A2B = {isa=PBXFileReference;lastKnownFileType="text.script.python";path="verify_core.py";sourceTree="<group>";};
 B54D39E16A683A1EAC32D5F5 = {isa=PBXFileReference;lastKnownFileType="sourcecode.swift";path="CoverEditing.swift";sourceTree="<group>";};
 21A91B808DDF8809DBA6DC88 = {isa=PBXFileReference;lastKnownFileType="sourcecode.swift";path="CoverConstants.swift";sourceTree="<group>";};
 FA6D1A51531AE5CB68CF49E6 = {isa=PBXFileReference;lastKnownFileType="sourcecode.swift";path="CoverModel.swift";sourceTree="<group>";};
@@ -327,10 +329,11 @@ A9012353AFD6A66EB75D4BE2 = {isa=PBXGroup;children=(E716EF1D3F4C138073F2D2A8,);pa
 03C8F0071174FB3AA17F5CC9 = {isa=PBXGroup;children=(29E2913EF934B8B55863B9AA,C704ECD107DF832C3429654A,);path="CoverCoreTests";sourceTree="<group>";};
 156052F04525D0F710673CF0 = {isa=PBXGroup;children=(03C8F0071174FB3AA17F5CC9,);path="Tests";sourceTree="<group>";};
 86E76DCFD8B38CD6265704AD = {isa=PBXGroup;children=(87FE16D13E0B64F8C08D38A1,34A7C7E3DB04DAC3D2E337E1,5E9D7F88D7D4252AB354CA86,);path="Docs";sourceTree="<group>";};
-C3BBE33D2D6E650AB8728D33 = {isa=PBXGroup;children=(6BF502D39215E9A4FA3BFA11,DF9265CBC414A6CED319C0D2,76867586C9A2EB04883CD7AD,);path="Scripts";sourceTree="<group>";};
+C3BBE33D2D6E650AB8728D33 = {isa=PBXGroup;children=(6BF502D39215E9A4FA3BFA11,DF9265CBC414A6CED319C0D2,76867586C9A2EB04883CD7AD,86747705149D4B3498844A2B,);path="Scripts";sourceTree="<group>";};
 5FDC151AB4F6442EF11A201E = {isa=PBXGroup;children=(DF11E7479C24D5AB5A23C185,);path="Reference";sourceTree="<group>";};
 8ABF513CB55A97AE23BA9BC1 = {isa=PBXGroup;children=(8BEB18FA47506140B1836C07,);path="ISSUE_TEMPLATE";sourceTree="<group>";};
-74B01B06DE20D4E86EFD759A = {isa=PBXGroup;children=(8ABF513CB55A97AE23BA9BC1,EA1A6F83BD2D62FC00BEEDCE,);path=".github";sourceTree="<group>";};
+7C94851C2682B23BD4512AE3 = {isa=PBXGroup;children=(11748935DE231FC54E7EC961,);path="workflows";sourceTree="<group>";};
+74B01B06DE20D4E86EFD759A = {isa=PBXGroup;children=(8ABF513CB55A97AE23BA9BC1,7C94851C2682B23BD4512AE3,EA1A6F83BD2D62FC00BEEDCE,);path=".github";sourceTree="<group>";};
 64292B1C2B2E13EAD8788FC8 = {isa=PBXGroup;children=(1C48CE29E4E135EE62951B22,A9012353AFD6A66EB75D4BE2,156052F04525D0F710673CF0,86E76DCFD8B38CD6265704AD,C3BBE33D2D6E650AB8728D33,5FDC151AB4F6442EF11A201E,74B01B06DE20D4E86EFD759A,72638434B198B71E5CD8C0C5,657A8B61925CB77BF601BA56,2548BA0B63DB8B8895BB5E81,0A96B3BCAA1631A9B97FE223,FBDC4F23F93125BBEEAE800C,);sourceTree="<group>";};
 89E1FD6268CC0F221A2BE178 = {isa=XCBuildConfiguration;name=Debug;buildSettings={"CLANG_ENABLE_MODULES" = "YES";};};
 E6DE6C99132752C914FEF632 = {isa=XCBuildConfiguration;name=Release;buildSettings={"CLANG_ENABLE_MODULES" = "YES";};};
