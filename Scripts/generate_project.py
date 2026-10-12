@@ -24,19 +24,22 @@ def value(v):
 def props(d): return '{'+''.join(f'{q(k)} = {value(v)};' for k,v in d.items())+'}'
 sources=sorted(root.glob('App/**/*.swift'))+sorted(root.glob('Sources/CoverCore/**/*.swift'))
 resources=[p for p in sorted(root.glob('Sources/CoverCore/Resources/**/*')) if p.is_file() and p.name != 'README.txt']
+catalogs=sorted(root.glob('App/**/*.xcassets'))
+resources+=catalogs
 # Navigator references include supporting files, but only sources/resources
 # above are added to app build phases. Test fixtures never enter the app bundle.
 navigator_files=set(sources+resources)
-for folder in ['App', 'Sources', 'Tests', 'Docs', 'Scripts', 'Reference', '.github']:
+for folder in ['App', 'Sources', 'Tests', 'Docs', 'Scripts', 'Reference', 'Design', '.github']:
  navigator_files.update(p for p in (root/folder).rglob('*')
-  if p.is_file() and not any(part.startswith('.') or part == '__pycache__'
+  if p.is_file() and not any(parent in catalogs for parent in p.parents)
+   and not any(part.startswith('.') or part == '__pycache__'
    for part in p.relative_to(root/folder).parts))
 for name in ['README.md', 'AGENTS.md', 'Package.swift', '.gitignore']:
  if (root/name).exists(): navigator_files.add(root/name)
 refs={}
 for p in sorted(navigator_files):
  rel=str(p.relative_to(root)); ext=p.suffix
- typ={'.swift':'sourcecode.swift', '.json':'text.json', '.plist':'text.plist.xml', '.md':'net.daringfireball.markdown', '.py':'text.script.python', '.mjs':'sourcecode.javascript', '.html':'text.html', '.png':'image.png', '.txt':'text'}.get(ext, 'file')
+ typ={'.swift':'sourcecode.swift', '.json':'text.json', '.plist':'text.plist.xml', '.md':'net.daringfireball.markdown', '.py':'text.script.python', '.mjs':'sourcecode.javascript', '.html':'text.html', '.png':'image.png', '.txt':'text', '.xcassets':'folder.assetcatalog'}.get(ext, 'file')
  refs[rel]=add('ref:'+rel, f'{{isa=PBXFileReference;lastKnownFileType={q(typ)};path={q(p.name)};sourceTree="<group>";}}')
 products=[]; targets=[]; cfgs=[]
 for platform, name, sdk, supported in [('mac','BlogCoverMakerMac','macosx','macosx'),('ipad','BlogCoverMakerPad','iphoneos','iphoneos iphonesimulator')]:
@@ -55,6 +58,7 @@ for platform, name, sdk, supported in [('mac','BlogCoverMakerMac','macosx','maco
   if platform=='ipad':settings.update({'TARGETED_DEVICE_FAMILY':'2','SUPPORTS_MACCATALYST':'NO','SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD':'NO'})
   settings.update(previous_settings(name+config))
   settings['INFOPLIST_FILE']='App/Configuration/Info.plist'
+  settings['ASSETCATALOG_COMPILER_APPICON_NAME']='AppIconMac' if platform=='mac' else 'AppIconPad'
   configs.append(add(name+config,'{isa=XCBuildConfiguration;name='+config+';buildSettings='+props(settings)+';}'))
  cl=add(name+'configs','{isa=XCConfigurationList;buildConfigurations='+seq(configs)+';defaultConfigurationIsVisible=0;defaultConfigurationName=Release;}')
  tid=add(name,'{isa=PBXNativeTarget;buildConfigurationList='+cl+';buildPhases='+seq(phases)+';buildRules=();dependencies=();name='+name+';productName='+name+';productReference='+product+';productType="com.apple.product-type.application";}');targets.append(tid)
@@ -69,10 +73,10 @@ def directory_group(directory):
  entries=[p for p in directory.iterdir() if any(
   file == p or p in file.parents for file in navigator_files)]
  for p in sorted(entries, key=lambda p: (not p.is_dir(), p.name.casefold())):
-  children.append(directory_group(p) if p.is_dir() else refs[str(p.relative_to(root))])
+  children.append(directory_group(p) if p.is_dir() and p not in catalogs else refs[str(p.relative_to(root))])
  rel=str(directory.relative_to(root))
  return add('group:'+rel, '{isa=PBXGroup;children='+seq(children)+';path='+q(directory.name)+';sourceTree="<group>";}')
-root_children=[directory_group(root/folder) for folder in ['App', 'Sources', 'Tests', 'Docs', 'Scripts', 'Reference', '.github'] if (root/folder).exists()]
+root_children=[directory_group(root/folder) for folder in ['App', 'Sources', 'Tests', 'Docs', 'Scripts', 'Reference', 'Design', '.github'] if (root/folder).exists()]
 root_children.extend(refs[name] for name in ['README.md', 'AGENTS.md', 'Package.swift', '.gitignore'] if name in refs)
 main=add('group','{isa=PBXGroup;children='+seq(root_children+[pg])+';sourceTree="<group>";}')
 for config in ['Debug','Release']:

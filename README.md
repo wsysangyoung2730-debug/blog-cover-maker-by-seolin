@@ -120,6 +120,10 @@ xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerPad -
 - 작업 브랜치에 최신 `develop`을 병합하고 검증한 뒤 `develop` 대상 PR로 통합합니다.
 - `init`은 최초 커밋에만 사용합니다.
 
+## 앱 아이콘
+
+표지 카드와 편집 도구를 나타낸 전용 로고에 서린 브랜드를 오른쪽 아래에 배치했습니다. 고해상도 원본과 제작 정보는 [Design/Branding](Design/Branding/README.md)에 있습니다. macOS·iPadOS 아이콘은 `App/Resources/Assets.xcassets`에서 관리합니다.
+
 ## 폰트
 
 원본의 Google Fonts 17개 글꼴군과 각 OFL 라이선스를 포함합니다. 다운로드 주소와 SHA-256은 `Sources/CoverCore/Resources/Fonts/font-manifest.json`에 기록되어 있습니다. 사용자 추가 폰트는 프로젝트 문서 안에 보관됩니다.
