@@ -1,3 +1,4 @@
+import Combine
 import CoreText
 import SwiftUI
 import UniformTypeIdentifiers
@@ -6,13 +7,11 @@ import UniformTypeIdentifiers
   let document: CoverDocument
   @Published var project: CoverProject {
     didSet {
-      document.project = project
-      thumbnailTask?.cancel()
-      thumbnailTask = Task {
-        try? await Task.sleep(nanoseconds: 300_000_000)
-        guard !Task.isCancelled else { return }
-        self.refreshThumbnails()
-      }
+      if !readingDocument { document.project = project }
+      if project.words != oldValue.words || project.themeID != oldValue.themeID
+        || project.titleFontID != oldValue.titleFontID || project.dim != oldValue.dim
+        || project.mainPhoto.current != oldValue.mainPhoto.current || project.fonts != oldValue.fonts
+      { refreshThumbnails() }
     }
   }
   @Published var selection: Set<UUID> = []
@@ -40,6 +39,9 @@ import UniformTypeIdentifiers
   var interactionStart: CoverProject?
   private var thumbnailTask: Task<Void, Never>?
   private var originalEdit: CoverProject?
+  private let thumbnailRenderer = ThumbnailRenderer()
+  private var documentSubscription: AnyCancellable?
+  private var readingDocument = false
   private var lastPhoto: UUID?
   enum ImportKind: String, Identifiable {
     case base, replace, add, font
@@ -48,6 +50,23 @@ import UniformTypeIdentifiers
   init(document: CoverDocument) {
     self.document = document
     project = document.project
+    documentSubscription = document.$project.dropFirst().sink { [weak self] value in
+      // ReferenceFileDocument's observable state is changed by the main-thread document UI.
+      MainActor.assumeIsolated { self?.readDocument(value) }
+    }
+  }
+  deinit { thumbnailTask?.cancel() }
+  private func readDocument(_ value: CoverProject) {
+    guard value != project else { return }
+    readingDocument = true
+    project = value
+    readingDocument = false
+    originalEdit = nil
+    editingID = nil
+    interactionStart = nil
+    selection.formIntersection(Set(value.elements.map(\.id)))
+    showQuick = false
+    refreshThumbnails()
   }
   var selected: [CoverElement] {
     project.elements.filter { selection.contains($0.id) && !$0.flag("hidden") }
@@ -74,6 +93,7 @@ import UniformTypeIdentifiers
     return project.mainPhoto
   }
   func change(_ name: String, _ body: (inout CoverProject) -> Void) {
+    finishText()
     let before = project
     body(&project)
     if interactionStart == nil { register(before, name: name) }
@@ -92,7 +112,10 @@ import UniformTypeIdentifiers
     selection = selection.intersection(Set(state.elements.map(\.id)))
     register(before, name: name)
   }
-  func begin() { if interactionStart == nil { interactionStart = project } }
+  func begin() {
+    finishText()
+    if interactionStart == nil { interactionStart = project }
+  }
   func end(_ name: String = "요소 편집") {
     if let before = interactionStart {
       interactionStart = nil
@@ -241,6 +264,8 @@ import UniformTypeIdentifiers
       }.map(\.id))
   }
   func startText(_ id: UUID) {
+    finishText()
+    end()
     guard let e = project.elements.first(where: { $0.id == id && $0.type == "text" }) else {
       return
     }
@@ -284,6 +309,9 @@ import UniformTypeIdentifiers
     }
   }
   func importFiles(_ urls: [URL], kind: ImportKind, at point: CGPoint? = nil, target: UUID? = nil) {
+    finishText()
+    end()
+    defer { fontImportTargets = nil }
     let before = project
     do {
       for url in urls {
@@ -311,11 +339,20 @@ import UniformTypeIdentifiers
       }
       register(before, name: kind == .font ? "폰트 추가" : "사진 불러오기")
       status = "불러왔어요."
-      fontImportTargets = nil
     } catch {
       project = before
       self.error = error.localizedDescription
     }
+  }
+  func undo() {
+    finishText()
+    end()
+    undoManager?.undo()
+  }
+  func redo() {
+    finishText()
+    end()
+    undoManager?.redo()
   }
   func export(_ mode: ExportMode) {
     finishText()
@@ -329,12 +366,29 @@ import UniformTypeIdentifiers
     } catch { self.error = error.localizedDescription }
   }
   func refreshThumbnails() {
+    thumbnailTask?.cancel()
+    let snapshot = project
+    let worker = thumbnailRenderer
+    thumbnailTask = Task { [weak self] in
+      do { try await Task.sleep(nanoseconds: 250_000_000) } catch { return }
+      let images = await worker.render(snapshot)
+      guard !Task.isCancelled, let images else { return }
+      self?.thumbs = images
+    }
+  }
+}
+
+/// Core Graphics rendering runs off the main actor; only the finished thumbnails update the UI.
+private actor ThumbnailRenderer {
+  private let renderer = CoverRenderer()
+  func render(_ project: CoverProject) -> [String: CGImage]? {
     var p = project
     var images: [String: CGImage] = [:]
     for template in CoverCatalog.shared.templates {
+      guard !Task.isCancelled else { return nil }
       p.applyTemplate(template.id)
       images[template.id] = renderer.image(project: p, size: 180)
     }
-    thumbs = images
+    return images
   }
 }

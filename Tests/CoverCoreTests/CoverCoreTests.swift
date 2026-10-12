@@ -184,6 +184,46 @@ final class CoverCoreTests: XCTestCase {
     project.elements[0].set("fw", "400")
     XCTAssertEqual(try renderer.png(project: project, mode: .all), normal)
   }
+  func testMalformedDocumentsRejectUnsafeGeometryHistoryAndDuplicateIDs() throws {
+    var p = CoverProject()
+    p.elements[0].w = 1e100
+    XCTAssertThrowsError(try CoverProject.decode(p.encoded()))
+    p = CoverProject()
+    p.elements.append(p.elements[0])
+    XCTAssertThrowsError(try CoverProject.decode(p.encoded()))
+    p = CoverProject()
+    p.mainPhoto.index = Int.min
+    XCTAssertThrowsError(try CoverProject.decode(p.encoded()))
+    p = CoverProject()
+    p.elements[0].set("blur", 1e100)
+    XCTAssertThrowsError(try CoverProject.decode(p.encoded()))
+    p = CoverProject()
+    p.dim = 1e100
+    XCTAssertThrowsError(try CoverProject.decode(p.encoded()))
+  }
+  func testCorruptHistoryCursorAndOverflowDoNotTrap() {
+    var history = PhotoHistory()
+    history.index = Int.min
+    history.push("first")
+    XCTAssertEqual(history.current, "first")
+    history.index = Int.max
+    XCTAssertFalse(history.step(1))
+    history.push("second")
+    XCTAssertEqual(history.items, ["first", "second"])
+  }
+  func testReorderingOntoSelectedLayerKeepsItsOrder() {
+    var p = CoverProject()
+    let before = p.elements
+    CoverEditing.reorder([before[1].id, before[2].id], before: before[1].id, in: &p)
+    XCTAssertEqual(p.elements, before)
+  }
+  func testExtremeTextSizeIsBoundedBeforeFitting() {
+    let element = CoverElement(["type": .string("text"), "text": .string("안전한 글씨"),
+      "baseSize": .number(1e300), "w": .number(600), "h": .number(100)])
+    let layout = CoverTypography.layout(element, project: CoverProject())
+    XCTAssertTrue((8...400).contains(layout.size))
+    XCTAssertTrue(layout.height.isFinite)
+  }
   private func rect(_ x: Double, _ y: Double, _ w: Double, _ h: Double) -> CoverElement {
     CoverElement([
       "type": .string("rect"), "x": .number(x), "y": .number(y), "w": .number(w), "h": .number(h),

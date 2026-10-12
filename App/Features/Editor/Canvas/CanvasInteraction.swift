@@ -161,7 +161,7 @@ import SwiftUI
         let width = max(40, original.w + (mode.contains("e") ? dx : -dx))
         next.elements[index].w = width
         if mode.contains("w") { next.elements[index].x = original.x + original.w - width }
-        let size = max(8, original.number("size") * width / original.w)
+        let size = min(400, max(8, original.number("size") * width / max(1, original.w)))
         next.elements[index].set("size", size)
         next.elements[index].set("baseSize", size)
         next.elements[index].set("manualSize", true)
@@ -200,7 +200,14 @@ import SwiftUI
     mode = "none"
     before = nil
   }
+  func cancel() {
+    store.cancelInteraction()
+    mode = "none"
+    before = nil
+    target = nil
+  }
   func wheel(_ p: CGPoint, delta: Double) {
+    guard delta != 0 else { return }
     guard
       let e = store.project.elements.reversed().first(where: {
         $0.type == "photo" && !$0.flag("hidden") && contains($0, p)

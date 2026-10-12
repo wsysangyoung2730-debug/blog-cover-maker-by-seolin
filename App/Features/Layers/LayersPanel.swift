@@ -6,7 +6,6 @@ struct LayersPanel: View {
   @ObservedObject var store: EditorStore
   @State private var editing: UUID?
   @State private var text = ""
-  @State private var original: CoverProject?
   var body: some View {
     VStack(spacing: 8) {
       HStack {
@@ -27,9 +26,7 @@ struct LayersPanel: View {
           }.buttonStyle(.plain).help("보이기·숨기기")
           if editing == element.id {
             TextField("레이어 편집", text: $text, axis: .vertical).textFieldStyle(.roundedBorder)
-              .onChange(of: text) { _, value in
-                if element.type == "text" { store.project.setText(value, elementID: element.id) }
-              }.onSubmit { finish(element, cancel: false) }.cancelOnEscape {
+              .onSubmit { finish(element, cancel: false) }.cancelOnEscape {
                 finish(element, cancel: true)
               }
             Button {
@@ -93,31 +90,31 @@ struct LayersPanel: View {
     }
   }
   private func start(_ e: CoverElement) {
+    store.finishText()
     editing = e.id
-    original = store.project
     text = e.type == "text" ? store.project.text(for: e) : e.name
-    store.begin()
   }
   private func finish(_ e: CoverElement, cancel: Bool) {
-    if cancel {
-      store.cancelInteraction()
-    } else {
-      if e.type != "text", let i = store.project.elements.firstIndex(where: { $0.id == e.id }),
-        !text.trimmingCharacters(in: .whitespaces).isEmpty
-      {
-        store.project.elements[i].name = text
+    if !cancel {
+      store.change("레이어 편집") { project in
+        if e.type == "text" {
+          project.setText(text, elementID: e.id)
+        } else if let i = project.elements.firstIndex(where: { $0.id == e.id }),
+          !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+          project.elements[i].name = text
+        }
       }
-      store.end("레이어 편집")
     }
     editing = nil
-    original = nil
   }
   private func reorder(_ providers: [NSItemProvider], before id: UUID?) -> Bool {
     guard let p = providers.first else { return false }
     p.loadObject(ofClass: NSString.self) { value, _ in
       guard let s = value as? String, s.hasPrefix("layer:") else { return }
       Task { @MainActor in
-        let ids = store.selection
+        guard let dragged = UUID(uuidString: String(s.dropFirst(6))),
+          store.project.elements.contains(where: { $0.id == dragged }) else { return }
+        let ids = store.selection.contains(dragged) ? store.selection : [dragged]
         store.change("레이어 순서") { CoverEditing.reorder(ids, before: id, in: &$0) }
       }
     }

@@ -22,7 +22,7 @@ public final class CoverRenderer {
   public static func color(_ token: String?, project: CoverProject) -> CGColor {
     guard let token, !token.isEmpty else { return CGColor(red: 0, green: 0, blue: 0, alpha: 0) }
     let parts = token.split(separator: "@", omittingEmptySubsequences: false)
-    var hex = String(parts[0])
+    var hex = String(parts.first ?? "")
     if hex.hasPrefix("$") { hex = project.theme.color(String(hex.dropFirst())) }
     hex = hex.replacingOccurrences(of: "#", with: "")
     if hex.count == 3 { hex = hex.map { "\($0)\($0)" }.joined() }
@@ -464,7 +464,9 @@ public final class CoverRenderer {
       return
     case "grain":
       seed = 5
-      for _ in 0..<max(0, Int((w * h / 480).rounded())) {
+      let area = w * h / 480
+      let count = area.isFinite ? Int(min(20000, max(0, area.rounded()))) : 0
+      for _ in 0..<count {
         c.fill(CGRect(x: x + random() * w, y: y + random() * h, width: 2, height: 2))
       }
       return

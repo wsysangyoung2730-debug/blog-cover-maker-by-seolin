@@ -79,6 +79,7 @@ public enum CoverEditing {
     }
   }
   public static func reorder(_ ids: Set<UUID>, before targetID: UUID?, in p: inout CoverProject) {
+    guard targetID.map({ !ids.contains($0) }) ?? true else { return }
     let display = p.elements.reversed().map { $0 }
     let moving = display.filter { ids.contains($0.id) }
     var rest = display.filter { !ids.contains($0.id) }

@@ -8,6 +8,8 @@ struct EditorRoot: View {
   @Environment(\.undoManager) private var undoManager
   @Environment(\.openURL) private var openURL
   @State private var importing = false
+  @State private var pendingImportKind: EditorStore.ImportKind = .base
+  @State private var pendingFontTargets: Set<UUID>?
   @State private var smallPanel = "design"
   @State private var showSmallInspector = false
   @State private var widthStart: Double?
@@ -84,19 +86,34 @@ struct EditorRoot: View {
     .onChange(of: store.showTutorial) { _, showing in
       if showing { store.showQuick = false }
     }
-    .onChange(of: store.importKind) { _, kind in if kind != nil { importing = true } }
+    .onChange(of: store.importKind) { _, kind in
+      if let kind {
+        store.finishText()
+        pendingImportKind = kind
+        pendingFontTargets = store.fontImportTargets
+        importing = true
+      }
+    }
+    .onChange(of: importing) { _, showing in
+      if !showing {
+        store.importKind = nil
+        store.fontImportTargets = nil
+      }
+    }
     .fileImporter(
       isPresented: $importing,
-      allowedContentTypes: store.importKind == .font
+      allowedContentTypes: pendingImportKind == .font
         ? [
           .font, UTType(filenameExtension: "woff") ?? .data,
           UTType(filenameExtension: "woff2") ?? .data,
-        ] : [.image], allowsMultipleSelection: store.importKind == .add
+        ] : [.image], allowsMultipleSelection: pendingImportKind == .add
     ) { result in
-      let kind = store.importKind ?? .base
+      let kind = pendingImportKind
       store.importKind = nil
       switch result {
-      case .success(let urls): store.importFiles(urls, kind: kind)
+      case .success(let urls):
+        store.fontImportTargets = pendingFontTargets
+        store.importFiles(urls, kind: kind)
       case .failure(let error):
         if (error as NSError).code != NSUserCancelledError {
           store.error = error.localizedDescription
@@ -202,7 +219,7 @@ struct EditorRoot: View {
   @ToolbarContentBuilder private var toolbar: some ToolbarContent {
     ToolbarItemGroup(placement: .navigation) {
       Button {
-        openURL(URL(string: links[linkIndex % 3].1)!)
+        openURL(URL(string: links[((linkIndex % 3) + 3) % 3].1)!)
         linkIndex = (linkIndex + 1) % 3
       } label: {
         if let url = CoverConstants.resourceBundle.url(
@@ -213,7 +230,7 @@ struct EditorRoot: View {
         } else {
           Text("SEOLIN")
         }
-      }.help(links[linkIndex % 3].0 + " 열기")
+      }.help(links[((linkIndex % 3) + 3) % 3].0 + " 열기")
     }
     ToolbarItemGroup {
       Button {
@@ -230,12 +247,12 @@ struct EditorRoot: View {
         Label("추가", systemImage: "plus")
       }
       Button {
-        undoManager?.undo()
+        store.undo()
       } label: {
         Label("실행 취소", systemImage: "arrow.uturn.backward")
       }
       Button {
-        undoManager?.redo()
+        store.redo()
       } label: {
         Label("다시 실행", systemImage: "arrow.uturn.forward")
       }

@@ -46,19 +46,19 @@
       if let t = touches.first { interaction.up(point(t)) }
     }
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-      store.cancelInteraction()
+      interaction.cancel()
     }
     @objc func pinch(_ gesture: UIPinchGestureRecognizer) {
       guard let e = store.photo else { return }
       if gesture.state == .began {
-        store.cancelInteraction()
+        interaction.cancel()
         store.select(e.id, individual: true)
         pinchStart = e.number("zoom", 1)
         store.begin()
       }
       store.setNumber("zoom", max(0.2, min(3, pinchStart * gesture.scale)))
       if gesture.state == .ended { store.end("사진 확대") }
-      if gesture.state == .cancelled { store.cancelInteraction() }
+      if gesture.state == .cancelled { interaction.cancel() }
     }
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool
     { session.hasItemsConforming(toTypeIdentifiers: [UTType.image.identifier]) }
@@ -69,29 +69,39 @@
       let location = session.location(in: self)
       let point = CGPoint(x: location.x * 1080 / bounds.width, y: location.y * 1080 / bounds.height)
       let target = self.interaction.hit(point)
-      for item in session.items {
-        item.itemProvider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) {
-          [weak self] data, _ in
-          guard let data else { return }
-          Task { @MainActor in
-            guard let self else { return }
-            do {
-              let before = self.store.project
-              if target?.type == "photo" {
-                self.store.change("사진 교체") { p in
-                  do { try CoverEditing.replacePhoto(data, elementID: target?.id, in: &p) } catch {
-                    self.store.error = error.localizedDescription
-                  }
-                }
-              } else {
-                var next = before
-                let id = try CoverEditing.addPhoto(data, at: point, in: &next)
-                self.store.change("사진 추가") { $0 = next }
-                self.store.select(id)
+      // Collect in the drop order, then commit the entire drop as one undoable operation.
+      let items = target?.type == "photo" ? Array(session.items.prefix(1)) : session.items
+      Task { @MainActor [weak self] in
+        guard let self else { return }
+        do {
+          var payloads: [Data] = []
+          for item in items {
+            let data: Data = try await withCheckedThrowingContinuation { continuation in
+              item.itemProvider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) {
+                data, error in
+                if let data { continuation.resume(returning: data) }
+                else { continuation.resume(throwing: error ?? ProjectError.invalidImage) }
               }
-            } catch { self.store.error = error.localizedDescription }
+            }
+            payloads.append(data)
           }
-        }
+          self.store.finishText()
+          var next = self.store.project
+          var added: UUID?
+          if target?.type == "photo" {
+            guard next.elements.contains(where: { $0.id == target?.id }) else {
+              self.store.error = "사진 프레임이 변경되었어요. 다시 놓아 주세요."
+              return
+            }
+            if let data = payloads.first {
+              try CoverEditing.replacePhoto(data, elementID: target?.id, in: &next)
+            }
+          } else {
+            for data in payloads { added = try CoverEditing.addPhoto(data, at: point, in: &next) }
+          }
+          self.store.change(target?.type == "photo" ? "사진 교체" : "사진 추가") { $0 = next }
+          if let added { self.store.select(added) }
+        } catch { self.store.error = error.localizedDescription }
       }
     }
   }
