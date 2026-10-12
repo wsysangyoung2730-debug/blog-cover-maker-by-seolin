@@ -11,3 +11,10 @@
 - 작업 브랜치에 최신 develop을 먼저 병합하고 확인한 뒤 develop 대상 PR을 생성한다.
 - 기능 범위별 이슈와 브랜치, 커밋을 분리한다. 빌드·검증 근거와 미완료 항목을 기록한다.
 - GitHub 이슈에 브랜치, 작업 목적, 주요 작업 내용, 완료 기준을 포함한다.
+
+## 파일 배치
+
+- 공통 기능 UI는 `App/Features`, 재사용 UI는 `App/Shared`에 둔다.
+- 맥 전용 코드는 `App/Platforms/macOS`, iPad 전용 코드는 `App/Platforms/iPadOS`에 둔다.
+- 화면에 의존하지 않는 문서·편집·출력 코드는 `Sources/CoverCore`에 둔다.
+- 파일 추가·이동 후 `python3 Scripts/generate_project.py`를 실행하고 생성 결과도 커밋한다.
