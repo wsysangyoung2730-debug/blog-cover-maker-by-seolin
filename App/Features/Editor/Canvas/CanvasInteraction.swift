@@ -39,7 +39,10 @@ import SwiftUI
         && !($0.type == "text" && store.project.text(for: $0).isEmpty) && contains($0, p)
     }
   }
-  func down(_ p: CGPoint, add: Bool = false, individual: Bool = false, double: Bool = false) {
+  func down(
+    _ p: CGPoint, add: Bool = false, individual: Bool = false, double: Bool = false,
+    deferSelectionToggle: Bool = false
+  ) {
     store.finishText()
     store.showQuick = false
     start = p
@@ -86,6 +89,12 @@ import SwiftUI
     }
     if let e = hit(p) {
       if add || store.multipleSelection {
+        if deferSelectionToggle {
+          // A finger can either toggle this element with a tap or move the
+          // current selection with a drag. Decide after the movement threshold.
+          mode = "toggle"
+          return
+        }
         store.select(e.id, additive: true, individual: individual)
         mode = "none"
         return
@@ -112,6 +121,12 @@ import SwiftUI
     let dy = p.y - start.y
     if !moved && hypot(dx, dy) < 4 { return }
     moved = true
+    if mode == "toggle", let target {
+      if !store.selection.contains(target) { store.select(target, additive: true) }
+      originalBounds = CoverEditing.bounds(store.selected, project: store.project)
+      store.begin()
+      mode = "move"
+    }
     if mode == "maybe" {
       mode = "marquee"
       originalSelection = []
@@ -185,14 +200,15 @@ import SwiftUI
     }
     store.project = next
   }
-  func up(_ p: CGPoint) {
+  func up(_ p: CGPoint, showsQuickPalette: Bool = true) {
+    if mode == "toggle", !moved, let target { store.select(target, additive: true) }
     if mode == "maybe", !moved { store.select(target) }
     store.end()
     store.marquee = nil
     store.guideX = false
     store.guideY = false
     if !moved && mode == "move", let target, originalSelection.count > 1 { store.select(target) }
-    if mode != "none", !store.selected.isEmpty,
+    if showsQuickPalette, mode != "none", !store.selected.isEmpty,
       store.selected.count > 1 || store.primary?.type != "photo"
     {
       store.showQuick = true
