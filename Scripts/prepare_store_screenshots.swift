@@ -75,6 +75,7 @@ func framed(_ source: CGImage, rect: CGRect, radius: CGFloat, context: CGContext
   context.setLineWidth(2)
   context.strokePath()
 }
+if !CommandLine.arguments.contains("--intro-only") {
 for (platform, prefix, width, height) in [("macOS", "mac", 2880, 1800), ("iPadOS", "ipad", 2064, 2752)] {
   for (index, story) in stories.enumerated() {
     let mac = platform == "macOS", dark = index == 1
@@ -126,4 +127,75 @@ for (platform, prefix, width, height) in [("macOS", "mac", 2880, 1800), ("iPadOS
     precondition(CGImageDestinationFinalize(destination))
     print("\(platform)/\(story.file).png · \(width)×\(height) · sRGB · opaque")
   }
+}
+}
+
+// A separate opening card keeps the existing four feature images unchanged.
+// Preserve the supplied logo silhouette and recolor its alpha to white for navy.
+func whiteLogo(_ source: CGImage) -> CGImage {
+  let space = CGColorSpace(name: CGColorSpace.sRGB)!
+  let context = CGContext(data: nil, width: source.width, height: source.height,
+    bitsPerComponent: 8, bytesPerRow: source.width * 4, space: space,
+    bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+  let rect = CGRect(x: 0, y: 0, width: source.width, height: source.height)
+  context.draw(source, in: rect)
+  context.setBlendMode(.sourceIn)
+  context.setFillColor(NSColor.white.cgColor)
+  context.fill(rect)
+  return context.makeImage()!
+}
+let brandLogo = whiteLogo(load(root.appendingPathComponent("Design/Branding/References/seolin-logo-basic.png")))
+let appIcon = load(root.appendingPathComponent("Design/Branding/blog-cover-maker-icon.png"))
+for (platform, prefix, width, height) in [("macOS", "mac", 2880, 1800), ("iPadOS", "ipad", 2064, 2752)] {
+  let mac = platform == "macOS", w = CGFloat(width), h = CGFloat(height)
+  let space = CGColorSpace(name: CGColorSpace.sRGB)!
+  let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8,
+    bytesPerRow: width * 4, space: space, bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)!
+  context.translateBy(x: 0, y: h)
+  context.scaleBy(x: 1, y: -1)
+  NSGraphicsContext.saveGraphicsState()
+  NSGraphicsContext.current = NSGraphicsContext(cgContext: context, flipped: true)
+  let gradient = CGGradient(colorsSpace: space,
+    colors: [color(0x18275D).cgColor, color(0x263E84).cgColor] as CFArray, locations: [0, 1])!
+  context.drawLinearGradient(gradient, start: .zero, end: CGPoint(x: w, y: h), options: [])
+  context.setFillColor(color(0x84BFFF, 0.055).cgColor)
+  context.fillEllipse(in: CGRect(x: w * 0.36, y: h * 0.24, width: w * 0.9, height: w * 0.9))
+  let margin: CGFloat = mac ? 152 : 132
+  text(mac ? "블로그 표지,\n손쉽게 만들고\n편집하세요." : "블로그 표지,\n손쉽게 만들고 편집하세요.",
+    rect: CGRect(x: margin, y: mac ? 200 : 154, width: mac ? 975 : w - 2 * margin,
+                 height: mac ? 510 : 330),
+    size: mac ? 112 : 114, weight: .bold, ink: .white, spacing: 14)
+  text("사진과 문구를 넣고,\n원하는 디자인으로 간편하게 완성하세요.",
+    rect: CGRect(x: margin, y: mac ? 750 : 525, width: mac ? 915 : w - 2 * margin, height: 150),
+    size: mac ? 43 : 47, ink: color(0xD0E0FF), spacing: 10)
+  let iconSide: CGFloat = mac ? 268 : 276
+  let iconY: CGFloat = mac ? 1035 : 776
+  framed(appIcon, rect: CGRect(x: margin, y: iconY, width: iconSide, height: iconSide),
+    radius: 54, context: context, dark: true)
+  text("BLOG COVER\nMAKER",
+    rect: CGRect(x: margin + iconSide + 42, y: iconY + 35,
+                 width: mac ? 585 : 1160, height: 165),
+    size: mac ? 59 : 66, weight: .semibold, ink: .white, spacing: 4)
+  text("by SEOLIN",
+    rect: CGRect(x: margin + iconSide + 46, y: iconY + 205, width: 600, height: 60),
+    size: 34, ink: color(0xB5CEF5))
+
+  let capture = load(base.appendingPathComponent("Source/Captures/\(prefix)-01.\(mac ? "jpg" : "png")"))
+  let shotWidth: CGFloat = mac ? 1588 : 860
+  let shotHeight = shotWidth * CGFloat(capture.height) / CGFloat(capture.width)
+  let shotRect = CGRect(x: mac ? 1140 : (w - shotWidth) / 2,
+                        y: mac ? 350 : 1190, width: shotWidth, height: shotHeight)
+  framed(capture, rect: shotRect, radius: mac ? 24 : 35, context: context, dark: true)
+  let logoWidth: CGFloat = mac ? 272 : 256
+  let logoHeight = logoWidth * CGFloat(brandLogo.height) / CGFloat(brandLogo.width)
+  let logoRect = CGRect(x: w - margin - logoWidth, y: h - 100 - logoHeight,
+                        width: logoWidth, height: logoHeight)
+  precondition(shotRect.maxY < logoRect.minY - 50)
+  image(brandLogo, rect: logoRect, context: context)
+  NSGraphicsContext.restoreGraphicsState()
+  let output = base.appendingPathComponent("ko-KR/\(platform)/00-brand-intro.png")
+  let destination = CGImageDestinationCreateWithURL(output as CFURL, UTType.png.identifier as CFString, 1, nil)!
+  CGImageDestinationAddImage(destination, context.makeImage()!, nil)
+  precondition(CGImageDestinationFinalize(destination))
+  print("\(platform)/00-brand-intro.png · \(width)×\(height) · sRGB · opaque")
 }
