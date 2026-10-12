@@ -6,6 +6,8 @@
     let store: EditorStore
     let interaction: CanvasInteraction
     private var pinchStart = 1.0
+    private var activeTouch: UITouch?
+    private var pendingDoubleTap = false
     init(store: EditorStore) {
       self.store = store
       interaction = CanvasInteraction(store)
@@ -35,23 +37,48 @@
       return CGPoint(x: p.x * 1080 / bounds.width, y: p.y * 1080 / bounds.height)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      guard let t = touches.first, event?.allTouches?.count == 1 else { return }
-      interaction.down(point(t), double: t.tapCount == 2)
+      guard activeTouch == nil, let t = touches.first, event?.allTouches?.count == 1 else {
+        return
+      }
+      activeTouch = t
+      pendingDoubleTap = t.tapCount == 2
+      // Begin as a drag candidate even on a quick second touch. Opening a text
+      // editor here would consume the rest of a tap-then-drag gesture.
+      interaction.down(point(t), deferSelectionToggle: true)
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-      guard let t = touches.first, event?.allTouches?.count == 1 else { return }
+      guard let t = activeTouch, touches.contains(t), event?.allTouches?.count == 1 else {
+        return
+      }
       interaction.drag(point(t))
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-      if let t = touches.first { interaction.up(point(t)) }
+      guard let t = activeTouch, touches.contains(t) else { return }
+      let location = point(t)
+      interaction.drag(location)
+      if pendingDoubleTap && !interaction.moved {
+        interaction.cancel()
+        interaction.down(location, double: true)
+      }
+      // iPad popovers consume outside touches. Keep the quick editor available
+      // through the View menu instead of opening it after every selection.
+      interaction.up(location, showsQuickPalette: false)
+      activeTouch = nil
+      pendingDoubleTap = false
     }
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+      guard let t = activeTouch, touches.contains(t) else { return }
+      cancelTouch()
+    }
+    private func cancelTouch() {
+      activeTouch = nil
+      pendingDoubleTap = false
       interaction.cancel()
     }
     @objc func pinch(_ gesture: UIPinchGestureRecognizer) {
       guard let e = store.photo else { return }
       if gesture.state == .began {
-        interaction.cancel()
+        cancelTouch()
         store.select(e.id, individual: true)
         pinchStart = e.number("zoom", 1)
         store.begin()
