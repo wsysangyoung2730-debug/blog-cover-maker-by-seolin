@@ -54,7 +54,7 @@ Mac 서명 후 `--signed`를 추가하면 코드 서명과 내장 샌드박스 �
 - Xcode 27.0에서 macOS 범용·iPad 실기기용 Release 아카이브와 `verify_release.py` 통과.
 - 별도 검증용 Bundle ID로 복제하고 로컬 임시 서명한 Mac 샌드박스 앱에서 문서 생성 및 첫 실행 튜토리얼 표시 확인.
 - iPad 문서 관련 빌드 경고 해소. AppIntents를 사용하지 않는 앱의 메타데이터 추출 생략 안내만 남음.
-- Apple 배포 인증서 검증·업로드·실기기 배포 테스트는 아직 수행하지 않음.
+- 이 시점에는 Apple 배포 인증서 검증·업로드·실기기 배포 테스트를 수행하지 않았다. 이후 서명 검증 결과는 아래 macOS 배포 연결 기록을 따른다.
 
 ## 편집 코드 감사와 수정
 
@@ -88,6 +88,9 @@ Mac 서명 후 `--signed`를 추가하면 코드 서명과 내장 샌드박스 �
 - 스토어 버전 `1.0.0`, 저작권 `2026 SEOLIN`, 로그인 불필요 및 수동 출시로 저장했다.
 - Xcode 27에서 `1.0.0 (1)` 범용 Release archive 생성과 Apple Distribution 서명 앱 검증에 성공했다. 샌드박스·파일 선택 읽기/쓰기·디버깅 권한 제외·개인정보 명세·촬영 전용 코드 제외를 확인했다.
 - `Configuration/ExportOptions-macOS.plist`는 App Store Connect용 **로컬 내보내기** 설정이다. 자동 업로드하지 않는다.
+- 설치 인증서로 서명한 최종 `.pkg`를 생성하고 `pkgutil --check-signature`로 Apple 인증서 체인을 확인했다. 패키지를 별도 경로에 풀어 실제 포함된 앱에도 `verify_release.py --platform mac --signed`를 실행했으며 `1.0.0 (1)`, 팀, 저작권, 두 아키텍처와 서명을 확인했다.
+- 첫 내보내기에서는 키체인 응답 대기로 패키징이 완료되지 않아, 이미 검증된 배포 서명 앱을 유지한 채 `productbuild --component`로 설치 패키지만 다시 생성했다. 최종 패키지와 원본 `.xcarchive`를 함께 보관하며, 이전 내보내기의 요약 파일을 최종 패키지 검증 근거로 사용하지 않는다. dSYM은 원본 아카이브에 보존했다.
+- 실제 앱 화면에 기능 설명을 조합한 한국어 macOS 소개 이미지 4장을 App Store Connect에 등록했다. iPad용 소개 이미지 4장도 함께 준비했다.
 
 재현:
 
