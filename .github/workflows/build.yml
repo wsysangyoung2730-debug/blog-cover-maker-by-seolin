@@ -1,0 +1,20 @@
+name: Swift 앱 검증
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: 공통 엔진 테스트
+        run: swift test
+      - name: macOS 빌드
+        run: xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerMac -configuration Debug -derivedDataPath .build-output CODE_SIGNING_ALLOWED=NO build
+      - name: 앱 문서·출력 검증
+        run: .build-output/Build/Products/Debug/BlogCoverMakerMac.app/Contents/MacOS/BlogCoverMakerMac --verify-editor .build-output/verification
+      - name: iPadOS 시뮬레이터 빌드
+        run: xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerPad -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath .build-output CODE_SIGNING_ALLOWED=NO build
