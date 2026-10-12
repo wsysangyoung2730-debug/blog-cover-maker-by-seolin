@@ -132,3 +132,10 @@ pkgutil --check-signature .build-output/AppStore-1.0.0/BlogCoverMakerMac.pkg
 - 기존 Mac 설명 이미지 4장을 유지하고 iPad 13형 한국어 설명 이미지 4장을 01→04 순서로 업로드했다. 각 플랫폼에서 `10개 중 4개의 앱 스크린샷`을 확인했다.
 - 두 플랫폼의 `심사에 추가` 검사에 남은 필수 항목은 **개인정보 처리방침 URL**과 **한국어 지원 URL** 두 가지다. 이미지·빌드·소개 정보 때문에 발생한 추가 제출 오류는 없었다. 심사 요청과 실제 출시는 아직 수행하지 않았다.
 - 최종 `.xcarchive`, Mac `.pkg`, iPad `.ipa`와 업로드 로그는 개발 Mac의 `.build-output/Release-1.0.0-2`에 보관했다. 개인 키·프로파일·배포 파일·심사 연락처는 커밋하지 않는다.
+
+## 2026-10-13 지원 사이트 연결 및 두 플랫폼 심사 제출
+
+- 사용자가 제공한 SEOLIN Apps 사이트에서 앱별 상세 페이지를 확인했다. 공통 [개인정보처리방침 URL](https://seolin-apps-site.vercel.app/blog-cover-maker/privacy/)과 두 플랫폼의 한국어 [지원 URL](https://seolin-apps-site.vercel.app/blog-cover-maker/support/)을 App Store Connect에 저장했다. 사이트 자체는 수정하지 않았다.
+- 제출 전 URL 오류가 해소돼 두 플랫폼 `1.0.0 (2)`가 심사 초안에 추가됐다. 2026-10-13 05:46 KST에 각각 심사를 요청했으며 `1개의 항목 제출됨`과 **심사 대기 중** 상태를 확인했다.
+- [macOS 제출 내역](https://appstoreconnect.apple.com/apps/6822050062/distribution/reviewsubmissions/details/fc433cde-2297-478a-9154-83450597b653), [iPadOS 제출 내역](https://appstoreconnect.apple.com/apps/6822050062/distribution/reviewsubmissions/details/6611ee32-dcf5-496f-b239-f79017f514f1).
+- 두 플랫폼 모두 수동 출시 설정을 유지했다. 심사 접수는 승인이나 공개 출시 완료를 의미하지 않는다. Apple 승인 후 실제 출시를 진행한다.
