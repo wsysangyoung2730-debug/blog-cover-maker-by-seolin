@@ -154,20 +154,20 @@ struct EditorRoot: View {
           if let id = store.editingID, let e = store.project.elements.first(where: { $0.id == id })
           {
             let measured = CoverTypography.measured(e, project: store.project)
-            let scale = side / 1080
+            let scale: CGFloat = side / 1080
+            let textSize = measured.number("size")
+            let editorWidth: CGFloat = max(120, CGFloat(e.w) * scale)
+            let editorHeight: CGFloat = max(70, CGFloat(measured.h + textSize * 0.6) * scale)
+            let editorX: CGFloat = CGFloat(e.x) * scale + editorWidth / 2
+            let editorY: CGFloat = CGFloat(e.y) * scale + editorHeight / 2
             TextEditor(text: Binding(get: { store.editText }, set: { store.updateText($0) })).font(
-              .custom(
-                CTFontCopyPostScriptName(
-                  CoverTypography.font(e, project: store.project, size: measured.number("size")))
-                  as String, size: measured.number("size") * scale)
+              Font(CoverTypography.font(e, project: store.project, size: textSize * Double(scale)))
             ).foregroundStyle(.primary).scrollContentBackground(.hidden).padding(2).background(
               .regularMaterial
             ).border(Color.accentColor, width: 2).frame(
-              width: max(120, e.w * scale),
-              height: max(70, (measured.h + measured.number("size") * 0.6) * scale)
+              width: editorWidth, height: editorHeight
             ).position(
-              x: e.x * scale + max(120, e.w * scale) / 2,
-              y: e.y * scale + max(70, (measured.h + measured.number("size") * 0.6) * scale) / 2
+              x: editorX, y: editorY
             ).focused($textFocused).cancelOnEscape { store.finishText(cancel: true) }
             VStack {
               HStack {

@@ -79,7 +79,10 @@ import UniformTypeIdentifiers
   }
   private func register(_ before: CoverProject, name: String) {
     guard before != project else { return }
-    undoManager?.registerUndo(withTarget: self) { target in target.restore(before, name: name) }
+    undoManager?.registerUndo(withTarget: self) { target in
+      // The document and its UndoManager are used only by the main-thread editor.
+      MainActor.assumeIsolated { target.restore(before, name: name) }
+    }
     undoManager?.setActionName(name)
   }
   private func restore(_ state: CoverProject, name: String) {
