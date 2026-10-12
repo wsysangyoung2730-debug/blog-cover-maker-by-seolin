@@ -1,6 +1,8 @@
 import SwiftUI
 
+#if !DEBUG || !STORE_SCREENSHOTS || !os(iOS)
 @main
+#endif
 struct BlogCoverMakerApp: App {
   init() {
     CoverTypography.registerBundledFonts()

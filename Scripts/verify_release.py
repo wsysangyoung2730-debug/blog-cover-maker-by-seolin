@@ -29,6 +29,7 @@ assert len(json.loads((resources / 'catalog.json').read_text())['templates']) ==
 assert (resources / 'font-manifest.json').exists()
 assert len(list(resources.glob('*-OFL.txt'))) == 17
 binary = (bundle / 'MacOS' if args.platform == 'mac' else bundle) / info['CFBundleExecutable']
+assert b'--screenshot-fixture' not in binary.read_bytes(), '촬영 전용 진입점이 Release에 포함됨'
 arches = subprocess.check_output(['lipo', '-archs', str(binary)], text=True).split()
 if args.platform == 'mac':
  assert set(arches) == {'arm64', 'x86_64'}, arches

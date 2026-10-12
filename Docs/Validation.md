@@ -77,3 +77,14 @@ README의 검증 명령을 실행한다. 시스템 기본 개발 도구가 Comma
 - macOS 10개 슬롯, iPadOS 10개 슬롯의 파일·픽셀 크기를 확인했다.
 - Asset Catalog 추가 후 프로젝트 재생성 결과가 동일함을 확인했다.
 - macOS·iPadOS Debug 빌드를 통과했다. 맥 번들의 AppIconMac.icns와 iPad 번들의 AppIconPad 메타데이터·PNG·Assets.car 포함을 확인했다.
+
+## App Store 준비 — 2026-10-13, 이슈 #25·#27·#29
+
+- Xcode 27.0: 공통 엔진 18개 테스트, 편집 상태·문서 복원·잘못된 설정·Undo/Redo 회귀 검사 통과.
+- macOS 범용 arm64/x86_64 및 iPad arm64 Release archive와 번들 검증 통과. iPad 최소 업로드 SDK 기준도 검사한다.
+- 임시 서명한 별도 QA Mac 앱에서 샌드박스 활성화 상태로 문서 열기·저장, 파일 선택 취소 후 재시도, 전체 PNG 저장을 직접 확인했다.
+- iPad Pro 13형 Simulator에서 실제 편집 화면, 디자인 패널, 고운바탕 글씨체, 튜토리얼을 Xcode로 캡처하고 시각 검수했다. 이전 이슈 #21의 iPad 화면 확인 미완료 항목을 이 범위에서 해소했다. 터치·Pencil·파일 제공자의 실제 기기 종합 검증을 대신하지 않는다.
+- Mac 4장(2880×1800), iPad 4장(2064×2752)의 실제 화면과 태권도 실사 스타일 샘플 사진을 준비했다. PNG 무결성·sRGB·불투명 RGB·픽셀 크기·SHA-256 검증 통과.
+- 촬영용 빌드는 별도 컴파일 조건을 사용하며 일반 Debug/Release에 영향을 주지 않는다. Release에 촬영 진입 인자가 없는지 검증한다.
+- 배포 인증서·프로비저닝·App Store Connect Validate/업로드·TestFlight 실기기 테스트는 미실행. 개인정보보호 웹사이트는 요청에 따라 제외했다.
+- 재현 자료: [배포 점검표](ReleaseChecklist.md), [스크린샷과 등록 설명](../Marketing/AppStore/README.md).
