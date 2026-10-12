@@ -87,6 +87,7 @@ Sources/CoverCore/
 Tests/                         엔진·문서·출력 검증
 Reference/                     수정하지 않은 원본 HTML
 Scripts/                       데이터 추출·프로젝트 생성·검증
+Marketing/AppStore/            스토어 스크린샷·샘플·등록 설명
 Docs/                          구조·기능 대응표·검증 기록
 .github/                       이슈·PR 양식과 자동 검증
 ```
@@ -107,6 +108,8 @@ xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerPad -
 - [기능 대응표](Docs/FeatureParity.md)
 - [검증 기록과 범위](Docs/Validation.md)
 - [구조](Docs/Architecture.md)
+- [배포 점검표](Docs/ReleaseChecklist.md)
+- [App Store 스크린샷](Marketing/AppStore/README.md)
 - [개발 규칙](AGENTS.md)
 
 네이티브 렌더러와 브라우저의 글꼴·그림자 처리 차이가 있어 픽셀 단위의 동일성을 보장하지는 않습니다. 실제 기기별 터치·Pencil 사용성과 모든 디자인의 시각적 미세 조정은 지속 검수 대상입니다.

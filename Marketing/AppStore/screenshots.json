@@ -1,0 +1,66 @@
+[
+  {
+    "file": "ko-KR/macOS/01-cover-editor.png",
+    "width": 2880,
+    "height": 1800,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "a72fa2831cd5f477d8b1dad2fe41c4d394fb0370a02840547147031f73dcd385"
+  },
+  {
+    "file": "ko-KR/macOS/02-design-library.png",
+    "width": 2880,
+    "height": 1800,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "a5c1f4ccec380ad35fabfe1f4c2d3ee2caf6f7f87f8ff716442929cdabb15230"
+  },
+  {
+    "file": "ko-KR/macOS/03-typography.png",
+    "width": 2880,
+    "height": 1800,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "0b1a3fd1147f5c904c2f88243656d0c9c98e2984324c9a6caa91a7101e5f14a9"
+  },
+  {
+    "file": "ko-KR/macOS/04-tutorial.png",
+    "width": 2880,
+    "height": 1800,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "499641f284dac1f0d24db977a8e2483a6f549a2c5c3f4bf7c0006941a16e79cc"
+  },
+  {
+    "file": "ko-KR/iPadOS/01-cover-editor.png",
+    "width": 2064,
+    "height": 2752,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "c05870482b772f8e935badbfa8558900b6a55f7c251b7a68c7362afe46563d45"
+  },
+  {
+    "file": "ko-KR/iPadOS/02-design-library.png",
+    "width": 2064,
+    "height": 2752,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "a16d9e18f8bf68c71ef43d86e80c9b3e6e56c1f62ee4e401c938c9b85440e833"
+  },
+  {
+    "file": "ko-KR/iPadOS/03-typography.png",
+    "width": 2064,
+    "height": 2752,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "13364dc708807e8d76f4c097b210832f9c726c303c8cb6ab6cce54a21162dd40"
+  },
+  {
+    "file": "ko-KR/iPadOS/04-tutorial.png",
+    "width": 2064,
+    "height": 2752,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "fadc73810b4236812cb2726eea94f876c7ac7aaa24895bb02c9e3c79b244ef3f"
+  }
+]

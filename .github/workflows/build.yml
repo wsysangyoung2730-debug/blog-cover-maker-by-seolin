@@ -17,6 +17,8 @@ jobs:
         run: |
           xcodebuild -version
           swift --version
+      - name: 스토어 스크린샷 검증
+        run: python3 Scripts/verify_store_screenshots.py
       - name: 공통 엔진 테스트
         timeout-minutes: 5
         run: python3 Scripts/verify_core.py

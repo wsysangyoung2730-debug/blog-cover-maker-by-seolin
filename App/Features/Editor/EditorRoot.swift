@@ -81,6 +81,15 @@ struct EditorRoot: View {
         tutorialVersion = 1
         store.showTutorial = true
       }
+      #if DEBUG && STORE_SCREENSHOTS && os(iOS)
+        if StoreScreenshotFixture.document != nil,
+          let panel = StoreScreenshotFixture.argument("--screenshot-panel"),
+          ["design", "properties", "words", "layers"].contains(panel)
+        {
+          smallPanel = panel
+          showSmallInspector = true
+        }
+      #endif
     }
     .sheet(isPresented: $store.showTutorial) { TutorialView() }
     .onChange(of: store.showTutorial) { _, showing in
