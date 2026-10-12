@@ -67,7 +67,7 @@
           shift ? store.ungroup() : store.group()
           return
         case "z":
-          shift ? store.undoManager?.redo() : store.undoManager?.undo()
+          shift ? store.redo() : store.undo()
           return
         default: break
         }
@@ -75,7 +75,9 @@
       let d = shift ? 10.0 : 1.0
       switch event.keyCode {
       case 51, 117: store.delete()
-      case 53: store.select(nil)
+      case 53:
+        interaction.cancel()
+        store.select(nil)
       case 123: store.nudge(dx: -d, dy: 0)
       case 124: store.nudge(dx: d, dy: 0)
       case 125: store.nudge(dx: 0, dy: d)

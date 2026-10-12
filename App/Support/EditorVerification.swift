@@ -30,6 +30,37 @@
         guard store.project == initial else { throw Failure("전체 상태 실행 취소 실패") }
         undo.redo()
         guard store.project == edited else { throw Failure("전체 상태 다시 실행 실패") }
+        // Finishing a canvas text draft before another action must preserve both undo records.
+        let textID = store.project.elements.first { $0.type == "text" }!.id
+        let originalText = store.project.text(for: store.project.elements.first { $0.id == textID }!)
+        store.startText(textID)
+        store.updateText("취소 검증")
+        store.finishText(cancel: true)
+        guard store.project.text(for: store.project.elements.first { $0.id == textID }!) == originalText
+        else { throw Failure("글씨 취소 실패") }
+        undo.beginUndoGrouping()
+        store.startText(textID)
+        store.updateText("글씨 확정 후 테마 변경")
+        store.change("테마") { $0.themeID = "mint" }
+        undo.endUndoGrouping()
+        guard store.editingID == nil else { throw Failure("다른 작업 전 글씨 확정 실패") }
+        store.finishText(cancel: true)
+        guard store.project.themeID == "mint" else { throw Failure("글씨 취소가 후속 변경을 덮어씀") }
+        undo.undo()
+        guard store.project == edited else { throw Failure("글씨와 테마 실행 취소 실패") }
+        undo.redo()
+        let replacement = CoverProject()
+        document.project = replacement
+        guard store.project == replacement else { throw Failure("외부 문서 복원 연결 실패") }
+        let suite = "com.seolin.verification." + UUID().uuidString
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        defaults.set(Data(#"{"favorites":[],"collapsed":[],"columns":[],"thumbnailSize":-1,"leftWidth":-1,"rightWidth":999999}"#.utf8), forKey: "workspace.v1")
+        let workspace = WorkspaceSettings(defaults: defaults)
+        guard workspace.columns.count == 3, workspace.leftWidth == 220,
+          workspace.rightWidth == 500 else { throw Failure("손상된 작업 공간 복구 실패") }
+        workspace.movePanel("untrusted", to: 0)
+        guard workspace.columns.flatMap({ $0 }).count == 4 else { throw Failure("잘못된 패널 드롭 허용") }
         let file = try store.project.encoded()
         try file.write(
           to: output.appendingPathComponent("Verification.seolincover"), options: .atomic)
@@ -48,7 +79,7 @@
           try ImageAssets.png(image).write(
             to: output.appendingPathComponent(template.id + "-preview.png"))
         }
-        let report = "문서 연결, 실행 취소, 다시 실행, 프로젝트 왕복 저장, PNG 3종, 템플릿 50종 출력 통과\n"
+        let report = "문서 연결·외부 복원, 글씨 편집/취소/후속 작업, 실행 취소·다시 실행, 작업 공간 복구, 프로젝트 왕복 저장, PNG 3종, 템플릿 50종 출력 통과\n"
         try report.write(
           to: output.appendingPathComponent("result.txt"), atomically: true, encoding: .utf8)
         print(report)

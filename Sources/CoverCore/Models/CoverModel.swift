@@ -165,13 +165,15 @@ public struct PhotoHistory: Codable, Equatable, Sendable {
   public var index = -1
   public init() {}
   public mutating func push(_ id: String?) {
-    items = Array(items.prefix(index + 1))
+    // A corrupt cursor must never become a negative prefix count.
+    let count = index < 0 ? 0 : min(index, items.count - 1) + 1
+    items = Array(items.prefix(count))
     items.append(id)
     index = items.count - 1
   }
   public mutating func step(_ delta: Int) -> Bool {
-    let next = index + delta
-    guard items.indices.contains(next) else { return false }
+    let (next, overflow) = index.addingReportingOverflow(delta)
+    guard !overflow, items.indices.contains(next) else { return false }
     index = next
     return true
   }
@@ -249,20 +251,39 @@ public struct CoverProject: Codable, Equatable, Sendable {
   public static func decode(_ data: Data) throws -> CoverProject {
     let p = try JSONDecoder().decode(CoverProject.self, from: data)
     guard p.version == 1 else { throw ProjectError.unsupportedVersion }
-    guard p.elements.count <= 10000,
+    guard p.dim.isFinite, (0...100).contains(p.dim), p.elements.count <= 10000,
       p.elements.allSatisfy({ e in
-        e.x.isFinite && e.y.isFinite && e.w.isFinite && e.h.isFinite && e.w >= 0 && e.h >= 0
+        e.x.isFinite && e.y.isFinite && e.w.isFinite && e.h.isFinite
+          && abs(e.x) <= 21600 && abs(e.y) <= 21600
+          && (0...21600).contains(e.w) && (0...21600).contains(e.h)
+          && e.values.values.allSatisfy(validValue)
       })
     else { throw ProjectError.invalidGeometry }
+    guard Set(p.elements.map(\.id)).count == p.elements.count,
+      Set(p.fonts.map(\.id)).count == p.fonts.count,
+      validHistory(p.mainPhoto), p.frameHistory.values.allSatisfy(validHistory)
+    else { throw ProjectError.invalidStructure }
     return p
+  }
+  private static func validHistory(_ history: PhotoHistory) -> Bool {
+    history.items.isEmpty ? history.index == -1 : history.items.indices.contains(history.index)
+  }
+  private static func validValue(_ value: JSONValue) -> Bool {
+    switch value {
+    case .number(let n): return n.isFinite && abs(n) <= 1_000_000
+    case .array(let values): return values.allSatisfy(validValue)
+    case .object(let values): return values.values.allSatisfy(validValue)
+    default: return true
+    }
   }
 }
 public enum ProjectError: LocalizedError {
-  case unsupportedVersion, invalidGeometry, invalidImage, invalidFont, exportFailed
+  case unsupportedVersion, invalidGeometry, invalidStructure, invalidImage, invalidFont, exportFailed
   public var errorDescription: String? {
     switch self {
     case .unsupportedVersion: return "이 버전의 프로젝트는 열 수 없습니다."
     case .invalidGeometry: return "프로젝트의 요소 위치나 크기가 올바르지 않습니다."
+    case .invalidStructure: return "프로젝트의 레이어나 사진 기록이 올바르지 않습니다."
     case .invalidImage: return "이미지를 열 수 없습니다. JPG·PNG 등 이미지 파일을 선택하세요."
     case .invalidFont: return "이 폰트를 읽을 수 없습니다. 유효한 폰트 파일을 선택하세요."
     case .exportFailed: return "이미지를 저장하지 못했습니다."

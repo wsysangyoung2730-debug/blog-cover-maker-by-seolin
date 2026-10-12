@@ -28,7 +28,7 @@ import SwiftUI
       }
       CommandMenu("요소") {
         Button("복제") { store?.duplicate() }.keyboardShortcut("d")
-        Button("삭제") { store?.delete() }.keyboardShortcut(.delete, modifiers: [])
+        Button("삭제") { store?.delete() }.disabled(store?.selection.isEmpty != false)
         Divider()
         Button("그룹 묶기") { store?.group() }.keyboardShortcut("g")
         Button("그룹 풀기") { store?.ungroup() }.keyboardShortcut("g", modifiers: [.command, .shift])

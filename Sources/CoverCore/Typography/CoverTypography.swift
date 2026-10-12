@@ -151,7 +151,9 @@ public enum CoverTypography {
     public var step: Double
   }
   public static func layout(_ e: CoverElement, project: CoverProject) -> Layout {
-    var size = e.number("baseSize", e.number("size", 60))
+    let requestedSize = e.number("baseSize", e.number("size", 60))
+    // Bound fitting work even for manually edited project files or extreme resize gestures.
+    var size = requestedSize.isFinite ? min(400, max(8, requestedSize)) : 60
     let raw = project.text(for: e)
     func lines(_ size: Double) -> [Line] {
       var output: [Line] = []
@@ -186,7 +188,7 @@ public enum CoverTypography {
     var ls = lines(size)
     let fit = e.values["fit"] != .bool(false) && !e.flag("manualSize")
     if fit && e.flag("wrap") && e.number("maxLines") > 0 {
-      while ls.count > Int(e.number("maxLines")) && size > 24 {
+      while ls.count > Int(min(10000, e.number("maxLines"))) && size > 24 {
         size -= 2
         ls = lines(size)
       }
