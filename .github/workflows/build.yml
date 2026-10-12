@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-15
     timeout-minutes: 20
     env:
-      NSUnbufferedIO: YES
+      NSUnbufferedIO: "YES"
     steps:
       - uses: actions/checkout@v4
       - name: 개발 도구 확인
