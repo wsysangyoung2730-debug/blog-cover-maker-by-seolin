@@ -35,6 +35,27 @@ final class CoverCoreTests: XCTestCase {
     p.version = 999
     XCTAssertThrowsError(try CoverProject.decode(p.encoded()))
   }
+  func testEveryFontOptionUsesItsBundledFamily() {
+    let project = CoverProject()
+    func normalized(_ family: String) -> String {
+      family.lowercased().filter { $0.isLetter || $0.isNumber }
+    }
+    for option in CoverCatalog.shared.fonts {
+      let element = CoverElement(["type": .string("text"), "ff": .string(option.id)])
+      let font = CoverTypography.font(element, project: project, size: 42)
+      XCTAssertEqual(
+        normalized(CTFontCopyFamilyName(font) as String),
+        normalized(option.id == "pen" ? "Nanum Pen" : option.family), option.id)
+    }
+    for option in CoverCatalog.shared.titleFonts {
+      var p = project
+      p.titleFontID = option.id
+      let font = CoverTypography.font(CoverElement(["type": .string("text")]), project: p, size: 42)
+      XCTAssertEqual(
+        normalized(CTFontCopyFamilyName(font) as String),
+        normalized(option.id == "pen" ? "Nanum Pen" : option.family), option.id)
+    }
+  }
   func testPhotoHistoryTruncatesForwardBranch() {
     var h = PhotoHistory()
     h.push("a")
