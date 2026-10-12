@@ -226,7 +226,8 @@ struct EditorRoot: View {
           forResource: "seolin-logo", withExtension: "png"), let data = try? Data(contentsOf: url),
           let image = ImageAssets.image(data)
         {
-          Image(decorative: image, scale: 1).resizable().scaledToFit().frame(width: 24, height: 24)
+          Image(decorative: image, scale: 1).resizable().renderingMode(.template)
+            .scaledToFit().frame(width: 24, height: 24).foregroundStyle(Color.accentColor)
         } else {
           Text("SEOLIN")
         }
