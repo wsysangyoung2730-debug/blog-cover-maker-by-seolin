@@ -1,0 +1,7156 @@
+{
+  "templates": [
+    {
+      "id": "full",
+      "name": "풀사진",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.08,
+            0.3
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 367,
+          "w": 1080,
+          "h": 713,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                0.45,
+                "$dark@.6"
+              ],
+              [
+                1,
+                "$dark@1"
+              ]
+            ]
+          },
+          "pass": true,
+          "dim": [
+            0.75,
+            0.25
+          ]
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 600,
+          "w": 920,
+          "h": 10,
+          "font": "light",
+          "size": 72,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 694,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 88,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 828,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff@.86",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 80,
+          "y": 996,
+          "w": 600,
+          "h": 3,
+          "fill": "#fff",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 80,
+          "y": 980,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "icon",
+          "name": "장식",
+          "icon": "bookmark",
+          "x": 966,
+          "y": 66,
+          "w": 34,
+          "h": 48,
+          "color": "#fff",
+          "layer": "fg"
+        }
+      ]
+    },
+    {
+      "id": "band",
+      "name": "액자 띠",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 80,
+          "y": 70,
+          "w": 920,
+          "h": 920,
+          "shape": "rect",
+          "r": 14,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "띠",
+          "x": 80,
+          "y": 690,
+          "w": 920,
+          "h": 300,
+          "fill": "$dark",
+          "r": [
+            0,
+            0,
+            14,
+            14
+          ],
+          "dim": [
+            0.78,
+            0.18
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "테두리",
+          "x": 36,
+          "y": 36,
+          "w": 1008,
+          "h": 1008,
+          "fill": null,
+          "r": 20,
+          "stroke": "#fff",
+          "sw": 4,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 100,
+          "y": 738,
+          "w": 880,
+          "h": 10,
+          "font": "title",
+          "size": 64,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 100,
+          "y": 820,
+          "w": 880,
+          "h": 10,
+          "font": "title",
+          "size": 64,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 100,
+          "y": 918,
+          "w": 880,
+          "h": 10,
+          "font": "body",
+          "size": 27,
+          "color": "#fff@.82",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "브랜드",
+          "bind": "brand",
+          "x": 82,
+          "y": 1004,
+          "w": 460,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 538,
+          "y": 1004,
+          "w": 460,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.6",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "card",
+      "name": "카드 태그",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "rect",
+          "name": "카드",
+          "x": 40,
+          "y": 40,
+          "w": 1000,
+          "h": 1000,
+          "fill": "#fff",
+          "r": 34
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 62,
+          "y": 62,
+          "w": 956,
+          "h": 600,
+          "shape": "rect",
+          "r": 24,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 0,
+          "y": 622,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "bg": "$main",
+          "bgR": "pill",
+          "padX": 34,
+          "padY": 12
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 100,
+          "y": 722,
+          "w": 880,
+          "h": 10,
+          "font": "title",
+          "size": 66,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 100,
+          "y": 808,
+          "w": 880,
+          "h": 10,
+          "font": "title",
+          "size": 66,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 100,
+          "y": 908,
+          "w": 880,
+          "h": 10,
+          "font": "body",
+          "size": 27,
+          "color": "$ink@.6",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 100,
+          "y": 975,
+          "w": 880,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.4",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "top",
+      "name": "상단 타이틀",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.12,
+            0.3
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 670,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@1"
+              ],
+              [
+                1,
+                "$dark@0"
+              ]
+            ]
+          },
+          "pass": true,
+          "dim": [
+            0.6,
+            0.35
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 864,
+          "w": 1080,
+          "h": 216,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                1,
+                "$dark@.6"
+              ]
+            ]
+          },
+          "pass": true
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 140,
+          "w": 880,
+          "h": 10,
+          "font": "light",
+          "size": 96,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 262,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 100,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 410,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 32,
+          "color": "#fff@.88",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 80,
+          "y": 1000,
+          "w": 600,
+          "h": 3,
+          "fill": "#fff",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 80,
+          "y": 984,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "icon",
+          "name": "장식",
+          "icon": "bookmark",
+          "x": 966,
+          "y": 62,
+          "w": 34,
+          "h": 48,
+          "color": "#fff",
+          "layer": "fg"
+        }
+      ]
+    },
+    {
+      "id": "torn",
+      "name": "찢어진 종이",
+      "category": "split",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 720,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "path",
+          "name": "종이",
+          "x": 0,
+          "y": 600,
+          "w": 1080,
+          "h": 480,
+          "pts": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0.07
+            ],
+            [
+              0.01111302421324961,
+              0.06334889599899658
+            ],
+            [
+              0.023227500895767524,
+              0.08919414238347126
+            ],
+            [
+              0.04583840707653778,
+              0.0646361594981385
+            ],
+            [
+              0.0632077816324174,
+              0.04907434491820107
+            ],
+            [
+              0.07744375511765829,
+              0.059184992636260564
+            ],
+            [
+              0.10692602459779363,
+              0.025998534868469963
+            ],
+            [
+              0.12287207255200469,
+              0.08137070495297266
+            ],
+            [
+              0.14630540223551589,
+              0.06533810861556615
+            ],
+            [
+              0.16425730879711564,
+              0.051846867917894265
+            ],
+            [
+              0.1796597217951526,
+              0.07141622448937615
+            ],
+            [
+              0.19107148034908328,
+              0.05942781893250329
+            ],
+            [
+              0.213785028139343,
+              0.041472962292817384
+            ],
+            [
+              0.2462077891780964,
+              0.055448875738493046
+            ],
+            [
+              0.2577350197897619,
+              0.08025590050872965
+            ],
+            [
+              0.2899408955343759,
+              0.05334880319735855
+            ],
+            [
+              0.31881966691975144,
+              0.09466553535979758
+            ],
+            [
+              0.35214876990655014,
+              0.08544950804598583
+            ],
+            [
+              0.3689276457888746,
+              0.04055325647634757
+            ],
+            [
+              0.4011924185076865,
+              0.0873903669474091
+            ],
+            [
+              0.4317306218860853,
+              0.035497236517721076
+            ],
+            [
+              0.46397915556776576,
+              0.06977615679011322
+            ],
+            [
+              0.4864094300689885,
+              0.08873311867470211
+            ],
+            [
+              0.5181336429449424,
+              0.09779553189668388
+            ],
+            [
+              0.5472723057726866,
+              0.06715279432097711
+            ],
+            [
+              0.559447856944368,
+              0.03866615800179184
+            ],
+            [
+              0.5729790585898703,
+              0.057340384904379385
+            ],
+            [
+              0.5924603226731369,
+              0.03159895921158507
+            ],
+            [
+              0.6119940811465957,
+              0.04632571126807082
+            ],
+            [
+              0.6353433800155598,
+              0.05989443313204165
+            ],
+            [
+              0.6682218685243276,
+              0.09754395847329307
+            ],
+            [
+              0.6918917276924503,
+              0.058512925527536244
+            ],
+            [
+              0.7173586326812941,
+              0.06680725464067166
+            ],
+            [
+              0.7403117099220974,
+              0.05145523126838284
+            ],
+            [
+              0.7640748381694028,
+              0.09231314986693966
+            ],
+            [
+              0.7787267511926325,
+              0.09551696311847024
+            ],
+            [
+              0.7962423716119369,
+              0.08707060397679042
+            ],
+            [
+              0.8268856661127231,
+              0.0656217484938649
+            ],
+            [
+              0.843134980771713,
+              0.04169306231005403
+            ],
+            [
+              0.8736536964321804,
+              0.051818900248565614
+            ],
+            [
+              0.8923262889425516,
+              0.08927976946162969
+            ],
+            [
+              0.9034572601143599,
+              0.0033626848979505593
+            ],
+            [
+              0.9269511689165567,
+              0.05389411657596391
+            ],
+            [
+              0.9451038420930852,
+              0.07535534494123919
+            ],
+            [
+              0.967169062131449,
+              0.08272274688489059
+            ],
+            [
+              0.9928065211341675,
+              0.06634218861357513
+            ],
+            [
+              1,
+              0.0664886264866112
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "fill": "#FBFAF6",
+          "closed": true,
+          "shadow": {
+            "blur": 16,
+            "a": 0.22,
+            "y": -4
+          }
+        },
+        {
+          "type": "icon",
+          "name": "종이 질감",
+          "icon": "grain",
+          "x": 0,
+          "y": 660,
+          "w": 1080,
+          "h": 420,
+          "color": "#000@.035",
+          "layer": "bg",
+          "pass": true
+        },
+        {
+          "type": "path",
+          "name": "테두리",
+          "x": 46,
+          "y": 46,
+          "w": 988,
+          "h": 574,
+          "pts": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "fill": null,
+          "closed": false,
+          "stroke": "#fff",
+          "sw": 4,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 0,
+          "y": 18,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "bg": "#fff",
+          "bgR": "pill",
+          "padX": 34,
+          "padY": 12
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 690,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 92,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "stroke": "#fff",
+          "sw": 12
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 800,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 98,
+          "color": "$main",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$main",
+          "stroke": "$ink",
+          "sw": 14
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 0,
+          "y": 936,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "bg": "$dark",
+          "bgR": "pill",
+          "padX": 34,
+          "padY": 12
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 540,
+          "y": 1032,
+          "w": 480,
+          "h": 10,
+          "font": "body",
+          "size": 20,
+          "color": "$ink@.45",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "pin",
+      "name": "핀 프레임",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.25,
+            0.4
+          ]
+        },
+        {
+          "type": "icon",
+          "name": "프레임",
+          "icon": "gapframe",
+          "x": 96,
+          "y": 96,
+          "w": 888,
+          "h": 874,
+          "color": "#fff",
+          "layer": "fg"
+        },
+        {
+          "type": "ellipse",
+          "name": "핀",
+          "x": 137,
+          "y": 135,
+          "w": 42,
+          "h": 42,
+          "fill": null,
+          "radial": [
+            "#fff",
+            "$accent",
+            "$main"
+          ],
+          "shadow": {
+            "blur": 8,
+            "a": 0.35,
+            "y": 3
+          },
+          "layer": "fg"
+        },
+        {
+          "type": "ellipse",
+          "name": "핀",
+          "x": 901,
+          "y": 135,
+          "w": 42,
+          "h": 42,
+          "fill": null,
+          "radial": [
+            "#fff",
+            "$accent",
+            "$main"
+          ],
+          "shadow": {
+            "blur": 8,
+            "a": 0.35,
+            "y": 3
+          },
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "영문 장식",
+          "bind": "en",
+          "x": 130,
+          "y": 560,
+          "w": 820,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "500",
+          "upper": 1,
+          "spacing": 3
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 130,
+          "y": 616,
+          "w": 820,
+          "h": 10,
+          "font": "title",
+          "size": 104,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 130,
+          "y": 738,
+          "w": 820,
+          "h": 10,
+          "font": "title",
+          "size": 104,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 1000,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff@.85",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "script",
+      "name": "스크립트",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 40,
+          "y": 40,
+          "w": 1000,
+          "h": 1000,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 40,
+          "y": 40,
+          "w": 1000,
+          "h": 1000,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.2,
+            0.4
+          ]
+        },
+        {
+          "type": "text",
+          "name": "영문 장식",
+          "bind": "en",
+          "x": 130,
+          "y": 180,
+          "w": 820,
+          "h": 10,
+          "font": "script",
+          "size": 170,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "rot": -3,
+          "shadow": {
+            "blur": 20,
+            "a": 0.3
+          }
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 110,
+          "y": 560,
+          "w": 860,
+          "h": 10,
+          "font": "medium",
+          "size": 80,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 110,
+          "y": 662,
+          "w": 860,
+          "h": 10,
+          "font": "medium",
+          "size": 80,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 110,
+          "y": 800,
+          "w": 860,
+          "h": 10,
+          "font": "body",
+          "size": 27,
+          "color": "#fff@.85",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 100,
+          "y": 912,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff@.85",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "icon",
+          "name": "장식",
+          "icon": "arrow",
+          "x": 880,
+          "y": 906,
+          "w": 96,
+          "h": 40,
+          "color": "#fff",
+          "layer": "fg"
+        }
+      ]
+    },
+    {
+      "id": "block",
+      "name": "컬러 블록",
+      "category": "split",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 620,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 620,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0,
+            0.12
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "컬러 블록",
+          "x": 0,
+          "y": 600,
+          "w": 1080,
+          "h": 480,
+          "fill": "$main",
+          "r": 0
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 80,
+          "y": 650,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "$accent",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 700,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 86,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 800,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 86,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 920,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.85",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "브랜드",
+          "bind": "brand",
+          "x": 80,
+          "y": 1010,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff@.7",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 1010,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "column",
+      "name": "매거진",
+      "category": "split",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 430,
+          "y": 0,
+          "w": 650,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 430,
+          "y": 0,
+          "w": 170,
+          "h": 1080,
+          "grad": {
+            "dir": "h",
+            "stops": [
+              [
+                0,
+                "$dark@1"
+              ],
+              [
+                1,
+                "$dark@0"
+              ]
+            ]
+          },
+          "pass": true,
+          "dir": "h"
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 430,
+          "y": 0,
+          "w": 650,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0,
+            0.25
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 64,
+          "y": 96,
+          "w": 56,
+          "h": 6,
+          "fill": "$accent",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "브랜드",
+          "bind": "brand",
+          "x": 64,
+          "y": 124,
+          "w": 400,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff@.75",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700",
+          "spacing": 4
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 64,
+          "y": 410,
+          "w": 400,
+          "h": 10,
+          "font": "light",
+          "size": 50,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 64,
+          "y": 480,
+          "w": 400,
+          "h": 10,
+          "font": "title",
+          "size": 78,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.18,
+          "wrap": 1,
+          "maxLines": 3,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 64,
+          "y": 800,
+          "w": 380,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "#fff@.78",
+          "align": "left",
+          "lh": 1.5,
+          "wrap": 1
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 64,
+          "y": 1000,
+          "w": 400,
+          "h": 10,
+          "font": "body",
+          "size": 24,
+          "color": "$accent",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "circle",
+      "name": "원형 미니멀",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "ellipse",
+          "name": "장식 원",
+          "x": 610,
+          "y": 30,
+          "w": 240,
+          "h": 240,
+          "fill": "$main@.12"
+        },
+        {
+          "type": "ellipse",
+          "name": "장식 원",
+          "x": 100,
+          "y": 490,
+          "w": 140,
+          "h": 140,
+          "fill": "$main@.08"
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 278,
+          "y": 108,
+          "w": 524,
+          "h": 524,
+          "shape": "ellipse",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "arc",
+          "name": "곡선",
+          "x": 258,
+          "y": 88,
+          "w": 564,
+          "h": 564,
+          "stroke": "$main",
+          "sw": 8,
+          "a0": 27,
+          "a1": 225,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 0,
+          "y": 78,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$main",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "bg": "#fff",
+          "bgStroke": "$main",
+          "bgR": "pill",
+          "padX": 26,
+          "padY": 10
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 90,
+          "y": 700,
+          "w": 900,
+          "h": 10,
+          "font": "title",
+          "size": 64,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 784,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 72,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 895,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 27,
+          "color": "$ink@.6",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 512,
+          "y": 966,
+          "w": 56,
+          "h": 4,
+          "fill": "$main",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 990,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.5",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "diag",
+      "name": "사선 분할",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0,
+            0.1
+          ]
+        },
+        {
+          "type": "path",
+          "name": "사선 면",
+          "x": 0,
+          "y": 560,
+          "w": 1080,
+          "h": 520,
+          "pts": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0.4230769230769231
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "fill": "$dark",
+          "closed": true,
+          "dim": [
+            0.82,
+            0.16
+          ]
+        },
+        {
+          "type": "path",
+          "name": "사선",
+          "x": 0,
+          "y": 532,
+          "w": 1080,
+          "h": 220,
+          "pts": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "fill": null,
+          "closed": false,
+          "stroke": "$accent",
+          "sw": 6,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 690,
+          "w": 560,
+          "h": 10,
+          "font": "light",
+          "size": 62,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 782,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 82,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 905,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.85",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 1008,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "stripe",
+      "name": "세로 띠",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 0,
+          "w": 1026,
+          "h": 1080,
+          "grad": {
+            "dir": "h",
+            "stops": [
+              [
+                0,
+                "$dark@.89"
+              ],
+              [
+                0.55,
+                "$dark@.6"
+              ],
+              [
+                1,
+                "$dark@.05"
+              ]
+            ]
+          },
+          "pass": true,
+          "dir": "h"
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 486,
+          "w": 1080,
+          "h": 594,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                1,
+                "$dark@.55"
+              ]
+            ]
+          },
+          "pass": true
+        },
+        {
+          "type": "rect",
+          "name": "세로 띠",
+          "x": 70,
+          "y": 575,
+          "w": 12,
+          "h": 300,
+          "fill": "$main",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 112,
+          "y": 580,
+          "w": 890,
+          "h": 10,
+          "font": "light",
+          "size": 60,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 112,
+          "y": 660,
+          "w": 900,
+          "h": 10,
+          "font": "title",
+          "size": 84,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 112,
+          "y": 800,
+          "w": 880,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.88",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 112,
+          "y": 1000,
+          "w": 600,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "quote",
+      "name": "인용구",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.42,
+            0.42
+          ]
+        },
+        {
+          "type": "text",
+          "name": "따옴표",
+          "bind": null,
+          "x": 0,
+          "y": 110,
+          "w": 1080,
+          "h": 10,
+          "font": "serif",
+          "size": 300,
+          "color": "$accent",
+          "align": "center",
+          "lh": 1.25,
+          "text": "“",
+          "fit": false
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 100,
+          "y": 470,
+          "w": 880,
+          "h": 10,
+          "font": "title",
+          "size": 76,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 100,
+          "y": 572,
+          "w": 880,
+          "h": 10,
+          "font": "title",
+          "size": 76,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 510,
+          "y": 704,
+          "w": 60,
+          "h": 4,
+          "fill": "$accent",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 738,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff@.85",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 985,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff@.85",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "polaroid",
+      "name": "폴라로이드",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "icon",
+          "name": "점 무늬",
+          "icon": "bubbles",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "color": "$main@.08",
+          "layer": "bg",
+          "pass": true
+        },
+        {
+          "type": "rect",
+          "name": "폴라로이드",
+          "x": 160,
+          "y": 90,
+          "w": 760,
+          "h": 670,
+          "fill": "#fff",
+          "r": 0,
+          "rot": -2.3,
+          "shadow": {
+            "blur": 30,
+            "a": 0.25,
+            "y": 10
+          }
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 190,
+          "y": 120,
+          "w": 700,
+          "h": 520,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0,
+          "rot": -2.3
+        },
+        {
+          "type": "rect",
+          "name": "테이프",
+          "x": 450,
+          "y": 64,
+          "w": 180,
+          "h": 52,
+          "fill": "$accent@.75",
+          "r": 0,
+          "rot": 1.2,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 190,
+          "y": 668,
+          "w": 700,
+          "h": 10,
+          "font": "serif",
+          "size": 30,
+          "color": "$ink@.75",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "rot": -2.3
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 90,
+          "y": 812,
+          "w": 900,
+          "h": 10,
+          "font": "title",
+          "size": 58,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 892,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 66,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 1010,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.45",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "split",
+      "name": "좌우 반반",
+      "category": "split",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 540,
+          "y": 0,
+          "w": 540,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 64,
+          "y": 330,
+          "w": 420,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 64,
+          "y": 385,
+          "w": 420,
+          "h": 10,
+          "font": "light",
+          "size": 46,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 64,
+          "y": 450,
+          "w": 420,
+          "h": 10,
+          "font": "title",
+          "size": 74,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.18,
+          "wrap": 1,
+          "maxLines": 3,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 64,
+          "y": 760,
+          "w": 400,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.5,
+          "wrap": 1
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 64,
+          "y": 960,
+          "w": 40,
+          "h": 4,
+          "fill": "$main",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 64,
+          "y": 985,
+          "w": 420,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "whitebox",
+      "name": "하단 화이트 박스",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.05,
+            0.25
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "화이트 박스",
+          "x": 50,
+          "y": 650,
+          "w": 980,
+          "h": 380,
+          "fill": "#fff@.97",
+          "r": 28,
+          "shadow": {
+            "blur": 24,
+            "a": 0.2
+          }
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 100,
+          "y": 688,
+          "w": 880,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 100,
+          "y": 735,
+          "w": 880,
+          "h": 10,
+          "font": "title",
+          "size": 58,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 100,
+          "y": 808,
+          "w": 880,
+          "h": 10,
+          "font": "title",
+          "size": 64,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 100,
+          "y": 905,
+          "w": 880,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "브랜드",
+          "bind": "brand",
+          "x": 100,
+          "y": 975,
+          "w": 440,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.45",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 540,
+          "y": 975,
+          "w": 440,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.45",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "centerbox",
+      "name": "중앙 박스",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.3,
+            0.42
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "테두리",
+          "x": 130,
+          "y": 300,
+          "w": 820,
+          "h": 480,
+          "fill": null,
+          "r": 0,
+          "stroke": "#fff",
+          "sw": 4,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 0,
+          "y": 242,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "bg": "$main",
+          "bgR": "pill",
+          "padX": 30,
+          "padY": 12
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 160,
+          "y": 400,
+          "w": 760,
+          "h": 10,
+          "font": "title",
+          "size": 72,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 160,
+          "y": 498,
+          "w": 760,
+          "h": 10,
+          "font": "title",
+          "size": 72,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 140,
+          "y": 640,
+          "w": 800,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.88",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 990,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff@.88",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "news",
+      "name": "하단 자막",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 540,
+          "w": 1080,
+          "h": 540,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                1,
+                "$dark@1"
+              ]
+            ]
+          },
+          "pass": true,
+          "dim": [
+            0.35,
+            0.5
+          ]
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 60,
+          "y": 628,
+          "w": 960,
+          "h": 10,
+          "font": "light",
+          "size": 46,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 60,
+          "y": 700,
+          "w": 900,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700",
+          "bg": "$main",
+          "padX": 22,
+          "padY": 12
+        },
+        {
+          "type": "rect",
+          "name": "자막 바",
+          "x": 60,
+          "y": 760,
+          "w": 960,
+          "h": 140,
+          "fill": "#fff",
+          "r": 0
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 90,
+          "y": 795,
+          "w": 900,
+          "h": 10,
+          "font": "title",
+          "size": 70,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "rect",
+          "name": "자막 바",
+          "x": 60,
+          "y": 900,
+          "w": 960,
+          "h": 64,
+          "fill": "$dark",
+          "r": 0
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 90,
+          "y": 916,
+          "w": 900,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "500"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 60,
+          "y": 60,
+          "w": 600,
+          "h": 10,
+          "font": "body",
+          "size": 24,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700",
+          "shadow": 1
+        }
+      ]
+    },
+    {
+      "id": "glass",
+      "name": "반투명 유리",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "photo",
+          "name": "유리 사진",
+          "x": 60,
+          "y": 620,
+          "w": 960,
+          "h": 400,
+          "shape": "rect",
+          "r": 30,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0,
+          "page": 1,
+          "blurPhoto": 22
+        },
+        {
+          "type": "rect",
+          "name": "유리 색",
+          "x": 60,
+          "y": 620,
+          "w": 960,
+          "h": 400,
+          "fill": "$dark",
+          "r": 30,
+          "dim": [
+            0.3,
+            0.4
+          ],
+          "stroke": "#fff@.4",
+          "sw": 2
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 110,
+          "y": 672,
+          "w": 860,
+          "h": 10,
+          "font": "light",
+          "size": 56,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 110,
+          "y": 752,
+          "w": 860,
+          "h": 10,
+          "font": "title",
+          "size": 74,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 110,
+          "y": 872,
+          "w": 860,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.85",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 110,
+          "y": 955,
+          "w": 860,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "note",
+      "name": "노트",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "rect",
+          "name": "노트",
+          "x": 60,
+          "y": 60,
+          "w": 960,
+          "h": 960,
+          "fill": "#fff",
+          "r": 18,
+          "shadow": {
+            "blur": 20,
+            "a": 0.12
+          }
+        },
+        {
+          "type": "icon",
+          "name": "줄",
+          "icon": "lines",
+          "x": 90,
+          "y": 690,
+          "w": 900,
+          "h": 320,
+          "color": "$main@.14",
+          "layer": "bg",
+          "pass": true
+        },
+        {
+          "type": "rect",
+          "name": "세로선",
+          "x": 150,
+          "y": 60,
+          "w": 3,
+          "h": 960,
+          "fill": "$accent@.7",
+          "r": 0
+        },
+        {
+          "type": "rect",
+          "name": "사진 틀",
+          "x": 210,
+          "y": 130,
+          "w": 700,
+          "h": 500,
+          "fill": "#fff",
+          "r": 0,
+          "rot": 1.7,
+          "shadow": {
+            "blur": 16,
+            "a": 0.2
+          }
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 226,
+          "y": 146,
+          "w": 668,
+          "h": 468,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0,
+          "rot": 1.7
+        },
+        {
+          "type": "rect",
+          "name": "테이프",
+          "x": 190,
+          "y": 120,
+          "w": 120,
+          "h": 40,
+          "fill": "$accent@.7",
+          "r": 0,
+          "rot": -34,
+          "layer": "fg"
+        },
+        {
+          "type": "rect",
+          "name": "테이프",
+          "x": 810,
+          "y": 120,
+          "w": 120,
+          "h": 40,
+          "fill": "$accent@.7",
+          "r": 0,
+          "rot": 34,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 190,
+          "y": 692,
+          "w": 780,
+          "h": 10,
+          "font": "title",
+          "size": 54,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 190,
+          "y": 760,
+          "w": 780,
+          "h": 10,
+          "font": "title",
+          "size": 62,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 190,
+          "y": 840,
+          "w": 780,
+          "h": 10,
+          "font": "body",
+          "size": 27,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 190,
+          "y": 912,
+          "w": 600,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "outline",
+      "name": "외곽선 글씨",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.32,
+            0.42
+          ]
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 510,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 112,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "outline": 1,
+          "stroke": "#fff",
+          "sw": 3
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 650,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 98,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 800,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff@.86",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 80,
+          "y": 996,
+          "w": 600,
+          "h": 3,
+          "fill": "#fff",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 80,
+          "y": 980,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "topband",
+      "name": "상단 컬러 띠",
+      "category": "split",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "컬러 띠",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 410,
+          "fill": "$main",
+          "r": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 864,
+          "w": 1080,
+          "h": 216,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                1,
+                "$dark@1"
+              ]
+            ]
+          },
+          "pass": true,
+          "dim": [
+            0.3,
+            0.4
+          ]
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 80,
+          "y": 70,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "#fff@.8",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 118,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 70,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 208,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 78,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 322,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.85",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 1000,
+          "w": 510,
+          "h": 10,
+          "font": "body",
+          "size": 24,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700",
+          "shadow": 1
+        }
+      ]
+    },
+    {
+      "id": "duo",
+      "name": "듀오톤",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0,
+          "duo": "$main"
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.15,
+            0.35
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 540,
+          "w": 1080,
+          "h": 540,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                1,
+                "$dark@.75"
+              ]
+            ]
+          },
+          "pass": true
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 90,
+          "y": 640,
+          "w": 900,
+          "h": 10,
+          "font": "light",
+          "size": 66,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 728,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 86,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 860,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff@.88",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 990,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "dome",
+      "name": "반원 사진",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": -80,
+          "y": 580,
+          "w": 1240,
+          "h": 1240,
+          "shape": "ellipse",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "arc",
+          "name": "곡선",
+          "x": -104,
+          "y": 556,
+          "w": 1288,
+          "h": 1288,
+          "stroke": "$main",
+          "sw": 6,
+          "a0": 212,
+          "a1": 328,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 0,
+          "y": 70,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$main",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "bgStroke": "$main",
+          "bg": "$paper",
+          "bgR": "pill",
+          "padX": 26,
+          "padY": 10
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 90,
+          "y": 160,
+          "w": 900,
+          "h": 10,
+          "font": "title",
+          "size": 66,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 246,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 74,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 356,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "$ink@.6",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 1010,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "shadow": 1
+        }
+      ]
+    },
+    {
+      "id": "thick",
+      "name": "컬러 테두리",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "테두리 색",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$main",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 44,
+          "y": 44,
+          "w": 992,
+          "h": 992,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 44,
+          "y": 486,
+          "w": 992,
+          "h": 550,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                1,
+                "$dark@1"
+              ]
+            ]
+          },
+          "pass": true,
+          "dim": [
+            0.75,
+            0.2
+          ]
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 0,
+          "y": 10,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 1046,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 100,
+          "y": 650,
+          "w": 880,
+          "h": 10,
+          "font": "light",
+          "size": 64,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 100,
+          "y": 740,
+          "w": 880,
+          "h": 10,
+          "font": "title",
+          "size": 84,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 100,
+          "y": 870,
+          "w": 880,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.86",
+          "align": "left",
+          "lh": 1.25
+        }
+      ]
+    },
+    {
+      "id": "bubble",
+      "name": "말풍선",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.12,
+            0.3
+          ]
+        },
+        {
+          "type": "rect",
+          "name": "말풍선",
+          "x": 80,
+          "y": 560,
+          "w": 920,
+          "h": 300,
+          "fill": "#fff",
+          "r": 40,
+          "shadow": {
+            "blur": 24,
+            "a": 0.25
+          }
+        },
+        {
+          "type": "path",
+          "name": "말풍선 꼬리",
+          "x": 200,
+          "y": 850,
+          "w": 110,
+          "h": 90,
+          "pts": [
+            [
+              0.18,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "fill": "#fff",
+          "closed": true
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 130,
+          "y": 604,
+          "w": 820,
+          "h": 10,
+          "font": "title",
+          "size": 56,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 130,
+          "y": 686,
+          "w": 820,
+          "h": 10,
+          "font": "title",
+          "size": 66,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 130,
+          "y": 792,
+          "w": 820,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 1000,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700",
+          "shadow": 1
+        }
+      ]
+    },
+    {
+      "id": "labels",
+      "name": "라벨 스택",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.08,
+            0.28
+          ]
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 70,
+          "y": 540,
+          "w": 900,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700",
+          "bg": "$main",
+          "padX": 24,
+          "padY": 10
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 70,
+          "y": 612,
+          "w": 940,
+          "h": 10,
+          "font": "title",
+          "size": 64,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "bg": "#fff",
+          "padX": 24,
+          "padY": 12
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 70,
+          "y": 724,
+          "w": 940,
+          "h": 10,
+          "font": "title",
+          "size": 70,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "bg": "$dark",
+          "padX": 24,
+          "padY": 12
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 70,
+          "y": 848,
+          "w": 940,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "500",
+          "bg": "#fff@.92",
+          "padX": 24,
+          "padY": 10
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 1000,
+          "w": 510,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700",
+          "shadow": 1
+        }
+      ]
+    },
+    {
+      "id": "textfirst",
+      "name": "글씨 먼저",
+      "category": "split",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 520,
+          "w": 1080,
+          "h": 600,
+          "shape": "rect",
+          "r": 44,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 80,
+          "y": 82,
+          "w": 600,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 86,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$ink@.45",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 140,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 72,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 236,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 80,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 360,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "브랜드",
+          "bind": "brand",
+          "x": 80,
+          "y": 1010,
+          "w": 600,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700",
+          "shadow": 1
+        }
+      ]
+    },
+    {
+      "id": "arch",
+      "name": "아치",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 300,
+          "y": 90,
+          "w": 480,
+          "h": 550,
+          "shape": "arch",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "icon",
+          "name": "아치 선",
+          "icon": "archline",
+          "x": 280,
+          "y": 70,
+          "w": 520,
+          "h": 590,
+          "color": "$main",
+          "layer": "fg",
+          "sw": 3
+        },
+        {
+          "type": "text",
+          "name": "영문 장식",
+          "bind": "en",
+          "x": 20,
+          "y": 95,
+          "w": 320,
+          "h": 10,
+          "font": "script",
+          "size": 64,
+          "color": "$main",
+          "align": "center",
+          "lh": 1.25,
+          "rot": -7
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 90,
+          "y": 700,
+          "w": 900,
+          "h": 10,
+          "font": "title",
+          "size": 62,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 782,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 70,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 890,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 27,
+          "color": "$ink@.6",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 990,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.45",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "film",
+      "name": "필름",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "#0E0F12",
+          "r": 0
+        },
+        {
+          "type": "rect",
+          "name": "필름",
+          "x": 0,
+          "y": 170,
+          "w": 1080,
+          "h": 500,
+          "fill": "#1B1C21",
+          "r": 0
+        },
+        {
+          "type": "icon",
+          "name": "필름 구멍",
+          "icon": "filmholes",
+          "x": 0,
+          "y": 186,
+          "w": 1080,
+          "h": 468,
+          "color": "#fff@.85",
+          "layer": "bg",
+          "pass": true
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 40,
+          "y": 226,
+          "w": 1000,
+          "h": 394,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 40,
+          "y": 226,
+          "w": 1000,
+          "h": 394,
+          "fill": "#000",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0,
+            0.25
+          ]
+        },
+        {
+          "type": "text",
+          "name": "브랜드",
+          "bind": "brand",
+          "x": 80,
+          "y": 96,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$accent",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700",
+          "spacing": 4
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 96,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff@.75",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 720,
+          "w": 920,
+          "h": 10,
+          "font": "light",
+          "size": 56,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 800,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 80,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 928,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.72",
+          "align": "left",
+          "lh": 1.25
+        }
+      ]
+    },
+    {
+      "id": "question",
+      "name": "물음표",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.5,
+            0.38
+          ]
+        },
+        {
+          "type": "text",
+          "name": "물음표",
+          "bind": null,
+          "x": 520,
+          "y": -60,
+          "w": 560,
+          "h": 10,
+          "font": "display",
+          "size": 900,
+          "color": "$main@.6",
+          "align": "center",
+          "lh": 1.25,
+          "text": "?",
+          "fit": false
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 80,
+          "y": 520,
+          "w": 700,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$dark",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700",
+          "bg": "$accent",
+          "bgR": "pill",
+          "padX": 22,
+          "padY": 10
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 600,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 74,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 696,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 84,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 820,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff@.85",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 80,
+          "y": 996,
+          "w": 600,
+          "h": 3,
+          "fill": "#fff",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 80,
+          "y": 980,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "name": "체크",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "rect",
+          "name": "카드",
+          "x": 70,
+          "y": 70,
+          "w": 940,
+          "h": 520,
+          "fill": "#fff",
+          "r": 28,
+          "shadow": {
+            "blur": 20,
+            "a": 0.1
+          }
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 100,
+          "y": 100,
+          "w": 880,
+          "h": 460,
+          "shape": "rect",
+          "r": 18,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "icon",
+          "name": "체크",
+          "icon": "checkbox",
+          "x": 80,
+          "y": 648,
+          "w": 70,
+          "h": 70,
+          "color": "$main",
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 176,
+          "y": 650,
+          "w": 820,
+          "h": 10,
+          "font": "title",
+          "size": 60,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 744,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 76,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 864,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 80,
+          "y": 958,
+          "w": 920,
+          "h": 2,
+          "fill": "$ink@.15",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "브랜드",
+          "bind": "brand",
+          "x": 80,
+          "y": 985,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.5",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 985,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.5",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "slant",
+      "name": "사선 사진",
+      "category": "split",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 380,
+          "y": 0,
+          "w": 700,
+          "h": 1080,
+          "shape": "slant",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 70,
+          "y": 300,
+          "w": 480,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 70,
+          "y": 350,
+          "w": 520,
+          "h": 10,
+          "font": "light",
+          "size": 54,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 70,
+          "y": 420,
+          "w": 470,
+          "h": 10,
+          "font": "title",
+          "size": 76,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.16,
+          "wrap": 1,
+          "maxLines": 3,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 70,
+          "y": 720,
+          "w": 400,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.5,
+          "wrap": 1
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 70,
+          "y": 990,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "twobands",
+      "name": "두 줄 띠",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.1,
+            0.3
+          ]
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 0,
+          "y": 560,
+          "w": 1080,
+          "h": 10,
+          "font": "title",
+          "size": 66,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "bg": "$dark",
+          "padX": 30,
+          "padY": 14
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 0,
+          "y": 682,
+          "w": 1080,
+          "h": 10,
+          "font": "title",
+          "size": 76,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "bg": "$main",
+          "hl": "$accent",
+          "padX": 30,
+          "padY": 14
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 0,
+          "y": 824,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "500",
+          "bg": "#fff",
+          "padX": 24,
+          "padY": 10
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 1000,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "shadow": 1
+        }
+      ]
+    },
+    {
+      "id": "corner",
+      "name": "코너 라벨",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 430,
+          "w": 1080,
+          "h": 650,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                1,
+                "$dark@1"
+              ]
+            ]
+          },
+          "pass": true,
+          "dim": [
+            0.7,
+            0.25
+          ]
+        },
+        {
+          "type": "path",
+          "name": "코너",
+          "x": 0,
+          "y": 0,
+          "w": 380,
+          "h": 380,
+          "pts": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "fill": "$main",
+          "closed": true
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": -20,
+          "y": 110,
+          "w": 320,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "rot": -45
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 640,
+          "w": 920,
+          "h": 10,
+          "font": "light",
+          "size": 66,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 734,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 88,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 866,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff@.86",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 1000,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "window",
+      "name": "창문",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 120,
+          "y": 120,
+          "w": 840,
+          "h": 640,
+          "shape": "rect",
+          "r": 24,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "창살",
+          "x": 536,
+          "y": 120,
+          "w": 8,
+          "h": 640,
+          "fill": "$paper",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "rect",
+          "name": "창살",
+          "x": 120,
+          "y": 436,
+          "w": 840,
+          "h": 8,
+          "fill": "$paper",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "rect",
+          "name": "테두리",
+          "x": 100,
+          "y": 100,
+          "w": 880,
+          "h": 680,
+          "fill": null,
+          "r": 34,
+          "stroke": "$main",
+          "sw": 4,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 0,
+          "y": 40,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$main",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 90,
+          "y": 810,
+          "w": 900,
+          "h": 10,
+          "font": "title",
+          "size": 58,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 886,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 66,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 1004,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.45",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "stamp",
+      "name": "스탬프",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 80,
+          "y": 80,
+          "w": 920,
+          "h": 620,
+          "shape": "rect",
+          "r": 10,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "ellipse",
+          "name": "스탬프",
+          "x": 760,
+          "y": 560,
+          "w": 240,
+          "h": 240,
+          "fill": "$main",
+          "shadow": {
+            "blur": 12,
+            "a": 0.25
+          }
+        },
+        {
+          "type": "icon",
+          "name": "스탬프 테두리",
+          "icon": "ring",
+          "x": 776,
+          "y": 576,
+          "w": 208,
+          "h": 208,
+          "color": "#fff@.7",
+          "layer": "fg",
+          "sw": 3
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 780,
+          "y": 656,
+          "w": 200,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.2,
+          "weight": "700",
+          "wrap": 1,
+          "maxLines": 2
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 740,
+          "w": 660,
+          "h": 10,
+          "font": "title",
+          "size": 60,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 820,
+          "w": 660,
+          "h": 10,
+          "font": "title",
+          "size": 68,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 920,
+          "w": 660,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 80,
+          "y": 1000,
+          "w": 660,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "marker",
+      "name": "형광펜",
+      "category": "split",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "#fff",
+          "r": 0
+        },
+        {
+          "type": "ellipse",
+          "name": "장식 원",
+          "x": 530,
+          "y": 530,
+          "w": 500,
+          "h": 500,
+          "fill": "$accent@.35"
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 560,
+          "y": 560,
+          "w": 440,
+          "h": 440,
+          "shape": "ellipse",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 80,
+          "y": 90,
+          "w": 600,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 150,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 78,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 260,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 90,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$ink",
+          "marker": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 400,
+          "w": 600,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "$ink@.6",
+          "align": "left",
+          "lh": 1.5,
+          "wrap": 1
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 80,
+          "y": 1000,
+          "w": 450,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$ink@.5",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "magazine",
+      "name": "잡지 표지",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 380,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@.75"
+              ],
+              [
+                1,
+                "$dark@0"
+              ]
+            ]
+          },
+          "pass": true
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 560,
+          "w": 1080,
+          "h": 520,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                1,
+                "$dark@.92"
+              ]
+            ]
+          },
+          "pass": true,
+          "dim": [
+            0.6,
+            0.35
+          ]
+        },
+        {
+          "type": "text",
+          "name": "마스트헤드",
+          "bind": null,
+          "x": 0,
+          "y": 30,
+          "w": 1080,
+          "h": 10,
+          "font": "display",
+          "size": 190,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "text": "SEOLIN",
+          "spacing": 12
+        },
+        {
+          "type": "text",
+          "name": "영문 장식",
+          "bind": "en",
+          "x": 0,
+          "y": 230,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 24,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "500",
+          "spacing": 8,
+          "upper": 1
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 80,
+          "y": 650,
+          "w": 600,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$accent",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 700,
+          "w": 920,
+          "h": 10,
+          "font": "light",
+          "size": 58,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 778,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 80,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 898,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.85",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 500,
+          "y": 1010,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "focus",
+      "name": "포커스",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "어둡게",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0,
+          "pass": true,
+          "dim": [
+            0.25,
+            0.4
+          ]
+        },
+        {
+          "type": "icon",
+          "name": "포커스 모서리",
+          "icon": "corners",
+          "x": 110,
+          "y": 110,
+          "w": 860,
+          "h": 860,
+          "color": "#fff",
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 0,
+          "y": 330,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "$accent",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "spacing": 2
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 140,
+          "y": 390,
+          "w": 800,
+          "h": 10,
+          "font": "title",
+          "size": 80,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 140,
+          "y": 500,
+          "w": 800,
+          "h": 10,
+          "font": "title",
+          "size": 80,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 140,
+          "y": 640,
+          "w": 800,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.88",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 990,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "blur",
+      "name": "빛 번짐",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "ellipse",
+          "name": "빛 번짐",
+          "x": -150,
+          "y": -120,
+          "w": 700,
+          "h": 700,
+          "fill": "$main@.5",
+          "blur": 90
+        },
+        {
+          "type": "ellipse",
+          "name": "빛 번짐",
+          "x": 600,
+          "y": 480,
+          "w": 620,
+          "h": 620,
+          "fill": "$accent@.7",
+          "blur": 90
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 290,
+          "y": 90,
+          "w": 500,
+          "h": 500,
+          "shape": "ellipse",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "ellipse",
+          "name": "원 테두리",
+          "x": 276,
+          "y": 76,
+          "w": 528,
+          "h": 528,
+          "fill": null,
+          "stroke": "#fff",
+          "sw": 8,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 90,
+          "y": 650,
+          "w": 900,
+          "h": 10,
+          "font": "title",
+          "size": 64,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 738,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 74,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 850,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "$ink@.65",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 990,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.5",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "stack",
+      "name": "카드 겹침",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "rect",
+          "name": "뒤 카드",
+          "x": 170,
+          "y": 110,
+          "w": 740,
+          "h": 560,
+          "fill": "$main@.3",
+          "r": 24,
+          "rot": -6
+        },
+        {
+          "type": "rect",
+          "name": "뒤 카드",
+          "x": 170,
+          "y": 110,
+          "w": 740,
+          "h": 560,
+          "fill": "$accent@.65",
+          "r": 24,
+          "rot": 4
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 170,
+          "y": 110,
+          "w": 740,
+          "h": 560,
+          "shape": "rect",
+          "r": 24,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 0,
+          "y": 730,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 26,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "bg": "$main",
+          "bgR": "pill",
+          "padX": 26,
+          "padY": 10
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 90,
+          "y": 810,
+          "w": 900,
+          "h": 10,
+          "font": "title",
+          "size": 58,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 886,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 66,
+          "color": "$ink",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 1005,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 21,
+          "color": "$ink@.45",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "badge",
+      "name": "배지",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 430,
+          "w": 1080,
+          "h": 650,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "$dark@0"
+              ],
+              [
+                1,
+                "$dark@1"
+              ]
+            ]
+          },
+          "pass": true,
+          "dim": [
+            0.7,
+            0.25
+          ]
+        },
+        {
+          "type": "ellipse",
+          "name": "배지",
+          "x": 770,
+          "y": 90,
+          "w": 220,
+          "h": 220,
+          "fill": "$main",
+          "shadow": 1
+        },
+        {
+          "type": "icon",
+          "name": "배지 테두리",
+          "icon": "ring",
+          "x": 782,
+          "y": 102,
+          "w": 196,
+          "h": 196,
+          "color": "#fff@.6",
+          "layer": "fg",
+          "sw": 3
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 790,
+          "y": 166,
+          "w": 180,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.2,
+          "weight": "700",
+          "wrap": 1,
+          "maxLines": 2
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 650,
+          "w": 920,
+          "h": 10,
+          "font": "light",
+          "size": 62,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 744,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 86,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent",
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 874,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "#fff@.86",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 80,
+          "y": 996,
+          "w": 600,
+          "h": 3,
+          "fill": "#fff",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 80,
+          "y": 980,
+          "w": 920,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "vertical",
+      "name": "세로 제목",
+      "category": "photo",
+      "elements": [
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 0,
+          "w": 620,
+          "h": 1080,
+          "grad": {
+            "dir": "h",
+            "stops": [
+              [
+                0,
+                "$dark@.92"
+              ],
+              [
+                1,
+                "$dark@0"
+              ]
+            ]
+          },
+          "pass": true,
+          "dir": "h",
+          "dim": [
+            0.6,
+            0.35
+          ]
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": -330,
+          "y": 484,
+          "w": 940,
+          "h": 10,
+          "font": "title",
+          "size": 96,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "rot": -90,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": -200,
+          "y": 512,
+          "w": 940,
+          "h": 10,
+          "font": "light",
+          "size": 50,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "rot": -90
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 360,
+          "y": 940,
+          "w": 660,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.9",
+          "align": "right",
+          "lh": 1.25,
+          "shadow": 1
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 360,
+          "y": 60,
+          "w": 660,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700",
+          "shadow": 1
+        }
+      ]
+    },
+    {
+      "id": "scrap",
+      "name": "스크랩북",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "icon",
+          "name": "질감",
+          "icon": "grain",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "color": "#000@.04",
+          "layer": "bg",
+          "pass": true
+        },
+        {
+          "type": "rect",
+          "name": "사진 틀",
+          "x": 140,
+          "y": 80,
+          "w": 620,
+          "h": 560,
+          "fill": "#fff",
+          "r": 0,
+          "rot": -4,
+          "shadow": {
+            "blur": 18,
+            "a": 0.2
+          }
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 160,
+          "y": 100,
+          "w": 580,
+          "h": 470,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0,
+          "rot": -4
+        },
+        {
+          "type": "rect",
+          "name": "테이프",
+          "x": 560,
+          "y": 58,
+          "w": 180,
+          "h": 46,
+          "fill": "$accent@.75",
+          "r": 0,
+          "rot": 8,
+          "layer": "fg"
+        },
+        {
+          "type": "icon",
+          "name": "낙서 화살표",
+          "icon": "scribble",
+          "x": 790,
+          "y": 190,
+          "w": 190,
+          "h": 230,
+          "color": "$main",
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 160,
+          "y": 585,
+          "w": 580,
+          "h": 10,
+          "font": "serif",
+          "size": 28,
+          "color": "$ink@.7",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700",
+          "rot": -4
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 720,
+          "w": 920,
+          "h": 10,
+          "font": "serif",
+          "size": 62,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "800"
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 806,
+          "w": 920,
+          "h": 10,
+          "font": "serif",
+          "size": 70,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "800",
+          "hl": "$main"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 80,
+          "y": 960,
+          "w": 600,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "underline",
+      "name": "밑줄 강조",
+      "category": "split",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$paper",
+          "r": 0
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 80,
+          "y": 110,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 84,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 220,
+          "w": 920,
+          "h": 10,
+          "font": "title",
+          "size": 100,
+          "color": "$ink",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$main"
+        },
+        {
+          "type": "rect",
+          "name": "밑줄",
+          "x": 80,
+          "y": 350,
+          "w": 300,
+          "h": 14,
+          "fill": "$main",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 80,
+          "y": 410,
+          "w": 460,
+          "h": 10,
+          "font": "body",
+          "size": 30,
+          "color": "$ink@.65",
+          "align": "left",
+          "lh": 1.5,
+          "wrap": 1
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 560,
+          "y": 520,
+          "w": 440,
+          "h": 480,
+          "shape": "rect",
+          "r": 30,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "text",
+          "name": "태그",
+          "bind": "tag",
+          "x": 80,
+          "y": 660,
+          "w": 440,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "$main",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 80,
+          "y": 990,
+          "w": 440,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$ink@.5",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "strips",
+      "name": "세 칸 사진",
+      "category": "split",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진 1",
+          "x": 60,
+          "y": 60,
+          "w": 300,
+          "h": 620,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0,
+          "page": 1
+        },
+        {
+          "type": "photo",
+          "name": "사진 2",
+          "x": 390,
+          "y": 60,
+          "w": 300,
+          "h": 620,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0,
+          "page": 1
+        },
+        {
+          "type": "photo",
+          "name": "사진 3",
+          "x": 720,
+          "y": 60,
+          "w": 300,
+          "h": 620,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0,
+          "page": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 60,
+          "y": 730,
+          "w": 960,
+          "h": 10,
+          "font": "light",
+          "size": 56,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 60,
+          "y": 810,
+          "w": 960,
+          "h": 10,
+          "font": "title",
+          "size": 80,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 60,
+          "y": 935,
+          "w": 700,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.8",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 600,
+          "y": 1000,
+          "w": 420,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$accent",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "typo",
+      "name": "대형 타이포",
+      "category": "split",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$main",
+          "r": 0
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 70,
+          "y": 100,
+          "w": 940,
+          "h": 10,
+          "font": "light",
+          "size": 72,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 60,
+          "y": 190,
+          "w": 960,
+          "h": 10,
+          "font": "title",
+          "size": 170,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.04,
+          "wrap": 1,
+          "maxLines": 3,
+          "hl": "$dark"
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 770,
+          "y": 770,
+          "w": 250,
+          "h": 250,
+          "shape": "ellipse",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "ellipse",
+          "name": "원 테두리",
+          "x": 760,
+          "y": 760,
+          "w": 270,
+          "h": 270,
+          "fill": null,
+          "stroke": "#fff",
+          "sw": 6,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 70,
+          "y": 850,
+          "w": 620,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.9",
+          "align": "left",
+          "lh": 1.5,
+          "wrap": 1
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 70,
+          "y": 1000,
+          "w": 500,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "blueprint",
+      "name": "모눈",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "$dark",
+          "r": 0
+        },
+        {
+          "type": "icon",
+          "name": "모눈",
+          "icon": "grid",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "color": "#fff@.07",
+          "layer": "bg",
+          "pass": true
+        },
+        {
+          "type": "rect",
+          "name": "사진 틀",
+          "x": 140,
+          "y": 110,
+          "w": 800,
+          "h": 540,
+          "fill": "#fff",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 156,
+          "y": 126,
+          "w": 768,
+          "h": 508,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "icon",
+          "name": "모서리",
+          "icon": "corners",
+          "x": 118,
+          "y": 88,
+          "w": 844,
+          "h": 584,
+          "color": "$accent",
+          "layer": "fg",
+          "sw": 5
+        },
+        {
+          "type": "text",
+          "name": "영문 장식",
+          "bind": "en",
+          "x": 140,
+          "y": 40,
+          "w": 800,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$accent",
+          "align": "left",
+          "lh": 1.25,
+          "weight": "700",
+          "spacing": 3,
+          "upper": 1
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 140,
+          "y": 700,
+          "w": 800,
+          "h": 10,
+          "font": "light",
+          "size": 56,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 140,
+          "y": 780,
+          "w": 800,
+          "h": 10,
+          "font": "title",
+          "size": 78,
+          "color": "#fff",
+          "align": "left",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "text",
+          "name": "부제목",
+          "bind": "sub",
+          "x": 140,
+          "y": 900,
+          "w": 800,
+          "h": 10,
+          "font": "body",
+          "size": 28,
+          "color": "#fff@.75",
+          "align": "left",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 140,
+          "y": 990,
+          "w": 800,
+          "h": 10,
+          "font": "body",
+          "size": 22,
+          "color": "$accent",
+          "align": "right",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    },
+    {
+      "id": "cinema",
+      "name": "시네마",
+      "category": "frame",
+      "elements": [
+        {
+          "type": "rect",
+          "name": "배경",
+          "x": 0,
+          "y": 0,
+          "w": 1080,
+          "h": 1080,
+          "fill": "#08090B",
+          "r": 0
+        },
+        {
+          "type": "photo",
+          "name": "사진",
+          "x": 0,
+          "y": 120,
+          "w": 1080,
+          "h": 560,
+          "shape": "rect",
+          "r": 0,
+          "zoom": 1,
+          "ox": 0,
+          "oy": 0
+        },
+        {
+          "type": "rect",
+          "name": "그라데이션",
+          "x": 0,
+          "y": 480,
+          "w": 1080,
+          "h": 200,
+          "grad": {
+            "dir": "v",
+            "stops": [
+              [
+                0,
+                "#08090B@0"
+              ],
+              [
+                1,
+                "#08090B@1"
+              ]
+            ]
+          },
+          "pass": true
+        },
+        {
+          "type": "text",
+          "name": "영문 장식",
+          "bind": "en",
+          "x": 0,
+          "y": 700,
+          "w": 1080,
+          "h": 10,
+          "font": "script",
+          "size": 80,
+          "color": "$accent",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 첫 줄",
+          "bind": "line1",
+          "x": 90,
+          "y": 820,
+          "w": 900,
+          "h": 10,
+          "font": "serif",
+          "size": 54,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25
+        },
+        {
+          "type": "text",
+          "name": "제목 둘째 줄",
+          "bind": "line2",
+          "x": 80,
+          "y": 896,
+          "w": 920,
+          "h": 10,
+          "font": "serif",
+          "size": 66,
+          "color": "#fff",
+          "align": "center",
+          "lh": 1.25,
+          "hl": "$accent"
+        },
+        {
+          "type": "rect",
+          "name": "선",
+          "x": 440,
+          "y": 1000,
+          "w": 200,
+          "h": 2,
+          "fill": "#fff@.4",
+          "r": 0,
+          "layer": "fg"
+        },
+        {
+          "type": "text",
+          "name": "인스타 계정",
+          "bind": "handle",
+          "x": 0,
+          "y": 1018,
+          "w": 1080,
+          "h": 10,
+          "font": "body",
+          "size": 20,
+          "color": "#fff@.6",
+          "align": "center",
+          "lh": 1.25,
+          "weight": "700"
+        }
+      ]
+    }
+  ],
+  "themes": [
+    {
+      "id": "blue",
+      "name": "서린 블루",
+      "dark": "#0A1E4E",
+      "main": "#1E6FFF",
+      "accent": "#8CCEFF",
+      "paper": "#E4EAF3",
+      "ink": "#0F1B33"
+    },
+    {
+      "id": "navy",
+      "name": "네이비 골드",
+      "dark": "#0B1530",
+      "main": "#24407F",
+      "accent": "#F5C542",
+      "paper": "#E8E9EE",
+      "ink": "#0B1530"
+    },
+    {
+      "id": "mono",
+      "name": "블랙 화이트",
+      "dark": "#121417",
+      "main": "#2B2F36",
+      "accent": "#D7DCE3",
+      "paper": "#E4E2DD",
+      "ink": "#16181B"
+    },
+    {
+      "id": "warm",
+      "name": "웜 그레이",
+      "dark": "#3A322B",
+      "main": "#6A5747",
+      "accent": "#F2C99A",
+      "paper": "#E2DED7",
+      "ink": "#3A322B"
+    },
+    {
+      "id": "green",
+      "name": "포레스트",
+      "dark": "#0F2E28",
+      "main": "#1F6B5A",
+      "accent": "#A8E6CF",
+      "paper": "#E1EBE7",
+      "ink": "#0F2E28"
+    },
+    {
+      "id": "coral",
+      "name": "코랄 핑크",
+      "dark": "#3B1824",
+      "main": "#E0566F",
+      "accent": "#FFC7D1",
+      "paper": "#F3E6E8",
+      "ink": "#3B1824"
+    },
+    {
+      "id": "mint",
+      "name": "민트",
+      "dark": "#0B3B36",
+      "main": "#2BB3A3",
+      "accent": "#B8F0E6",
+      "paper": "#E3F3F0",
+      "ink": "#0B3B36"
+    },
+    {
+      "id": "sky",
+      "name": "스카이",
+      "dark": "#0B2E4A",
+      "main": "#3AA0E8",
+      "accent": "#BFE4FF",
+      "paper": "#E4F1FA",
+      "ink": "#0B2E4A"
+    },
+    {
+      "id": "lavender",
+      "name": "라벤더",
+      "dark": "#2A1F4A",
+      "main": "#7C6CD9",
+      "accent": "#D9D2FF",
+      "paper": "#ECE9F7",
+      "ink": "#2A1F4A"
+    },
+    {
+      "id": "peach",
+      "name": "피치",
+      "dark": "#3E2420",
+      "main": "#F08A6C",
+      "accent": "#FFD9C9",
+      "paper": "#FBEDE7",
+      "ink": "#3E2420"
+    },
+    {
+      "id": "burgundy",
+      "name": "버건디",
+      "dark": "#3A0F1C",
+      "main": "#9E2A44",
+      "accent": "#F2B8C6",
+      "paper": "#F1E3E7",
+      "ink": "#3A0F1C"
+    },
+    {
+      "id": "terracotta",
+      "name": "테라코타",
+      "dark": "#3A1F14",
+      "main": "#C4623A",
+      "accent": "#F6C9A8",
+      "paper": "#F5E8E0",
+      "ink": "#3A1F14"
+    },
+    {
+      "id": "olive",
+      "name": "올리브",
+      "dark": "#2B2E14",
+      "main": "#7A8A2E",
+      "accent": "#E2EAA8",
+      "paper": "#EEF0DF",
+      "ink": "#2B2E14"
+    },
+    {
+      "id": "gold",
+      "name": "샴페인 골드",
+      "dark": "#2A2208",
+      "main": "#B8901F",
+      "accent": "#F7E3A1",
+      "paper": "#F3EEDC",
+      "ink": "#2A2208"
+    },
+    {
+      "id": "charcoal",
+      "name": "차콜 오렌지",
+      "dark": "#1C1F24",
+      "main": "#4A5361",
+      "accent": "#FFB648",
+      "paper": "#E6E7EA",
+      "ink": "#1C1F24"
+    },
+    {
+      "id": "r_red",
+      "rb": 1,
+      "name": "빨강",
+      "dark": "#3A0A0E",
+      "main": "#E5262A",
+      "accent": "#FFB3A8",
+      "paper": "#F6E3E2",
+      "ink": "#3A0A0E"
+    },
+    {
+      "id": "r_orange",
+      "rb": 1,
+      "name": "주황",
+      "dark": "#3A1E06",
+      "main": "#F27A1A",
+      "accent": "#FFD29A",
+      "paper": "#F7EADF",
+      "ink": "#3A1E06"
+    },
+    {
+      "id": "r_yellow",
+      "rb": 1,
+      "name": "노랑",
+      "dark": "#2E2706",
+      "main": "#E0A800",
+      "accent": "#FFE680",
+      "paper": "#F6F0DA",
+      "ink": "#2E2706"
+    },
+    {
+      "id": "r_green",
+      "rb": 1,
+      "name": "초록",
+      "dark": "#0B2E14",
+      "main": "#22A447",
+      "accent": "#A6EBB4",
+      "paper": "#E2F0E5",
+      "ink": "#0B2E14"
+    },
+    {
+      "id": "r_blue",
+      "rb": 1,
+      "name": "파랑",
+      "dark": "#06204A",
+      "main": "#1E7BFF",
+      "accent": "#9CCBFF",
+      "paper": "#E1EBF8",
+      "ink": "#06204A"
+    },
+    {
+      "id": "r_indigo",
+      "rb": 1,
+      "name": "남색",
+      "dark": "#0D1240",
+      "main": "#3340B5",
+      "accent": "#AEB6FF",
+      "paper": "#E4E5F4",
+      "ink": "#0D1240"
+    },
+    {
+      "id": "r_violet",
+      "rb": 1,
+      "name": "보라",
+      "dark": "#24093A",
+      "main": "#8A3FD1",
+      "accent": "#DDB8FF",
+      "paper": "#EEE5F6",
+      "ink": "#24093A"
+    }
+  ],
+  "titleFonts": [
+    {
+      "id": "gothic",
+      "name": "굵은 고딕",
+      "w": "900",
+      "f": "\"Noto Sans KR\""
+    },
+    {
+      "id": "bhs",
+      "name": "블랙 한 산스",
+      "w": "400",
+      "f": "\"Black Han Sans\""
+    },
+    {
+      "id": "myeongjo",
+      "name": "명조",
+      "w": "800",
+      "f": "\"Nanum Myeongjo\""
+    },
+    {
+      "id": "nanumgothic",
+      "name": "나눔고딕",
+      "w": "800",
+      "f": "\"Nanum Gothic\""
+    },
+    {
+      "id": "dohyeon",
+      "name": "도현",
+      "w": "400",
+      "f": "\"Do Hyeon\""
+    },
+    {
+      "id": "jua",
+      "name": "주아",
+      "w": "400",
+      "f": "\"Jua\""
+    },
+    {
+      "id": "gowunb",
+      "name": "고운바탕",
+      "w": "700",
+      "f": "\"Gowun Batang\""
+    },
+    {
+      "id": "gothica1",
+      "name": "고딕 A1",
+      "w": "800",
+      "f": "\"Gothic A1\""
+    }
+  ],
+  "fonts": [
+    {
+      "id": "gothic",
+      "n": "본고딕 굵게",
+      "w": "900",
+      "f": "\"Noto Sans KR\""
+    },
+    {
+      "id": "medium",
+      "n": "본고딕 보통",
+      "w": "500",
+      "f": "\"Noto Sans KR\""
+    },
+    {
+      "id": "light",
+      "n": "본고딕 가늘게",
+      "w": "300",
+      "f": "\"Noto Sans KR\""
+    },
+    {
+      "id": "nanumgothic",
+      "n": "나눔고딕",
+      "w": "800",
+      "f": "\"Nanum Gothic\""
+    },
+    {
+      "id": "gothica1",
+      "n": "고딕 A1",
+      "w": "800",
+      "f": "\"Gothic A1\""
+    },
+    {
+      "id": "ibm",
+      "n": "IBM Plex 산스",
+      "w": "700",
+      "f": "\"IBM Plex Sans KR\""
+    },
+    {
+      "id": "bhs",
+      "n": "블랙 한 산스",
+      "w": "400",
+      "f": "\"Black Han Sans\""
+    },
+    {
+      "id": "dohyeon",
+      "n": "도현",
+      "w": "400",
+      "f": "\"Do Hyeon\""
+    },
+    {
+      "id": "jua",
+      "n": "주아",
+      "w": "400",
+      "f": "\"Jua\""
+    },
+    {
+      "id": "sunflower",
+      "n": "해바라기",
+      "w": "700",
+      "f": "\"Sunflower\""
+    },
+    {
+      "id": "dongle",
+      "n": "동글",
+      "w": "700",
+      "f": "\"Dongle\""
+    },
+    {
+      "id": "gowund",
+      "n": "고운돋움",
+      "w": "400",
+      "f": "\"Gowun Dodum\""
+    },
+    {
+      "id": "myeongjo",
+      "n": "나눔명조",
+      "w": "800",
+      "f": "\"Nanum Myeongjo\""
+    },
+    {
+      "id": "gowunb",
+      "n": "고운바탕",
+      "w": "700",
+      "f": "\"Gowun Batang\""
+    },
+    {
+      "id": "songmyung",
+      "n": "송명",
+      "w": "400",
+      "f": "\"Song Myung\""
+    },
+    {
+      "id": "pen",
+      "n": "나눔손글씨 펜",
+      "w": "400",
+      "f": "\"Nanum Pen Script\""
+    },
+    {
+      "id": "brush",
+      "n": "나눔손글씨 붓",
+      "w": "400",
+      "f": "\"Nanum Brush Script\""
+    },
+    {
+      "id": "gaegu",
+      "n": "개구",
+      "w": "700",
+      "f": "\"Gaegu\""
+    },
+    {
+      "id": "script",
+      "n": "영문 손글씨",
+      "w": "400",
+      "f": "\"Great Vibes\""
+    }
+  ],
+  "defaults": {
+    "tpl": "full",
+    "theme": "blue",
+    "dim": 55,
+    "font": "gothic",
+    "line1": "아이가 갑자기",
+    "line2": "태권도 가기 싫어할 때",
+    "hl": "싫어할 때",
+    "tag": "부모님 고민 상담",
+    "sub": "억지로 보내기 전에 살펴볼 아이의 마음",
+    "en": "Taekwondo",
+    "handle": "@seolin5_tkd",
+    "brand": "SEOLIN TAEKWONDO"
+  }
+}

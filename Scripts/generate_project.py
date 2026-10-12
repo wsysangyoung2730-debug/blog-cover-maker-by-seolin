@@ -11,7 +11,7 @@ def q(s): return json.dumps(str(s),ensure_ascii=False)
 def seq(items): return '('+','.join(items)+',)' if items else '()'
 def props(d): return '{'+''.join(f'{k} = {q(v)};' for k,v in d.items())+'}'
 sources=sorted(root.glob('App/**/*.swift'))+sorted(root.glob('Sources/CoverCore/**/*.swift'))
-resources=[p for p in sorted(root.glob('Sources/CoverCore/Resources/**/*')) if p.is_file() and p.suffix not in ['.txt','.md']]
+resources=[p for p in sorted(root.glob('Sources/CoverCore/Resources/**/*')) if p.is_file() and p.name != 'README.txt']
 refs={}
 for p in sources+resources:
  rel=str(p.relative_to(root)); ext=p.suffix
