@@ -11,6 +11,11 @@ struct BlogCoverMakerApp: App {
     #endif
   }
   var body: some Scene {
+    #if os(iOS)
+      if #available(iOS 18.0, *) {
+        PadLaunchScene()
+      }
+    #endif
     DocumentGroup(newDocument: { CoverDocument() }) { configuration in
       EditorRoot(document: configuration.document)
     }
