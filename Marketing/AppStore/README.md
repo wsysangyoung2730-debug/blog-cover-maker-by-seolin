@@ -17,7 +17,7 @@
 
 `Source/taekwondo-lesson.png`는 사용자가 요청한 ‘태권도장에서 관장님이 아이를 지도하는 실사 스타일’을 내장 image_gen으로 생성했다. 실제 원생이나 관장님을 촬영한 사진이 아니며 두 인물은 가상이다. [최종 생성 프롬프트](Source/GenerationPrompt.txt)를 보존했다. 앱에 사진 생성 기능이 있다는 의미가 아니다.
 
-Mac은 샌드박스를 적용한 실제 Release 앱을 별도 QA Bundle ID로 복제해 샘플 문서를 열었다. iPad는 Simulator의 실제 EditorRoot·CanvasSurface·TutorialView를 실행했다. 사용자 허용을 받아 Xcode simctl로 화면을 저장했다. iPad 촬영 빌드는 샘플 문서를 직접 여는 별도 시작점만 제공하며, 문서 브라우저는 건너뛴다. 캡처 안의 UI와 표지 결과를 AI로 다시 그리지 않았다. 실제 화면 바깥에 소개 문구·배경·테두리·그림자·앱 아이콘을 배치했다.
+Mac은 샌드박스를 적용한 실제 Release 앱을 별도 QA Bundle ID로 복제해 샘플 문서를 열었다. iPad는 Simulator의 실제 EditorRoot·CanvasSurface·TutorialView를 실행했다. 사용자 허용을 받아 Xcode simctl로 화면을 저장했다. iPad 촬영 빌드는 샘플 문서를 직접 여는 별도 시작점만 제공하며, 문서 브라우저는 건너뛴다. 캡처 안의 UI와 표지 결과를 AI로 다시 그리지 않았다. 실제 화면 바깥에 큰 기능 제목·짧은 설명과 배경·테두리·그림자를 배치했다. 상단 앱 이름·플랫폼 표기·페이지 번호와 하단 기능 요약·장식용 앱 아이콘은 제외한다.
 
 Mac 캡처 원본은 JPEG, iPad는 PNG이며 `Source/Captures`에 보존한다. Mac은 활성 창으로 다시 촬영했다. 2·3번은 포인터를 하단 안내 줄로 옮긴 다음 해당 하단 90px를 제외해 포인터와 주변 강조 표시가 최종 이미지에 남지 않게 했다. 캡처 비율을 유지하며 배치했고 편집 내용이나 버튼을 지우거나 덧그리지 않았다. 최종 파일은 모두 불투명 sRGB PNG다.
 
@@ -96,3 +96,5 @@ macOS 첫 출시 정보는 `1.0.0 / © 2026 SEOLIN`으로 확정됐다. 연락�
 2026-10-13 [macOS 1.0.0 등록 화면](https://appstoreconnect.apple.com/apps/6822050062/distribution/macos/version/inflight)에 01→04 순서로 네 장을 업로드하고 저장했다. 화면에서 10개 중 4개의 스크린샷을 확인했다. iPad 앱 등록·이미지 업로드는 macOS 이후 진행한다.
 
 같은 날 macOS `1.0.0 (1)` 빌드 업로드·Apple 처리와 출시 버전 연결을 마쳤으며, 한국어 소개 문구·키워드·심사 메모도 저장했다. 최종 제출 검사에는 지원 URL과 개인정보 처리방침 URL만 미완료로 표시됐다.
+
+상하단 보조 표기를 제거한 수정본으로 Mac 등록 이미지 4장을 교체했다. App Store Connect 파일명에는 이전 자산과 구분하기 위한 `-clean` 접미사가 붙으며, 등록 순서는 동일하다. 기존 자산은 자산 보관함에 유지한다. iPad 4장은 같은 수정이 적용된 후속 등록용 파일이다.

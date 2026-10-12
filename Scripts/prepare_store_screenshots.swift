@@ -9,21 +9,19 @@ let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
 let base = root.appendingPathComponent("Marketing/AppStore")
 struct Story {
   let file: String
-  let label: String
   let macTitle: String
   let padTitle: String
   let detail: String
-  let tag: String
 }
 let stories = [
-  Story(file: "01-cover-editor", label: "사진으로 시작", macTitle: "사진 한 장, 우리 도장만의 표지.",
-    padTitle: "사진 한 장,\n우리 도장만의 표지.", detail: "사진과 문구를 넣고, 바뀌는 표지를 바로 확인하세요.", tag: "사진 · 문구 · 실시간 미리보기"),
-  Story(file: "02-design-library", label: "디자인을 고르고", macTitle: "50가지 디자인으로, 다채롭게.",
-    padTitle: "50가지 디자인으로,\n다채롭게.", detail: "마음에 드는 디자인에 22가지 테마로 색을 입히세요.", tag: "50가지 디자인 · 22가지 테마"),
-  Story(file: "03-typography", label: "우리만의 분위기", macTitle: "글씨 하나까지, 원하는 느낌으로.",
-    padTitle: "글씨 하나까지,\n원하는 느낌으로.", detail: "글씨체와 색, 강조와 정렬을 취향에 맞게 다듬으세요.", tag: "글씨체 · 색상 · 강조 · 정렬"),
-  Story(file: "04-tutorial", label: "처음이어도 괜찮아요", macTitle: "첫 표지부터, 차근차근 함께.",
-    padTitle: "첫 표지부터,\n차근차근 함께.", detail: "사진 불러오기부터 PNG 저장까지, 7단계로 익혀보세요.", tag: "앱 안에서 다시 보는 사용 튜토리얼")
+  Story(file: "01-cover-editor", macTitle: "사진 한 장, 우리 도장만의 표지.",
+    padTitle: "사진 한 장,\n우리 도장만의 표지.", detail: "사진과 문구를 넣고, 바뀌는 표지를 바로 확인하세요."),
+  Story(file: "02-design-library", macTitle: "50가지 디자인으로, 다채롭게.",
+    padTitle: "50가지 디자인으로,\n다채롭게.", detail: "마음에 드는 디자인에 22가지 테마로 색을 입히세요."),
+  Story(file: "03-typography", macTitle: "글씨 하나까지, 원하는 느낌으로.",
+    padTitle: "글씨 하나까지,\n원하는 느낌으로.", detail: "글씨체와 색, 강조와 정렬을 취향에 맞게 다듬으세요."),
+  Story(file: "04-tutorial", macTitle: "첫 표지부터, 차근차근 함께.",
+    padTitle: "첫 표지부터,\n차근차근 함께.", detail: "사진 불러오기부터 PNG 저장까지, 7단계로 익혀보세요.")
 ]
 func color(_ hex: UInt32, _ alpha: CGFloat = 1) -> NSColor {
   NSColor(srgbRed: CGFloat((hex >> 16) & 255) / 255, green: CGFloat((hex >> 8) & 255) / 255,
@@ -77,7 +75,6 @@ func framed(_ source: CGImage, rect: CGRect, radius: CGFloat, context: CGContext
   context.setLineWidth(2)
   context.strokePath()
 }
-let icon = load(root.appendingPathComponent("Design/Branding/blog-cover-maker-icon.png"))
 for (platform, prefix, width, height) in [("macOS", "mac", 2880, 1800), ("iPadOS", "ipad", 2064, 2752)] {
   for (index, story) in stories.enumerated() {
     let mac = platform == "macOS", dark = index == 1
@@ -99,13 +96,7 @@ for (platform, prefix, width, height) in [("macOS", "mac", 2880, 1800), ("iPadOS
     context.fillEllipse(in: CGRect(x: w * 0.6, y: h * 0.23, width: w * 0.75, height: w * 0.75))
     let ink = color(dark ? 0xFFFFFF : 0x14284B)
     let secondary = color(dark ? 0xD2E5FF : 0x536681)
-    let accent = color(dark ? 0xA7D5FF : 0x276BC2)
     let margin: CGFloat = mac ? 144 : 112
-    let eyebrowY: CGFloat = mac ? 57 : 82
-    text("BLOG COVER MAKER  /  \(mac ? "Mac" : "iPad")", rect: CGRect(x:margin,y:eyebrowY,width:1500,height:50),
-      size: mac ? 30 : 34, weight:.semibold, ink:accent)
-    text(String(format:"%02d / 04", index + 1), rect:CGRect(x:w-margin-160,y:eyebrowY,width:160,height:50),
-      size: mac ? 30 : 34, weight:.medium, ink:secondary, alignment:.right)
     text(mac ? story.macTitle : story.padTitle,
       rect:CGRect(x:margin,y:mac ? 116 : 175,width:w-2*margin,height:mac ? 145 : 328),
       size:mac ? 104 : 128,weight:.bold,ink:ink,spacing:10)
@@ -126,9 +117,6 @@ for (platform, prefix, width, height) in [("macOS", "mac", 2880, 1800), ("iPadOS
     let frame = CGRect(x:(w-targetWidth)/2,y:mac ? 388 : 690,width:targetWidth,height:targetHeight)
     precondition(frame.maxX < w && frame.maxY < h - 80)
     framed(shot,rect:frame,radius:mac ? 22 : 36,context:context,dark:dark)
-    text(story.tag,rect:CGRect(x:margin,y:h-73,width:w-2*margin-120,height:48),
-      size:mac ? 27 : 29,weight:.medium,ink:secondary)
-    image(icon,rect:CGRect(x:w-margin-58,y:h-86,width:58,height:58),context:context)
     NSGraphicsContext.restoreGraphicsState()
     let output = base.appendingPathComponent("ko-KR/\(platform)/\(story.file).png")
     try FileManager.default.createDirectory(at:output.deletingLastPathComponent(),withIntermediateDirectories:true)

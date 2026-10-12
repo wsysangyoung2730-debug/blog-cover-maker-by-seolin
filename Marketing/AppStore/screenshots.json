@@ -5,7 +5,7 @@
     "height": 1800,
     "colorSpace": "sRGB",
     "alpha": false,
-    "sha256": "9f057fd2e499082143b65aa8f682c13d5edf8e1b8b00f9f046cbe112b6665dba"
+    "sha256": "df7bed6ba52f9c521670b50f98f6dad1be8ac7046772cb4ad6fb5eec506df198"
   },
   {
     "file": "ko-KR/macOS/02-design-library.png",
@@ -13,7 +13,7 @@
     "height": 1800,
     "colorSpace": "sRGB",
     "alpha": false,
-    "sha256": "f1eccd317d900e4793fad3abf1b64834c61c355bbba0db466430130a4c4b7caa"
+    "sha256": "579c1d0e56d1339cb4d30ff68a4a85b22e1505696d909a5682416ad70423ed1a"
   },
   {
     "file": "ko-KR/macOS/03-typography.png",
@@ -21,7 +21,7 @@
     "height": 1800,
     "colorSpace": "sRGB",
     "alpha": false,
-    "sha256": "ccdbd6820fac2ca87953d611bbee4217cf07c673db11590f37442e14de9cd4bc"
+    "sha256": "65f595cb2bd7f56abe2614ba26fb5dd0d1958e59dfcfb0466f4bd54284f4e97e"
   },
   {
     "file": "ko-KR/macOS/04-tutorial.png",
@@ -29,7 +29,7 @@
     "height": 1800,
     "colorSpace": "sRGB",
     "alpha": false,
-    "sha256": "4d83c710697f8be8ddab5e9f5cf575455e7dd8235deb41a722ce3ac0877b4c2f"
+    "sha256": "cae2906e85c6ff18f8f2ecb99fe2d49633769e57f5962a34f8a3968c01e6ee13"
   },
   {
     "file": "ko-KR/iPadOS/01-cover-editor.png",
@@ -37,7 +37,7 @@
     "height": 2752,
     "colorSpace": "sRGB",
     "alpha": false,
-    "sha256": "b98c4ee534ebf7858f32d2c1ba31d509b9902086501148a12f9a66a17370cf52"
+    "sha256": "d0127ed61582923862994ba02e7d5f3170f56e10fa54dd324b7804fd016a676e"
   },
   {
     "file": "ko-KR/iPadOS/02-design-library.png",
@@ -45,7 +45,7 @@
     "height": 2752,
     "colorSpace": "sRGB",
     "alpha": false,
-    "sha256": "db1b4d1930562dc5f6bb812cacff05130d5ae40b96e9f92dd435d014a16b3cdb"
+    "sha256": "81958c09b52fa2fea091d51bf9831e88847d156fc1b7adff6cc4fb673efd036e"
   },
   {
     "file": "ko-KR/iPadOS/03-typography.png",
@@ -53,7 +53,7 @@
     "height": 2752,
     "colorSpace": "sRGB",
     "alpha": false,
-    "sha256": "5b2f337eb874d178d805768ab3b9f2d707b303ac68fa81c6a2924634dd0ad4de"
+    "sha256": "877f2096ad92b9fa651855c0ecdec851c12ff05902ae43f97a34a52502203a9b"
   },
   {
     "file": "ko-KR/iPadOS/04-tutorial.png",
@@ -61,6 +61,6 @@
     "height": 2752,
     "colorSpace": "sRGB",
     "alpha": false,
-    "sha256": "9855bc49ba234824755d34c97b9ebb7860affc23103cda367ad65b3dc3870ec1"
+    "sha256": "4def026b1342d997cb0423909ab0ae3ac1133cbf97eedfec69c774cd04038d0a"
   }
 ]
