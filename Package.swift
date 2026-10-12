@@ -7,6 +7,6 @@ let package = Package(
     products: [.library(name: "CoverCore", targets: ["CoverCore"])],
     targets: [
         .target(name: "CoverCore", resources: [.process("Resources")]),
-        .testTarget(name: "CoverCoreTests", dependencies: ["CoverCore"])
+        .testTarget(name: "CoverCoreTests", dependencies: ["CoverCore"], resources: [.copy("Fixtures")])
     ]
 )
