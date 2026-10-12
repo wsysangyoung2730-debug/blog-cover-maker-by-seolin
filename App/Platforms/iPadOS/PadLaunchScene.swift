@@ -5,14 +5,21 @@
   /// system. The accessory content frames the native primary action.
   @available(iOS 18.0, *)
   struct PadLaunchScene: Scene {
+    @State private var showsTutorial = false
+    @AppStorage("seolin.tutorial.presentedVersion") private var tutorialVersion = 0
+
     var body: some Scene {
       DocumentGroupLaunchScene(Text("")) {
         NewDocumentButton("새 표지 만들기")
           .accessibilityIdentifier("createCover")
       } background: {
         PadLaunchBackground()
+          .sheet(isPresented: $showsTutorial) {
+            TutorialView(completionTitle: "시작 화면으로")
+              .onAppear { tutorialVersion = 1 }
+          }
       } overlayAccessoryView: { geometry in
-        PadLaunchWelcome(geometry: geometry)
+        PadLaunchWelcome(geometry: geometry, showsTutorial: $showsTutorial)
       }
     }
   }
@@ -34,8 +41,7 @@
   @available(iOS 18.0, *)
   private struct PadLaunchWelcome: View {
     let geometry: DocumentLaunchGeometryProxy
-    @State private var showsTutorial = false
-    @AppStorage("seolin.tutorial.presentedVersion") private var tutorialVersion = 0
+    @Binding var showsTutorial: Bool
 
     var body: some View {
       // The collapsed document browser occupies the lower half of the scene.
@@ -57,13 +63,21 @@
         .position(x: geometry.frame.midX, y: top + sectionHeight / 2 + 8)
 
         ScrollView {
-          VStack(spacing: 20) {
-            Button("사용법 보기", systemImage: "book.closed") {
-              tutorialVersion = 1
+          VStack(spacing: 14) {
+            Button {
               showsTutorial = true
+            } label: {
+              Label("사용법 보기", systemImage: "book.closed")
+                .font(.body.weight(.medium))
+                .foregroundStyle(Color.accentColor)
+                .frame(width: min(280, width), height: 50)
+                .background(Color.accentColor.opacity(0.10), in: Capsule())
+                .overlay {
+                  Capsule().strokeBorder(Color.accentColor.opacity(0.16), lineWidth: 1)
+                }
+                .contentShape(Capsule())
             }
-            .buttonStyle(.borderless).controlSize(.large)
-            .frame(minHeight: 44)
+            .buttonStyle(.plain)
             .accessibilityIdentifier("launchTutorial")
             Text("저장한 표지는 아래 ‘최근 항목’이나 ‘둘러보기’에서 열어요.")
               .font(.caption).foregroundStyle(.secondary)
@@ -74,11 +88,12 @@
         }
         .scrollBounceBehavior(.basedOnSize)
         .frame(width: width, height: sectionHeight)
-        .position(x: geometry.frame.midX, y: center + 52 + sectionHeight / 2)
+        .position(x: geometry.frame.midX, y: center + 38 + sectionHeight / 2)
       }
-      .sheet(isPresented: $showsTutorial) {
-        TutorialView(completionTitle: "시작 화면으로")
-      }
+      // Positioned content can draw beyond the accessory's intrinsic size.
+      // Give the host the same bounds as its coordinate space so the visible
+      // button remains inside the actual touchable region.
+      .frame(width: geometry.frame.width, height: geometry.frame.height)
     }
 
     private func introduction(showIcon: Bool) -> some View {
