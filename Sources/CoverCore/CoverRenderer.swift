@@ -381,7 +381,13 @@ public final class CoverRenderer {
         CTLineDraw(CTLineCreateWithAttributedString(string), c)
         c.restoreGState()
       }
-      if e.values["stroke"]?.string != nil { text(attributed, stroke: true) }
+      if e.values["stroke"]?.string != nil {
+        let outline = NSMutableAttributedString(attributedString: attributed)
+        outline.removeAttribute(
+          NSAttributedString.Key(kCTStrokeWidthAttributeName as String),
+          range: NSRange(location: 0, length: outline.length))
+        text(outline, stroke: true)
+      }
       if !e.flag("outline") { text(attributed, stroke: false) }
       c.saveGState()
       c.setShadow(offset: .zero, blur: 0, color: nil)

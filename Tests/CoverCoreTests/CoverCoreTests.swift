@@ -126,7 +126,42 @@ final class CoverCoreTests: XCTestCase {
         Bundle.module.url(forResource: "GreatVibes", withExtension: ext, subdirectory: "Fixtures"))
       let asset = try CoverTypography.importFont(Data(contentsOf: url), name: "호환성 검증")
       XCTAssertFalse(asset.postScriptName.isEmpty)
+      var project = CoverProject()
+      project.fonts = [asset]
+      let element = CoverElement(["type": .string("text"), "ff": .string(asset.id)])
+      let font = CoverTypography.font(element, project: project, size: 48)
+      XCTAssertEqual(CTFontCopyPostScriptName(font) as String, asset.postScriptName)
     }
+  }
+  func testUploadedFontBoldAndDocumentRestorePreserveRendering() throws {
+    let url = try XCTUnwrap(
+      Bundle.module.url(
+        forResource: "GreatVibes",
+        withExtension: "woff2", subdirectory: "Fixtures"))
+    var asset = try CoverTypography.importFont(Data(contentsOf: url), name: "나만의 폰트")
+    // Loading must use the embedded font, even if a saved display identifier is unavailable.
+    asset.postScriptName = "Unavailable-Saved-Identifier"
+    var project = CoverProject()
+    project.fonts = [asset]
+    let element = CoverElement([
+      "type": .string("text"), "ff": .string(asset.id),
+      "text": .string("Seolin Cover"), "x": .number(60), "y": .number(100),
+      "w": .number(950), "size": .number(110), "baseSize": .number(110),
+      "color": .string("#000000"), "fit": .bool(false),
+    ])
+    project.elements = [element]
+    XCTAssertEqual(
+      CTFontCopyPostScriptName(CoverTypography.font(element, project: project, size: 48))
+        as String, "GreatVibes-Regular")
+    let renderer = CoverRenderer()
+    let normal = try renderer.png(project: project, mode: .all)
+    project.elements[0].set("fw", "900")
+    let bold = try renderer.png(project: project, mode: .all)
+    XCTAssertNotEqual(normal, bold)
+    let restored = try CoverProject.decode(project.encoded())
+    XCTAssertEqual(try renderer.png(project: restored, mode: .all), bold)
+    project.elements[0].set("fw", "400")
+    XCTAssertEqual(try renderer.png(project: project, mode: .all), normal)
   }
   private func rect(_ x: Double, _ y: Double, _ w: Double, _ h: Double) -> CoverElement {
     CoverElement([

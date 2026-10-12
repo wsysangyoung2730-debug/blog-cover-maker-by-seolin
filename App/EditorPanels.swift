@@ -285,8 +285,11 @@ struct TextStyleControls: View {
         Button("굵게") {
           let elements = store.project.elements.filter { ids.contains($0.id) }
           let bold = !elements.allSatisfy {
-            CTFontGetSymbolicTraits(CoverTypography.font($0, project: store.project, size: 20))
-              .contains(.traitBold)
+            if let override = Double($0.string("fw")) { return override >= 600 }
+            return CTFontGetSymbolicTraits(
+              CoverTypography.font($0, project: store.project, size: 20)
+            )
+            .contains(.traitBold)
           }
           store.setString("fw", bold ? "900" : "400", ids: ids)
         }

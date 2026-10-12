@@ -3,6 +3,22 @@ import CoreText
 import Foundation
 
 public enum CoverTypography {
+  private final class FontData: NSObject {
+    let descriptor: CTFontDescriptor
+    init(_ descriptor: CTFontDescriptor) { self.descriptor = descriptor }
+  }
+  private static let userDescriptors = NSCache<NSString, FontData>()
+  private static func descriptor(for asset: UserFontAsset) -> CTFontDescriptor? {
+    if let cached = userDescriptors.object(forKey: asset.id as NSString) {
+      return cached.descriptor
+    }
+    guard
+      let descriptors = CTFontManagerCreateFontDescriptorsFromData(asset.data as CFData)
+        as? [CTFontDescriptor], let first = descriptors.first
+    else { return nil }
+    userDescriptors.setObject(FontData(first), forKey: asset.id as NSString)
+    return first
+  }
   public static func registerBundledFonts() {
     for url in CoverConstants.resourceBundle.urls(
       forResourcesWithExtension: "ttf", subdirectory: nil) ?? []
@@ -11,9 +27,7 @@ public enum CoverTypography {
     }
   }
   public static func register(_ asset: UserFontAsset) {
-    guard let provider = CGDataProvider(data: asset.data as CFData), let font = CGFont(provider)
-    else { return }
-    CTFontManagerRegisterGraphicsFont(font, nil)
+    _ = descriptor(for: asset)
   }
   public static func importFont(_ data: Data, name: String) throws -> UserFontAsset {
     guard
@@ -30,8 +44,13 @@ public enum CoverTypography {
     var family = "Noto Sans KR"
     var weight = "400"
     let catalog = CoverCatalog.shared
-    if let user = p.fonts.first(where: { $0.id == e.string("ff") }) {
-      return CTFontCreateWithName(user.postScriptName as CFString, size, nil)
+    if let user = p.fonts.first(where: { $0.id == e.string("ff") }),
+      let descriptor = descriptor(for: user)
+    {
+      let base = CTFontCreateWithFontDescriptor(descriptor, size, nil)
+      guard !e.string("fw").isEmpty else { return base }
+      let traits: CTFontSymbolicTraits = (Double(e.string("fw")) ?? 0) >= 600 ? .traitBold : []
+      return CTFontCreateCopyWithSymbolicTraits(base, size, nil, traits, .traitBold) ?? base
     }
     if let f = catalog.fonts.first(where: { $0.id == e.string("ff") }) {
       family = f.family
@@ -71,10 +90,18 @@ public enum CoverTypography {
   public static func attributes(_ e: CoverElement, project: CoverProject, size: Double)
     -> [NSAttributedString.Key: Any]
   {
-    [
-      NSAttributedString.Key(kCTFontAttributeName as String): font(e, project: project, size: size),
+    let selectedFont = font(e, project: project, size: size)
+    var result: [NSAttributedString.Key: Any] = [
+      NSAttributedString.Key(kCTFontAttributeName as String): selectedFont,
       NSAttributedString.Key(kCTKernAttributeName as String): e.number("spacing"),
     ]
+    // A single-face uploaded font may have no bold sibling. Preserve the face and synthesize bold.
+    if (Double(e.string("fw")) ?? 0) >= 600
+      && !CTFontGetSymbolicTraits(selectedFont).contains(.traitBold)
+    {
+      result[NSAttributedString.Key(kCTStrokeWidthAttributeName as String)] = -2.0
+    }
+    return result
   }
   public static func width(_ text: String, e: CoverElement, project: CoverProject, size: Double)
     -> Double
