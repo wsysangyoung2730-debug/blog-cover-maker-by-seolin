@@ -2,7 +2,8 @@
   import SwiftUI
 
   /// Keep document creation, recents, Files access, and autosaving owned by the
-  /// system. The accessory content frames the native primary action.
+  /// system. Keep interactive controls in the scene's actions builder; accessory
+  /// views are only used to decorate the system launch card.
   @available(iOS 18.0, *)
   struct PadLaunchScene: Scene {
     @State private var showsTutorial = false
@@ -12,14 +13,20 @@
       DocumentGroupLaunchScene(Text("")) {
         NewDocumentButton("새 표지 만들기")
           .accessibilityIdentifier("createCover")
-      } background: {
-        PadLaunchBackground()
           .sheet(isPresented: $showsTutorial) {
             TutorialView(completionTitle: "시작 화면으로")
               .onAppear { tutorialVersion = 1 }
           }
+        Button("사용법 보기", systemImage: "book.closed") {
+          showsTutorial = true
+        }
+        .accessibilityIdentifier("launchTutorial")
+        .buttonStyle(.bordered)
+      } background: {
+        PadLaunchBackground()
       } overlayAccessoryView: { geometry in
-        PadLaunchWelcome(geometry: geometry, showsTutorial: $showsTutorial)
+        PadLaunchWelcome(geometry: geometry)
+          .allowsHitTesting(false)
       }
     }
   }
@@ -41,7 +48,6 @@
   @available(iOS 18.0, *)
   private struct PadLaunchWelcome: View {
     let geometry: DocumentLaunchGeometryProxy
-    @Binding var showsTutorial: Bool
 
     var body: some View {
       // The collapsed document browser occupies the lower half of the scene.
@@ -49,9 +55,8 @@
       // that action's touch area and adapt the surrounding content separately.
       let top = max(geometry.frame.minY, geometry.titleViewFrame.minY)
       let bottom = geometry.frame.midY
-      let center = (top + bottom) / 2
       let width = max(0, min(540, geometry.titleViewFrame.width - 32))
-      let sectionHeight = max(0, (bottom - top) / 2 - 60)
+      let sectionHeight = max(0, (bottom - top) / 2 - 80)
 
       ZStack {
         ViewThatFits(in: .vertical) {
@@ -62,37 +67,13 @@
         .frame(width: width, height: sectionHeight)
         .position(x: geometry.frame.midX, y: top + sectionHeight / 2 + 8)
 
-        ScrollView {
-          VStack(spacing: 14) {
-            Button {
-              showsTutorial = true
-            } label: {
-              Label("사용법 보기", systemImage: "book.closed")
-                .font(.body.weight(.medium))
-                .foregroundStyle(Color.accentColor)
-                .frame(width: min(280, width), height: 50)
-                .background(Color.accentColor.opacity(0.10), in: Capsule())
-                .overlay {
-                  Capsule().strokeBorder(Color.accentColor.opacity(0.16), lineWidth: 1)
-                }
-                .contentShape(Capsule())
-            }
-            .buttonStyle(.plain)
-            .accessibilityIdentifier("launchTutorial")
-            Text("저장한 표지는 아래 ‘최근 항목’이나 ‘둘러보기’에서 열어요.")
-              .font(.caption).foregroundStyle(.secondary)
-              .fixedSize(horizontal: false, vertical: true)
-          }
+        Text("저장한 표지는 아래 ‘최근 항목’이나 ‘둘러보기’에서 열어요.")
+          .font(.caption).foregroundStyle(.secondary)
+          .fixedSize(horizontal: false, vertical: true)
           .multilineTextAlignment(.center)
-          .frame(maxWidth: .infinity)
-        }
-        .scrollBounceBehavior(.basedOnSize)
-        .frame(width: width, height: sectionHeight)
-        .position(x: geometry.frame.midX, y: center + 38 + sectionHeight / 2)
+          .frame(width: width)
+          .position(x: geometry.frame.midX, y: bottom - 28)
       }
-      // Positioned content can draw beyond the accessory's intrinsic size.
-      // Give the host the same bounds as its coordinate space so the visible
-      // button remains inside the actual touchable region.
       .frame(width: geometry.frame.width, height: geometry.frame.height)
     }
 
