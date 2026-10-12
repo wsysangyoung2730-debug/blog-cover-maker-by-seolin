@@ -10,7 +10,7 @@ macOS가 주력이며 iPadOS를 함께 지원한다. 개인정보보호 웹사�
 - iPad는 문서 브라우저 및 파일 원본 열기를 지원하도록 선언했다. 사용자가 선택한 파일 제공자에 저장하며 앱 자체 동기화 서버는 없다.
 - 자체 암호화 구현이 없어 `ITSAppUsesNonExemptEncryption = NO`를 선언했다.
 - macOS 14+, iPadOS 17+, iPad 전용. Mac은 arm64/x86_64 두 아키텍처를 검증한다.
-- 출시 버전은 기존 `0.1.0 (1)`을 보존했다. 실제 제출 전에 버전과 빌드 번호를 확정하고, 동일 버전 재업로드 시 빌드 번호를 올린다.
+- macOS 첫 출시 버전은 사용자 확인에 따라 `1.0.0 (1)`, 저작권은 `© 2026 SEOLIN`으로 설정했다. iPad 개발 버전은 `0.1.0 (1)`을 유지한다. 동일 버전 재업로드 시 빌드 번호를 올린다.
 - 번들에 50개 디자인, 오프라인 폰트와 OFL 라이선스, 플랫폼별 아이콘을 포함한다.
 - CI는 macOS 26 환경에서 Debug 검증에 이어 두 플랫폼 Release 아카이브를 검사한다. 이전 Xcode 16 빌드 성공만으로는 현재 iPad 업로드 SDK 요구 조건을 충족하지 못한다.
 
@@ -35,7 +35,7 @@ Mac 서명 후 `--signed`를 추가하면 코드 서명과 내장 샌드박스 �
 - 한국어 스크린샷 등록, 리뷰 담당자에게 문서 생성→편집→저장·내보내기 경로 제공
 - 실제 Mac/iPad에서 배포 서명 빌드로 파일 제공자 저장·재열기, 여러 창, 회전·작은 창 사용 확인
 
-이 점검은 Apple 심사 승인이나 App Store Connect 업로드 성공을 보장하지 않는다. 계정에 접근해 업로드하거나 앱을 출시하지 않았다.
+이 점검은 Apple 심사 승인을 보장하지 않는다. 계정 등록·서명 준비 결과는 아래 배포 연결 기록을 따른다. 앱 빌드 업로드 결과는 아래 기록에 포함하며, 심사 제출·출시는 별도 단계다.
 
 ## 근거
 
@@ -54,7 +54,7 @@ Mac 서명 후 `--signed`를 추가하면 코드 서명과 내장 샌드박스 �
 - Xcode 27.0에서 macOS 범용·iPad 실기기용 Release 아카이브와 `verify_release.py` 통과.
 - 별도 검증용 Bundle ID로 복제하고 로컬 임시 서명한 Mac 샌드박스 앱에서 문서 생성 및 첫 실행 튜토리얼 표시 확인.
 - iPad 문서 관련 빌드 경고 해소. AppIntents를 사용하지 않는 앱의 메타데이터 추출 생략 안내만 남음.
-- Apple 배포 인증서 검증·업로드·실기기 배포 테스트는 아직 수행하지 않음.
+- 이 시점에는 Apple 배포 인증서 검증·업로드·실기기 배포 테스트를 수행하지 않았다. 이후 서명 검증 결과는 아래 macOS 배포 연결 기록을 따른다.
 
 ## 편집 코드 감사와 수정
 
@@ -77,3 +77,43 @@ Mac 서명 후 `--signed`를 추가하면 코드 서명과 내장 샌드박스 �
 - macOS와 iPadOS 최종 Release archive 및 촬영 코드 제외 검증을 통과했다.
 - [한국어 스크린샷 8장과 스토어 설명 초안](../Marketing/AppStore/README.md)을 준비했다. AI로 생성한 가상의 태권도 수업 사진을 실제 편집기에 적용했다.
 - iPad Simulator에서 편집 화면과 튜토리얼의 시각 검수를 완료했다. 배포 서명된 실제 iPad의 파일 저장·회전·Pencil 테스트는 제출 전에 별도로 수행한다.
+
+## 2026-10-13 macOS 배포 연결
+
+- 사용자 지정 팀: Sangyoung Woo (`36545XSWN8`). Mac 타깃의 Debug·Release 자동 서명에 연결했다.
+- 사용자 확인 후 Apple Distribution 및 Mac Installer Distribution 인증서를 Xcode에서 생성했다. 개인 키는 Mac 키체인에 보관하며 저장소에 포함하지 않는다.
+- 설치 인증서는 키체인에서 `3rd Party Mac Developer Installer: Sangyoung Woo (36545XSWN8)`로 표시된다.
+- 명시적 Bundle ID `com.seolin.blogcovermaker`를 Apple Developer에 등록했다.
+- [App Store Connect macOS 앱](https://appstoreconnect.apple.com/apps/6822050062/distribution/macos/version/inflight) 생성 완료. Apple ID `6822050062`, SKU `seolin-blog-cover-maker-macos`, 기본 언어 한국어. 사용자 액세스는 제한된 액세스로 생성했으며 추가 팀원을 지정하지 않았다.
+- 스토어 버전 `1.0.0`, 저작권 `2026 SEOLIN`, 로그인 불필요 및 수동 출시로 저장했다.
+- Xcode 27에서 `1.0.0 (1)` 범용 Release archive 생성과 Apple Distribution 서명 앱 검증에 성공했다. 샌드박스·파일 선택 읽기/쓰기·디버깅 권한 제외·개인정보 명세·촬영 전용 코드 제외를 확인했다.
+- `Configuration/ExportOptions-macOS.plist`는 App Store Connect용 **로컬 내보내기** 설정이다. 자동 업로드하지 않는다.
+- 설치 인증서로 서명한 최종 `.pkg`를 생성하고 `pkgutil --check-signature`로 Apple 인증서 체인을 확인했다. 패키지를 별도 경로에 풀어 실제 포함된 앱에도 `verify_release.py --platform mac --signed`를 실행했으며 `1.0.0 (1)`, 팀, 저작권, 두 아키텍처와 서명을 확인했다.
+- 첫 내보내기에서는 키체인 응답 대기로 패키징이 완료되지 않아, 이미 검증된 배포 서명 앱을 유지한 채 `productbuild --component`로 설치 패키지만 다시 생성했다. 최종 패키지와 원본 `.xcarchive`를 함께 보관하며, 이전 내보내기의 요약 파일을 최종 패키지 검증 근거로 사용하지 않는다. dSYM은 원본 아카이브에 보존했다.
+- 실제 앱 화면에 기능 설명을 조합한 한국어 macOS 소개 이미지 4장을 App Store Connect에 등록했다. iPad용 소개 이미지 4장도 함께 준비했다.
+
+재현:
+
+```sh
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild \
+  -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerMac \
+  -configuration Release -destination 'generic/platform=macOS' \
+  -archivePath .build-output/Mac-1.0.0.xcarchive -allowProvisioningUpdates archive
+DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild \
+  -exportArchive -archivePath .build-output/Mac-1.0.0.xcarchive \
+  -exportOptionsPlist Configuration/ExportOptions-macOS.plist \
+  -exportPath .build-output/AppStore-1.0.0 -allowProvisioningUpdates
+pkgutil --check-signature .build-output/AppStore-1.0.0/BlogCoverMakerMac.pkg
+```
+
+## 2026-10-13 업로드·등록 완료 결과
+
+- 같은 `Mac-1.0.0.xcarchive`를 Xcode의 `destination=upload`로 App Store Connect에 업로드했다. Xcode에서 `Upload succeeded`를 확인했고, Apple 처리 후 TestFlight의 `1.0.0 (1)` 상태가 `제출 준비 완료`로 표시됐다. 이 빌드를 macOS 1.0.0 출시 버전에 연결하고 저장했다.
+- 한국어 홍보 문구·설명·키워드·심사 메모와 사용자가 지정한 심사 연락처를 저장했다. 개인 전화번호와 이메일은 저장소에 기록하지 않는다.
+- 부제 `사진과 문구로 완성하는 블로그 표지`, 기본 카테고리 `그래픽 및 디자인`을 저장했다. 앱 자체에 콘텐츠 배포·채팅·웹 탐색·광고·유해 콘텐츠 기능이 없다는 구현 기준으로 연령 설문을 작성했고 글로벌 `4+`가 산정됐다. 지역별 등급은 Apple 기준을 따른다.
+- 동봉된 Google Fonts 17개 글꼴군의 OFL 라이선스를 근거로 타사 콘텐츠 사용 권한이 있음을 설정했다.
+- 앱은 개발자 서버·분석/광고 SDK·추적이 없고 사진·문서는 사용자의 파일로 처리한다. `데이터 수집 없음` 답변을 작성한 뒤 게시 시 준수·갱신 동의에 대한 사용자 확인을 받아 게시했다.
+- 사용자 선택에 따라 무료 가격과 175개 국가·지역 전체 및 향후 추가 지역의 사용 가능 여부를 설정했다. 실제 출시는 수동으로 유지했다.
+- 제출 전 `심사에 추가` 검사에서 미완료 항목은 **개인정보 처리방침 URL**과 **한국어 지원 URL** 두 가지였다. 두 웹사이트는 사용자가 이번 범위에서 제외했다. 심사 제출이나 앱 출시는 하지 않았다.
+
+다음 단계: 두 URL을 준비해 입력하고 심사 요청. iPad 인증서·앱 등록과 실기기 배포 테스트는 macOS 후 진행한다.
