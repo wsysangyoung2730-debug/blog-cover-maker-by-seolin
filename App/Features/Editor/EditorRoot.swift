@@ -13,6 +13,7 @@ struct EditorRoot: View {
   @State private var widthStart: Double?
   @FocusState private var textFocused: Bool
   @AppStorage("seolinLink") private var linkIndex = 0
+  @AppStorage("seolin.tutorial.presentedVersion") private var tutorialVersion = 0
   #if os(macOS)
     @State private var palette: FloatingPalette?
   #endif
@@ -74,6 +75,14 @@ struct EditorRoot: View {
       store.undoManager = undoManager
       undoManager?.levelsOfUndo = 60
       store.refreshThumbnails()
+      if tutorialVersion < 1 {
+        tutorialVersion = 1
+        store.showTutorial = true
+      }
+    }
+    .sheet(isPresented: $store.showTutorial) { TutorialView() }
+    .onChange(of: store.showTutorial) { _, showing in
+      if showing { store.showQuick = false }
     }
     .onChange(of: store.importKind) { _, kind in if kind != nil { importing = true } }
     .fileImporter(
@@ -232,6 +241,11 @@ struct EditorRoot: View {
       }
     }
     ToolbarItemGroup(placement: .primaryAction) {
+      Button {
+        store.showTutorial = true
+      } label: {
+        Label("튜토리얼", systemImage: "questionmark.circle")
+      }.help("사용 튜토리얼 열기").accessibilityIdentifier("openTutorial")
       Menu {
         ForEach(ExportMode.allCases) { mode in Button(mode.label + " PNG") { store.export(mode) } }
       } label: {

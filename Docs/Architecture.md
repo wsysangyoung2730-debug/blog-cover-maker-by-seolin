@@ -15,6 +15,7 @@ macOS를 주력으로 하는 로컬 문서 편집 앱이다. iPadOS는 같은 �
 | `App/Features/TextEditing` | 문구 입력과 글꼴 스타일 |
 | `App/Features/Inspector` | 선택 요소 속성, 정렬·분배 |
 | `App/Features/Layers` | 레이어 선택·순서·표시 상태 |
+| `App/Features/Tutorial` | 문서와 독립적인 단계별 사용 안내·예시·진행 위치 보관 |
 | `App/Features/Workspace` | 패널 배치·크기·접힘 설정 저장 |
 | `App/Platforms/macOS` | AppKit 캔버스, 마우스·키보드 입력, 메뉴, 독립 빠른 편집창 |
 | `App/Platforms/iPadOS` | UIKit 캔버스, 터치·Pencil·핀치 입력 |

@@ -27,6 +27,7 @@ import UniformTypeIdentifiers
   @Published var guideX = false
   @Published var guideY = false
   @Published var showQuick = false
+  @Published var showTutorial = false
   @Published var importKind: ImportKind?
   @Published var exportData: PNGDocument?
   @Published var exportName = "seolin_cover"

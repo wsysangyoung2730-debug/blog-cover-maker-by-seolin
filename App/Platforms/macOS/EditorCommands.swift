@@ -11,6 +11,10 @@ import SwiftUI
   struct EditorCommands: Commands {
     @FocusedValue(\.editorStore) private var store
     var body: some Commands {
+      CommandGroup(replacing: .help) {
+        Button("사용 튜토리얼") { store?.showTutorial = true }
+          .disabled(store == nil)
+      }
       CommandGroup(after: .newItem) {
         Divider()
         Button("기본 사진 불러오기…") { store?.importKind = .base }.keyboardShortcut(
