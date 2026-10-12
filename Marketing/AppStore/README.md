@@ -11,7 +11,7 @@
 
 - **Mac 주력**: 2880×1800, 16:10, 8-bit RGB PNG, sRGB, 불투명.
 - **iPad**: 13형 iPad Pro 시뮬레이터, 2064×2752 세로, 8-bit RGB PNG, sRGB, 불투명.
-- [Apple 스크린샷 규격](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications)을 기준으로 크기·형식·투명도를 확인했다. macOS 4장은 App Store Connect에 업로드했고 iPad 4장은 등록용 파일로 준비했다. 심사 승인은 별도다.
+- [Apple 스크린샷 규격](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications)을 기준으로 크기·형식·투명도를 확인했다. macOS 4장과 iPad 4장 모두 App Store Connect에 등록했다. 심사 승인은 별도다.
 
 ## 이미지 출처와 실제 화면
 
@@ -53,7 +53,7 @@ DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild \
   CODE_SIGNING_ALLOWED=NO 'SWIFT_ACTIVE_COMPILATION_CONDITIONS=DEBUG STORE_SCREENSHOTS' build
 ```
 
-전용 Simulator에 설치 후 `simctl get_app_container <UDID> com.seolin.blogcovermaker.ipad data`로 얻은 Documents 폴더에 샘플을 복사한다. `simctl launch <UDID> com.seolin.blogcovermaker.ipad --screenshot-fixture <문서의 절대 경로> -seolin.tutorial.presentedVersion 1`로 실행하고 화면 렌더링 완료를 확인한 다음 `simctl io <UDID> screenshot <출력 경로>`로 촬영한다. 시나리오 변경 전 앱을 종료한다.
+전용 Simulator에 설치 후 `simctl get_app_container <UDID> com.seolin.blogcovermaker data`로 얻은 Documents 폴더에 샘플을 복사한다. `simctl launch <UDID> com.seolin.blogcovermaker --screenshot-fixture <문서의 절대 경로> -seolin.tutorial.presentedVersion 1`로 실행하고 화면 렌더링 완료를 확인한 다음 `simctl io <UDID> screenshot <출력 경로>`로 촬영한다. 시나리오 변경 전 앱을 종료한다. 최초 촬영 당시 개발 식별자는 `.ipad`였으며 이슈 #43부터 두 플랫폼의 식별자를 통일했다.
 
 - 1번: `01-full.seolincover`.
 - 2번: `02-card.seolincover`, 추가 인자 `--screenshot-panel design`.
@@ -93,8 +93,10 @@ macOS 첫 출시 정보는 `1.0.0 / © 2026 SEOLIN`으로 확정됐다. 연락�
 
 ## 등록 결과
 
-2026-10-13 [macOS 1.0.0 등록 화면](https://appstoreconnect.apple.com/apps/6822050062/distribution/macos/version/inflight)에 01→04 순서로 네 장을 업로드하고 저장했다. 화면에서 10개 중 4개의 스크린샷을 확인했다. iPad 앱 등록·이미지 업로드는 macOS 이후 진행한다.
+2026-10-13 [macOS 1.0.0 등록 화면](https://appstoreconnect.apple.com/apps/6822050062/distribution/macos/version/inflight)에 01→04 순서로 네 장을 업로드하고 저장했다. 화면에서 10개 중 4개의 스크린샷을 확인했다.
 
 같은 날 macOS `1.0.0 (1)` 빌드 업로드·Apple 처리와 출시 버전 연결을 마쳤으며, 한국어 소개 문구·키워드·심사 메모도 저장했다. 최종 제출 검사에는 지원 URL과 개인정보 처리방침 URL만 미완료로 표시됐다.
 
-상하단 보조 표기를 제거한 수정본으로 Mac 등록 이미지 4장을 교체했다. App Store Connect 파일명에는 이전 자산과 구분하기 위한 `-clean` 접미사가 붙으며, 등록 순서는 동일하다. 기존 자산은 자산 보관함에 유지한다. iPad 4장은 같은 수정이 적용된 후속 등록용 파일이다.
+상하단 보조 표기를 제거한 수정본으로 Mac 등록 이미지 4장을 교체했다. App Store Connect 파일명에는 이전 자산과 구분하기 위한 `-clean` 접미사가 붙으며, 등록 순서는 동일하다. 기존 자산은 자산 보관함에 유지한다.
+
+이슈 #43에서 같은 앱에 iOS 플랫폼을 추가하고 [iPad 첫 출시 등록 화면](https://appstoreconnect.apple.com/apps/6822050062/distribution/ios/version/inflight)의 iPad 13형 항목에 수정본 4장을 01→04 순서로 등록했다. `10개 중 4개의 앱 스크린샷`과 한국어 소개 정보 저장을 확인했다. Mac과 iPad 모두 `1.0.0 (2)` 업로드·Apple 처리·출시 버전 연결을 완료했다. 기존 1.0.0은 아직 출시되지 않았으므로 1.1 업데이트를 만들지 않았다. 두 플랫폼 제출 검사에서 남은 항목은 지원 URL·개인정보 처리방침 URL이며, 심사 제출과 출시는 아직 수행하지 않았다.
