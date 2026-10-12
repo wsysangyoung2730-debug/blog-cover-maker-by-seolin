@@ -1,9 +1,9 @@
 #if os(iOS)
   import SwiftUI
+  import UIKit
 
   /// Keep document creation, recents, Files access, and autosaving owned by the
-  /// system. Keep interactive controls in the scene's actions builder; accessory
-  /// views are only used to decorate the system launch card.
+  /// system. Accessory views only decorate the system launch card.
   @available(iOS 18.0, *)
   struct PadLaunchScene: Scene {
     @State private var showsTutorial = false
@@ -17,16 +17,59 @@
             TutorialView(completionTitle: "시작 화면으로")
               .onAppear { tutorialVersion = 1 }
           }
-        Button("사용법 보기", systemImage: "book.closed") {
+        Button("튜토리얼 보기", systemImage: "book.closed") {
           showsTutorial = true
         }
         .accessibilityIdentifier("launchTutorial")
-        .buttonStyle(.bordered)
       } background: {
         PadLaunchBackground()
+          .background {
+            PadLaunchTutorialAction { showsTutorial = true }
+          }
       } overlayAccessoryView: { geometry in
         PadLaunchWelcome(geometry: geometry)
           .allowsHitTesting(false)
+      }
+    }
+  }
+
+  /// SwiftUI groups ordinary launch actions into More on iPadOS 18–26.
+  /// UIKit's public secondaryAction keeps the tutorial as a direct button.
+  @available(iOS 18.0, *)
+  private struct PadLaunchTutorialAction: UIViewControllerRepresentable {
+    var openTutorial: () -> Void
+
+    func makeUIViewController(context: Context) -> Controller { Controller() }
+
+    func updateUIViewController(_ controller: Controller, context: Context) {
+      controller.openTutorial = openTutorial
+      controller.configureAction()
+    }
+
+    final class Controller: UIViewController {
+      var openTutorial: (() -> Void)?
+
+      override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        configureAction()
+      }
+
+      override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        configureAction()
+      }
+
+      func configureAction() {
+        var ancestor = parent
+        while let controller = ancestor {
+          if let documentController = controller as? UIDocumentViewController {
+            documentController.launchOptions.secondaryAction = UIAction(
+              title: "튜토리얼 보기"
+            ) { [weak self] _ in self?.openTutorial?() }
+            return
+          }
+          ancestor = controller.parent
+        }
       }
     }
   }
