@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TutorialView: View {
+  var completionTitle = "편집 시작하기"
   @Environment(\.dismiss) private var dismiss
   @AppStorage("seolin.tutorial.step") private var savedStep = 0
   private var step: TutorialStep { TutorialStep(rawValue: savedStep) ?? .welcome }
@@ -138,7 +139,7 @@ struct TutorialView: View {
         .font(.caption).monospacedDigit().foregroundStyle(.secondary)
         .accessibilityLabel("전체 \(TutorialStep.allCases.count)단계 중 \(step.rawValue + 1)단계")
       Spacer()
-      Button(isLast ? "편집 시작하기" : "다음") {
+      Button(isLast ? completionTitle : "다음") {
         if isLast {
           savedStep = 0
           dismiss()
