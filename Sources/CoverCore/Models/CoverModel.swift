@@ -2,7 +2,7 @@ import CoreGraphics
 import Foundation
 
 /// Retains every original template attribute, including effects only used by one design.
-public enum JSONValue: Codable, Equatable {
+public enum JSONValue: Codable, Equatable, Sendable {
   case number(Double)
   case string(String)
   case bool(Bool)
@@ -63,7 +63,7 @@ public enum JSONValue: Codable, Equatable {
   }
 }
 
-public struct CoverElement: Codable, Equatable, Identifiable {
+public struct CoverElement: Codable, Equatable, Sendable, Identifiable {
   public var id = UUID()
   public var values: [String: JSONValue]
   public init(_ values: [String: JSONValue]) { self.values = values }
@@ -160,7 +160,7 @@ public struct CoverCatalog: Decodable {
     }
   }()
 }
-public struct PhotoHistory: Codable, Equatable {
+public struct PhotoHistory: Codable, Equatable, Sendable {
   public var items: [String?] = []
   public var index = -1
   public init() {}
@@ -177,13 +177,13 @@ public struct PhotoHistory: Codable, Equatable {
   }
   public var current: String? { items.indices.contains(index) ? items[index] : nil }
 }
-public struct UserFontAsset: Codable, Equatable, Identifiable {
+public struct UserFontAsset: Codable, Equatable, Sendable, Identifiable {
   public var id: String
   public var name: String
   public var postScriptName: String
   public var data: Data
 }
-public struct CoverProject: Codable, Equatable {
+public struct CoverProject: Codable, Equatable, Sendable {
   public var version = 1
   public var templateID = "full"
   public var themeID = "blue"
