@@ -51,16 +51,26 @@
 ## 구조
 
 ```text
-App/                          SwiftUI 문서 앱과 플랫폼별 입력
+App/
+├── Application/               앱 진입점과 메뉴
+├── Configuration/             Info.plist
+├── Documents/                 문서 저장·열기 형식
+├── Features/Editor/           편집 화면
+│   ├── Canvas/                macOS·iPadOS 캔버스와 입력 처리
+│   ├── Panels/                편집 패널과 빠른 편집창
+│   └── State/                 편집 상태와 작업 화면 설정
+├── Shared/Extensions/         공통 SwiftUI 확장
+└── Support/                   Debug 편집 검증
 Sources/CoverCore/             공통 문서·편집·텍스트·그리기 엔진
-Sources/CoverCore/Resources/   디자인 데이터, 로고, 폰트·라이선스
-Tests/CoverCoreTests/          문서·편집·렌더링·웹 폰트 호환 테스트
+└── Resources/                 디자인 데이터와 로고
+    └── Fonts/                 기본 폰트·라이선스·목록
+Tests/CoverCoreTests/          공통 엔진 테스트와 Fixtures
 Reference/original.html        변경하지 않은 원본
 Scripts/                      데이터 추출·프로젝트 생성
 Docs/                         구조·기능 대응표·검증 기록
 ```
 
-프로젝트 파일은 커밋되어 있어 별도 생성 도구 없이 열 수 있습니다. Swift 소스나 리소스를 추가한 경우 `python3 Scripts/generate_project.py`로 프로젝트 참조를 갱신합니다.
+프로젝트 파일은 커밋되어 있어 별도 생성 도구 없이 열 수 있습니다. Swift 소스나 리소스를 추가한 경우 `python3 Scripts/generate_project.py`로 프로젝트 참조를 갱신합니다. Xcode 그룹은 실제 폴더 구조와 동일하게 생성되며, 기존 개발 팀·서명·버전 설정은 유지됩니다.
 
 ## 검증
 
