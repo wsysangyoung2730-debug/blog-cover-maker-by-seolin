@@ -3,6 +3,50 @@ import CoreText
 import Foundation
 
 public enum CoverTypography {
+  private struct BundledFace {
+    var font: CTFont
+    var weight: Double
+    var variable: Bool
+  }
+  private static let bundledFaces: [String: [BundledFace]] = {
+    var faces: [String: [BundledFace]] = [:]
+    let weights: [String: Double] = [
+      "Thin": 100, "ExtraLight": 200, "Light": 300,
+      "Regular": 400, "Medium": 500, "SemiBold": 600, "Bold": 700, "ExtraBold": 800, "Black": 900,
+    ]
+    for url in CoverConstants.resourceBundle.urls(
+      forResourcesWithExtension: "ttf", subdirectory: nil) ?? []
+    {
+      guard let provider = CGDataProvider(url: url as CFURL), let graphics = CGFont(provider) else {
+        continue
+      }
+      let file = url.deletingPathExtension().lastPathComponent
+      let family = String(file.split(separator: "-")[0])
+      let style = String(file.split(separator: "-").last ?? "Regular")
+      let face = BundledFace(
+        font: CTFontCreateWithGraphicsFont(graphics, 48, nil, nil),
+        weight: weights[style] ?? 400, variable: file.contains("[wght]"))
+      faces[family, default: []].append(face)
+    }
+    return faces
+  }()
+  private static func bundledFont(family: String, weight: Double, size: Double) -> CTFont {
+    let key = family.lowercased().filter { $0.isLetter || $0.isNumber }
+    guard
+      let face = bundledFaces[key]?.min(by: { abs($0.weight - weight) < abs($1.weight - weight) })
+    else {
+      // This is only a corrupt-resource fallback; supported options always resolve to their bundled file.
+      return CTFontCreateUIFontForLanguage(.system, size, nil)!
+    }
+    if face.variable {
+      let descriptor = CTFontDescriptorCreateWithAttributes(
+        [
+          kCTFontVariationAttribute: [NSNumber(value: 0x7767_6874): min(900, max(100, weight))]
+        ] as CFDictionary)
+      return CTFontCreateCopyWithAttributes(face.font, size, nil, descriptor)
+    }
+    return CTFontCreateCopyWithAttributes(face.font, size, nil, nil)
+  }
   private final class FontData: NSObject {
     let descriptor: CTFontDescriptor
     init(_ descriptor: CTFontDescriptor) { self.descriptor = descriptor }
@@ -20,11 +64,7 @@ public enum CoverTypography {
     return first
   }
   public static func registerBundledFonts() {
-    for url in CoverConstants.resourceBundle.urls(
-      forResourcesWithExtension: "ttf", subdirectory: nil) ?? []
-    {
-      CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
-    }
+    _ = bundledFaces
   }
   public static func register(_ asset: UserFontAsset) {
     _ = descriptor(for: asset)
@@ -48,9 +88,7 @@ public enum CoverTypography {
       let descriptor = descriptor(for: user)
     {
       let base = CTFontCreateWithFontDescriptor(descriptor, size, nil)
-      guard !e.string("fw").isEmpty else { return base }
-      let traits: CTFontSymbolicTraits = (Double(e.string("fw")) ?? 0) >= 600 ? .traitBold : []
-      return CTFontCreateCopyWithSymbolicTraits(base, size, nil, traits, .traitBold) ?? base
+      return base
     }
     if let f = catalog.fonts.first(where: { $0.id == e.string("ff") }) {
       family = f.family
@@ -77,15 +115,7 @@ public enum CoverTypography {
       }
     }
     weight = e.string("fw", weight)
-    let weightValue: Double =
-      (Double(weight) ?? 400) >= 800
-      ? 0.62
-      : (Double(weight) ?? 400) >= 600 ? 0.4 : weight == "500" ? 0.23 : weight == "300" ? -0.4 : 0
-    let attributes: [CFString: Any] = [
-      kCTFontFamilyNameAttribute: family, kCTFontTraitsAttribute: [kCTFontWeightTrait: weightValue],
-    ]
-    let descriptor = CTFontDescriptorCreateWithAttributes(attributes as CFDictionary)
-    return CTFontCreateWithFontDescriptor(descriptor, size, nil)
+    return bundledFont(family: family, weight: Double(weight) ?? 400, size: size)
   }
   public static func attributes(_ e: CoverElement, project: CoverProject, size: Double)
     -> [NSAttributedString.Key: Any]
