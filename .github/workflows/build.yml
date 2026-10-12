@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    runs-on: macos-15
-    timeout-minutes: 20
+    runs-on: macos-26
+    timeout-minutes: 30
     env:
       NSUnbufferedIO: "YES"
     steps:
@@ -26,3 +26,12 @@ jobs:
         run: .build-output/Build/Products/Debug/BlogCoverMakerMac.app/Contents/MacOS/BlogCoverMakerMac --verify-editor .build-output/verification
       - name: iPadOS 시뮬레이터 빌드
         run: xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerPad -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath .build-output CODE_SIGNING_ALLOWED=NO build
+
+      - name: macOS Release 아카이브
+        run: |
+          xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerMac -configuration Release -destination 'generic/platform=macOS' -derivedDataPath .build-output -archivePath .build-output/Mac.xcarchive CODE_SIGNING_ALLOWED=NO archive
+          python3 Scripts/verify_release.py .build-output/Mac.xcarchive/Products/Applications/BlogCoverMakerMac.app --platform mac
+      - name: iPadOS Release 아카이브
+        run: |
+          xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerPad -configuration Release -destination 'generic/platform=iOS' -derivedDataPath .build-output -archivePath .build-output/Pad.xcarchive CODE_SIGNING_ALLOWED=NO archive
+          python3 Scripts/verify_release.py .build-output/Pad.xcarchive/Products/Applications/BlogCoverMakerPad.app --platform ipad
