@@ -1,17 +1,18 @@
 # App Store 한국어 기능 소개 이미지
 
-완성본은 큰 기능 제목·짧은 설명과 실제 앱 화면을 함께 배치한 `ko-KR/macOS` 4장과 `ko-KR/iPadOS` 4장이다. 같은 번호 순서로 App Store Connect의 각 플랫폼에 등록한다. 영상 App Preview가 아닌 정지 스크린샷이다. 생성일: 2026-10-13.
+완성본은 큰 제목·짧은 설명과 실제 앱 화면을 함께 배치한 `ko-KR/macOS` 5장과 `ko-KR/iPadOS` 5장이다. 소개 이미지 한 장과 기존 기능 설명 네 장을 00→04 순서로 App Store Connect의 각 플랫폼에 등록한다. 영상 App Preview가 아닌 정지 스크린샷이다. 생성일: 2026-10-13.
 
 | 순서 | 파일 | 보여주는 기능 |
 | --- | --- | --- |
-| 1 | 01-cover-editor.png | 사진과 문구로 표지 편집 |
-| 2 | 02-design-library.png | 카드형 디자인·테마 선택 |
-| 3 | 03-typography.png | 폴라로이드 디자인과 고운바탕 글씨체 |
-| 4 | 04-tutorial.png | 7단계 사용 튜토리얼 |
+| 1 | 00-brand-intro.png | 손쉬운 표지 제작·편집, 앱 아이콘과 하단 서린 로고 |
+| 2 | 01-cover-editor.png | 사진과 문구로 표지 편집 |
+| 3 | 02-design-library.png | 카드형 디자인·테마 선택 |
+| 4 | 03-typography.png | 폴라로이드 디자인과 고운바탕 글씨체 |
+| 5 | 04-tutorial.png | 7단계 사용 튜토리얼 |
 
 - **Mac 주력**: 2880×1800, 16:10, 8-bit RGB PNG, sRGB, 불투명.
 - **iPad**: 13형 iPad Pro 시뮬레이터, 2064×2752 세로, 8-bit RGB PNG, sRGB, 불투명.
-- [Apple 스크린샷 규격](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications)을 기준으로 크기·형식·투명도를 확인했다. macOS 4장과 iPad 4장 모두 App Store Connect에 등록했다. 심사 승인은 별도다.
+- [Apple 스크린샷 규격](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications)을 기준으로 크기·형식·투명도를 확인했다. macOS 5장과 iPad 5장 모두 App Store Connect에 등록했다. 심사 승인은 별도다.
 
 ## 이미지 출처와 실제 화면
 
@@ -27,7 +28,7 @@ Mac 캡처 원본은 JPEG, iPad는 PNG이며 `Source/Captures`에 보존한다. 
 - [Canva의 Mac App Store 페이지](https://apps.apple.com/us/app/canva-ai-photo-video-editor/id897446215?platform=mac): 큰 제목과 기능별 장면 분리, 일관된 시각 체계 참고.
 - [Apple 자산 제작 지침](https://developer.apple.com/app-store/asset-best-practices/#screenshots): 실제 핵심 기능 중심의 화면과 읽기 쉬운 짧은 설명을 사용한다.
 
-다른 앱의 그림·로고·문구를 가져오지 않았다. 서린의 파랑·네이비를 중심으로 네 장을 구성했으며 iPad에도 같은 제목과 색상을 적용했다. 제작 원본은 `Scripts/prepare_store_screenshots.swift`다. 문구와 배치값을 변경해 다시 출력할 수 있다. 생성 사진은 기존 승인된 샘플을 유지한다.
+다른 앱의 그림·로고·문구를 가져오지 않았다. 서린의 파랑·네이비를 중심으로 구성했으며 iPad에도 같은 제목과 색상을 적용했다. 첫 소개 장은 ‘블로그 표지, 손쉽게 만들고 편집하세요.’ 문구, 실제 편집 화면과 앱 아이콘을 배치한다. 하단 오른쪽의 서린 로고는 `Design/Branding/References/seolin-logo-basic.png` 원본의 투명도를 유지해 흰색으로 표시한다. Mac은 가로형, iPad는 세로형이며 기존 네 장은 변경하지 않았다. 제작 원본은 `Scripts/prepare_store_screenshots.swift`다. 문구와 배치값을 변경해 다시 출력할 수 있다. 생성 사진은 기존 승인된 샘플을 유지한다.
 
 사진·샘플 문서·스크린샷은 Marketing에만 있으며 앱 번들에 포함하지 않는다. 촬영용 시작점은 `DEBUG && STORE_SCREENSHOTS && os(iOS)`일 때만 컴파일된다. 일반 Debug와 Release는 기존 DocumentGroup을 사용한다. Release 검증은 촬영용 실행 인자가 바이너리에 없는지도 검사한다.
 
@@ -42,6 +43,8 @@ python3 Scripts/verify_store_screenshots.py
 ```
 
 캡처를 의도적으로 바꾼 경우 시각 검수 후 `python3 Scripts/verify_store_screenshots.py --write-manifest`로 SHA-256 목록을 갱신한다. 원본이 그대로인데 목록을 갱신해 무결성 실패를 숨기지 않는다.
+
+소개 장만 다시 만들 때는 위 Swift 실행에 `--intro-only`를 추가한다. 이 옵션은 기존 기능 설명 네 장을 다시 출력하지 않는다. 새 이미지 두 장을 시각 검수한 다음 무결성 목록을 갱신하고 10장 전체 검사를 실행한다.
 
 iPad 촬영 전용 빌드:
 
@@ -102,3 +105,5 @@ Mac에서는 넓은 편집 화면과 키보드 단축키를, iPad에서는 화�
 이슈 #43에서 같은 앱에 iOS 플랫폼을 추가하고 [iPad 첫 출시 등록 화면](https://appstoreconnect.apple.com/apps/6822050062/distribution/ios/version/inflight)의 iPad 13형 항목에 수정본 4장을 01→04 순서로 등록했다. `10개 중 4개의 앱 스크린샷`과 한국어 소개 정보 저장을 확인했다. Mac과 iPad 모두 `1.0.0 (2)` 업로드·Apple 처리·출시 버전 연결을 완료했다. 기존 1.0.0은 아직 출시되지 않았으므로 1.1 업데이트를 만들지 않았다. 두 플랫폼 제출 검사에서 남은 항목은 지원 URL·개인정보 처리방침 URL이며, 심사 제출과 출시는 아직 수행하지 않았다.
 
 이후 사용자가 제공한 앱별 개인정보처리방침·지원 페이지를 연결해 마지막 제출 오류를 해소했다. 2026-10-13 05:46 KST에 macOS와 iPadOS `1.0.0 (2)`를 각각 심사 제출했고 **심사 대기 중**을 확인했다. 수동 출시이므로 Apple 승인 뒤 최종 공개가 필요하다.
+
+이슈 #45에서 승인 문구와 하단 서린 로고가 있는 `00-brand-intro.png`를 두 플랫폼에 추가했다. 기존 네 장은 유지하고 각각 00→04 순서, `10개 중 5개의 앱 스크린샷`을 확인했다. 심사 대기 중에는 이미지 편집이 잠겨 있어 기존 요청을 회수한 다음 같은 `1.0.0 (2)`로 재제출했다. macOS는 2026-10-13 06:11 KST, iPadOS는 06:12 KST에 **심사 대기 중**을 확인했다. 앱 빌드와 수동 출시 설정은 유지했다.

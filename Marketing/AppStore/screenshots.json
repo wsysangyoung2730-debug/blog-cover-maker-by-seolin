@@ -1,5 +1,13 @@
 [
   {
+    "file": "ko-KR/macOS/00-brand-intro.png",
+    "width": 2880,
+    "height": 1800,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "eac4b1a4e51ba1988ffb17b7bc815c70c088bd8d0200384f013c42002abc071f"
+  },
+  {
     "file": "ko-KR/macOS/01-cover-editor.png",
     "width": 2880,
     "height": 1800,
@@ -30,6 +38,14 @@
     "colorSpace": "sRGB",
     "alpha": false,
     "sha256": "cae2906e85c6ff18f8f2ecb99fe2d49633769e57f5962a34f8a3968c01e6ee13"
+  },
+  {
+    "file": "ko-KR/iPadOS/00-brand-intro.png",
+    "width": 2064,
+    "height": 2752,
+    "colorSpace": "sRGB",
+    "alpha": false,
+    "sha256": "89e77c3ab0fb39dc4a2a76b73eb22e6214787d3f86d7add15e157b390f76e123"
   },
   {
     "file": "ko-KR/iPadOS/01-cover-editor.png",

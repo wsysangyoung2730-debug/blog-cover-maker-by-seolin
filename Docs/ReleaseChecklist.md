@@ -139,3 +139,11 @@ pkgutil --check-signature .build-output/AppStore-1.0.0/BlogCoverMakerMac.pkg
 - 제출 전 URL 오류가 해소돼 두 플랫폼 `1.0.0 (2)`가 심사 초안에 추가됐다. 2026-10-13 05:46 KST에 각각 심사를 요청했으며 `1개의 항목 제출됨`과 **심사 대기 중** 상태를 확인했다.
 - [macOS 제출 내역](https://appstoreconnect.apple.com/apps/6822050062/distribution/reviewsubmissions/details/fc433cde-2297-478a-9154-83450597b653), [iPadOS 제출 내역](https://appstoreconnect.apple.com/apps/6822050062/distribution/reviewsubmissions/details/6611ee32-dcf5-496f-b239-f79017f514f1).
 - 두 플랫폼 모두 수동 출시 설정을 유지했다. 심사 접수는 승인이나 공개 출시 완료를 의미하지 않는다. Apple 승인 후 실제 출시를 진행한다.
+
+## 2026-10-13 첫 소개 이미지 추가 및 재제출 — 이슈 #45
+
+- ‘블로그 표지, 손쉽게 만들고 편집하세요.’ 문구, 실제 편집 화면과 앱 아이콘을 배치한 첫 소개 장을 Mac 가로형·iPad 세로형으로 추가했다. 하단 오른쪽에 사용자가 제공한 서린 로고를 흰색으로 표시했다.
+- 기존 기능 설명 이미지 8장의 SHA-256은 유지했다. 새 소개 장 2장을 시각 검수하고 전체 10장의 크기·RGB·sRGB·불투명도·무결성 검사를 통과했다. 제작 원본은 `Scripts/prepare_store_screenshots.swift`이며 `--intro-only`는 기존 네 장을 재출력하지 않는다.
+- 심사 대기 중 이미지 편집이 잠겨 있어 두 요청을 회수하고, 각 플랫폼에 새 소개 장을 추가해 00→04 순서와 `10개 중 5개의 앱 스크린샷`을 확인했다.
+- 같은 `1.0.0 (2)`로 재제출했다. [macOS 제출 내역](https://appstoreconnect.apple.com/apps/6822050062/distribution/reviewsubmissions/details/ad7bbe1e-4184-4399-aa99-a442559f9dc7)은 06:11 KST, [iPadOS 제출 내역](https://appstoreconnect.apple.com/apps/6822050062/distribution/reviewsubmissions/details/1a560f44-3365-4d1c-836d-bd1ef295d78d)은 06:12 KST에 **심사 대기 중**을 확인했다.
+- 앱 코드·배포 빌드·수동 출시 설정은 유지했다. 이미지 등록 및 재제출 증빙은 개발 Mac의 `.build-output/StoreIntro-45`에 보관한다. 승인이나 공개 출시는 아직 완료되지 않았다.
