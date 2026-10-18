@@ -6946,21 +6946,21 @@
       "id": "r_blue",
       "rb": 1,
       "name": "파랑",
-      "dark": "#06204A",
-      "main": "#1E7BFF",
-      "accent": "#9CCBFF",
-      "paper": "#E1EBF8",
-      "ink": "#06204A"
+      "dark": "#0D2363",
+      "main": "#2563EB",
+      "accent": "#79A3FF",
+      "paper": "#E4ECFC",
+      "ink": "#0D2363"
     },
     {
       "id": "r_indigo",
       "rb": 1,
       "name": "남색",
-      "dark": "#0D1240",
-      "main": "#3340B5",
-      "accent": "#AEB6FF",
-      "paper": "#E4E5F4",
-      "ink": "#0D1240"
+      "dark": "#090F2C",
+      "main": "#172554",
+      "accent": "#33447A",
+      "paper": "#E4E7F1",
+      "ink": "#090F2C"
     },
     {
       "id": "r_violet",
