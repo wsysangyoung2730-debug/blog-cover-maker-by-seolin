@@ -274,15 +274,22 @@ struct EditorRoot: View {
       } label: {
         Label("튜토리얼", systemImage: "questionmark.circle")
       }.help("사용 튜토리얼 열기").accessibilityIdentifier("openTutorial")
-      Menu {
-        ForEach(ExportMode.allCases) { mode in Button(mode.label + " PNG") { store.export(mode) } }
+      Button {
+        store.export(.all)
       } label: {
-        Label("내보내기", systemImage: "square.and.arrow.up")
-      }
+        Label("사진 내보내기", systemImage: "square.and.arrow.up")
+      }.labelStyle(.titleAndIcon).buttonStyle(.borderedProminent).tint(.blue)
+        .accessibilityIdentifier("exportCoverPhoto")
       Menu {
         Button("메뉴 배치 처음으로") { workspace.reset() }
         Toggle("여러 개 선택", isOn: $store.multipleSelection)
         Button("빠른 편집창") { store.showQuick.toggle() }
+        Divider()
+        Menu("부분 이미지 내보내기") {
+          ForEach(ExportMode.allCases.filter { $0 != .all }) { mode in
+            Button(mode.label + " PNG") { store.export(mode) }
+          }
+        }
         Divider()
         ForEach(links, id: \.0) { title, url in Link(title, destination: URL(string: url)!) }
       } label: {

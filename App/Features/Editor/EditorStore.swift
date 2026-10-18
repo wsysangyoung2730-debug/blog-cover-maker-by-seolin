@@ -33,6 +33,8 @@ import UniformTypeIdentifiers
   @Published var isExporting = false
   @Published var thumbs: [String: CGImage] = [:]
   @Published var wordTarget = "line1"
+  @Published var draggingLayer: UUID?
+  let layerDragSession = UUID()
   var undoManager: UndoManager?
   var fontImportTargets: Set<UUID>?
   let renderer = CoverRenderer()
