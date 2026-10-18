@@ -29,7 +29,7 @@
 | 원본 기능 | Swift 구현 위치 / 접근 경로 |
 | --- | --- |
 | 디자인 50종의 원본 좌표·속성·장식 | catalog.json / extract_catalog.mjs |
-| 전체·사진 가득·액자/카드·화면 나누기 | DesignPanel |
+| 전체·사진 가득·액자/카드·화면 나누기 | 50종 모두 유지, 사용자 요청으로 분류 메뉴는 전체·즐겨찾기 버튼으로 단순화 |
 | 즐겨찾기 등록·해제·필터·빈 상태 | DesignPanel / WorkspaceSettings |
 | 기본 사진·문구·테마가 반영된 미리보기 | EditorStore.refreshThumbnails |
 | 디자인 번호·이름·현재 선택 | DesignPanel |
@@ -89,13 +89,13 @@
 | 원본 기능 | Swift 구현 위치 / 접근 경로 |
 | --- | --- |
 | 앞뒤 순서·선택·다중 선택 | LayersPanel |
-| 드래그 순서 변경·여러 레이어 함께 이동 | CoverEditing.reorder |
+| 드래그 순서 변경·여러 레이어 함께 이동 | CoverEditing.reorder / 삽입 가로선 표시 |
 | 맨 앞/앞/뒤/맨 뒤 | CoverEditing.move |
 | 표시/숨김·기본 사진·그룹 표기 | LayersPanel |
 | 글씨 내용 일부 표시·다른 요소 이름 변경 | LayersPanel |
 | 복제·삭제·바인딩 해제·복제 그룹 분리 | CoverEditing.duplicate / EditorStore |
 | 그룹 묶기·풀기 | CoverEditing |
-| 6방향 정렬·단일/그룹은 표지 기준 | CoverEditing.align |
+| 6방향 정렬·단일/그룹은 표지 기준 | CoverEditing.align / 사진 내부 편집 중 alignPhotoContent |
 | 다중 정렬·3개 이상 가로/세로 균등 간격 | CoverEditing.align |
 | 투명도 0~100%·흐림 0~60·회전 ±180° | PropertiesPanel / CoverRenderer |
 
@@ -121,7 +121,7 @@
 
 ## 앱 전환에서 추가·보완한 기능
 
-- `.seolincover` 문서 저장·열기, 최근 문서, 문서 기반 자동 저장.
+- `.seolincover` 문서 저장·열기. Mac은 최근 문서·문서 기반 자동 저장, iPad는 편집기 내 불러오기·저장하기와 창별 초안 복구.
 - 전체 프로젝트 상태를 대상으로 실행 취소·다시 실행.
 - 사진과 사용자 폰트를 문서에 포함해 다른 기기에서도 복원.
 - 기본 폰트의 오프라인 번들 제공.

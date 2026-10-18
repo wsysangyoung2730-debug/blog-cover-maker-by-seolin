@@ -24,6 +24,7 @@ macOS를 주력으로 하는 로컬 문서 편집 앱이다. iPadOS는 같은 �
 | `App/Support` | Debug 앱의 문서·Undo·PNG 검증 진입점 |
 | `Sources/CoverCore/Models` | 문서, 요소, 템플릿·테마·글꼴 카탈로그 |
 | `Sources/CoverCore/Editing` | 복제, 그룹, 정렬, 레이어, 사진 편집 연산 |
+| `Sources/CoverCore/Storage` | 창별 초안 원자 저장·복구, 사용자 선택 문서 읽기 조정 |
 | `Sources/CoverCore/Rendering` | Core Graphics·Core Image 캔버스 및 PNG 출력 |
 | `Sources/CoverCore/Typography` | 실제 글꼴 파일 로딩과 Core Text 배치 |
 | `Sources/CoverCore/Resources` | 원본의 50개 템플릿·22개 테마·로고·17개 글꼴군 및 라이선스 |
@@ -36,7 +37,7 @@ macOS를 주력으로 하는 로컬 문서 편집 앱이다. iPadOS는 같은 �
 
 ## 코드 연결
 
-앱 진입점은 문서 창을 만들고, 편집 화면은 `EditorStore`를 통해 문서 변경과 실행 취소를 관리한다. 기능별 화면과 플랫폼별 입력은 같은 편집 상태를 사용한다. 공통 모델·편집·렌더링 코드는 앱 화면이나 패널 구성에 의존하지 않는다.
+Mac은 DocumentGroup과 AppKit 문서 수명 주기를 유지하고, iPad는 WindowGroup의 PadEditorScene으로 편집기에 바로 진입한다. EditorProjectSession은 iPad의 초안 복구·프로젝트 불러오기·저장 스냅샷과 미저장 전환 보호를 관리한다.  편집 화면은 `EditorStore`를 통해 문서 변경과 실행 취소를 관리한다. 기능별 화면과 플랫폼별 입력은 같은 편집 상태를 사용한다. 공통 모델·편집·렌더링 코드는 앱 화면이나 패널 구성에 의존하지 않는다.
 
 Xcode 앱 타깃은 공통 소스를 직접 포함하며, `Package.swift`는 같은 `CoverCore`를 독립적으로 검증하는 데 사용한다. 별도 외부 Swift 패키지는 없다. 화면 미리보기와 PNG 출력은 동일한 렌더러를 사용하고 좌표 기준은 항상 1080×1080이다.
 
@@ -49,3 +50,5 @@ Xcode 앱 타깃은 공통 소스를 직접 포함하며, `Package.swift`는 같
 테스트 자료·문서·스크립트·원본·GitHub 설정은 탐색기에 표시하지만 앱 빌드 대상에는 넣지 않는다. 앱 리소스는 개별 파일로 복사하므로 기존 번들 탐색 방식을 유지한다. 프로젝트 재생성 시 기존 빌드·서명 설정을 보존하고, `INFOPLIST_FILE` 경로는 관리되는 위치로 맞춘다. 같은 입력으로 재생성한 프로젝트는 동일해야 한다.
 
 Asset Catalog는 하나의 Xcode 리소스로 등록하고 내부 PNG·Contents.json을 별도 리소스로 복사하지 않는다. 타깃별 AppIconMac·AppIconPad를 지정해 컴파일된 앱에 아이콘을 포함한다.
+
+초안은 Application Support/EditorDrafts에 SceneStorage의 창별 UUID로 분리한다. ProjectDraftRepository actor가 인코딩·원자 저장을 직렬화하고 이전 저장 요청이 최신 상태를 덮어쓰지 않게 한다. 손상된 초안은 보존하고 새 UUID에서 작업을 시작한다. iPad는 선택한 파일을 편집기로 불러오며 저장하기에서 위치를 지정한다. Mac의 원본 문서 자동 저장과 최근 항목은 계속 시스템이 관리한다.
