@@ -6,6 +6,8 @@ struct LayersPanel: View {
   @ObservedObject var store: EditorStore
   @State private var editing: UUID?
   @State private var text = ""
+  @State private var dropBefore: UUID?
+  @State private var dropAtEnd = false
   var body: some View {
     VStack(spacing: 8) {
       HStack {
@@ -67,10 +69,24 @@ struct LayersPanel: View {
           }
           .onDrag {
             if !store.selection.contains(element.id) { store.select(element.id, individual: true) }
-            return NSItemProvider(object: ("layer:" + element.id.uuidString) as NSString)
+            store.draggingLayer = element.id
+            return NSItemProvider(
+              object: ("layer:\(store.layerDragSession):\(element.id)") as NSString)
           }
-          .onDrop(of: [UTType.plainText], isTargeted: nil) { providers in
+          .onDrop(of: [UTType.plainText], isTargeted: Binding(
+            get: { dropBefore == element.id },
+            set: { active in
+              if active { dropBefore = element.id }
+              else if dropBefore == element.id { dropBefore = nil }
+            }
+          )) { providers in
             reorder(providers, before: element.id)
+          }
+          .overlay(alignment: .top) {
+            if dropBefore == element.id, store.draggingLayer != nil,
+              !store.selection.contains(element.id) {
+              insertionLine.offset(y: -5)
+            }
           }
           .contextMenu {
             Button("글씨·이름 수정") { start(element) }
@@ -84,10 +100,14 @@ struct LayersPanel: View {
             }
           }
       }
-      Color.clear.frame(height: 16).onDrop(of: [UTType.plainText], isTargeted: nil) {
-        reorder($0, before: nil)
-      }
+      Color.clear.frame(height: 20)
+        .overlay { if dropAtEnd, store.draggingLayer != nil { insertionLine } }
+        .onDrop(of: [UTType.plainText], isTargeted: $dropAtEnd) { reorder($0, before: nil) }
     }
+  }
+  private var insertionLine: some View {
+    Capsule().fill(Color.blue).frame(height: 3).padding(.horizontal, 3)
+      .allowsHitTesting(false).accessibilityHidden(true)
   }
   private func start(_ e: CoverElement) {
     store.finishText()
@@ -108,13 +128,17 @@ struct LayersPanel: View {
     editing = nil
   }
   private func reorder(_ providers: [NSItemProvider], before id: UUID?) -> Bool {
-    guard let p = providers.first else { return false }
+    guard let p = providers.first, let active = store.draggingLayer else { return false }
+    let prefix = "layer:\(store.layerDragSession):"
+    let ids = store.selection.contains(active) ? store.selection : [active]
+    dropBefore = nil
+    dropAtEnd = false
+    store.draggingLayer = nil
     p.loadObject(ofClass: NSString.self) { value, _ in
-      guard let s = value as? String, s.hasPrefix("layer:") else { return }
+      guard let s = value as? String, s.hasPrefix(prefix) else { return }
       Task { @MainActor in
-        guard let dragged = UUID(uuidString: String(s.dropFirst(6))),
-          store.project.elements.contains(where: { $0.id == dragged }) else { return }
-        let ids = store.selection.contains(dragged) ? store.selection : [dragged]
+        guard UUID(uuidString: String(s.dropFirst(prefix.count))) == active,
+          ids.isSubset(of: Set(store.project.elements.map(\.id))) else { return }
         store.change("레이어 순서") { CoverEditing.reorder(ids, before: id, in: &$0) }
       }
     }
