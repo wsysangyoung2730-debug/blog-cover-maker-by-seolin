@@ -17,9 +17,9 @@ import SwiftUI
       }
       CommandGroup(after: .newItem) {
         Divider()
-        Button("기본 사진 불러오기…") { store?.importKind = .base }.keyboardShortcut(
+        Button("표지 사진 고르기…") { store?.importKind = .base }.keyboardShortcut(
           "i", modifiers: .command)
-        Button("사진·로고 추가…") { store?.importKind = .add }
+        Button("로고 추가…") { store?.importKind = .add }
         Button("폰트 추가…") { store?.importKind = .font }
         Divider()
         Menu("PNG 내보내기") {
