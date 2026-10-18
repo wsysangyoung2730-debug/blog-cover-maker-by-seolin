@@ -20,6 +20,8 @@
       addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(pinch(_:))))
     }
     required init?(coder: NSCoder) { fatalError() }
+    override var canBecomeFirstResponder: Bool { true }
+    override var undoManager: UndoManager? { store.undoManager }
     override func draw(_ rect: CGRect) {
       guard let c = UIGraphicsGetCurrentContext() else { return }
       let scale = bounds.width / 1080
@@ -41,6 +43,7 @@
         return
       }
       activeTouch = t
+      becomeFirstResponder()
       pendingDoubleTap = t.tapCount == 2
       // Begin as a drag candidate even on a quick second touch. Opening a text
       // editor here would consume the rest of a tap-then-drag gesture.

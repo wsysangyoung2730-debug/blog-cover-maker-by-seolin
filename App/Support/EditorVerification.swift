@@ -13,6 +13,7 @@
       do {
         try verifyTouchMovement()
         try verifyPhotoAlignment()
+        try verifyProjectSaveFlow()
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
         let document = CoverDocument()
         let store = EditorStore(document: document)
@@ -182,6 +183,37 @@
       guard store.project.elements[0].rect.midX == 540 else {
         throw Failure("일반 사진 틀 가운데 정렬 실패")
       }
+    }
+    private static func verifyProjectSaveFlow() throws {
+      // Before restore there is no disk subscription: this checks the same
+      // editor session used by iPad without touching the user's recovery files.
+      let session = EditorProjectSession()
+      var edited = session.document.project
+      edited.words["line1"] = "저장 취소 후 유지할 표지"
+      session.document.project = edited
+      session.requestNew()
+      guard session.confirmReplacement else { throw Failure("미저장 문서 교체 경고 누락") }
+      session.prepareSave(continuing: true)
+      guard session.exportSnapshot?.project == edited else { throw Failure("문서 저장 스냅샷 실패") }
+      session.cancelSave()
+      guard session.document.project == edited else { throw Failure("저장 취소 후 문서 변경됨") }
+      session.prepareSave()
+      var later = edited
+      later.words["line1"] = "저장 시작 후 추가 편집"
+      session.document.project = later
+      session.saved(.success(URL(fileURLWithPath: "/tmp/example.seolincover")))
+      session.requestNew()
+      guard session.confirmReplacement, session.document.project == later else {
+        throw Failure("저장 이후의 추가 편집을 저장된 상태로 오인함")
+      }
+      session.prepareSave(continuing: true)
+      session.saved(.failure(CocoaError(.fileWriteNoPermission)))
+      guard session.document.project == later, session.error != nil else {
+        throw Failure("저장 실패 후 미저장 문서가 바뀜")
+      }
+      session.prepareSave(continuing: true)
+      session.saved(.success(URL(fileURLWithPath: "/tmp/example.seolincover")))
+      guard session.document.project != later else { throw Failure("저장 후 새 표지 전환 실패") }
     }
     struct Failure: Error {
       let message: String

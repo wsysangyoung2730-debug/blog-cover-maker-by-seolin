@@ -48,8 +48,8 @@ else:
  assert arches == ['arm64'], arches
  assert info['MinimumOSVersion'] == '17.0'
  assert info['UIDeviceFamily'] == [2]
- assert info['LSSupportsOpeningDocumentsInPlace'] is True
- assert info['UISupportsDocumentBrowser'] is True
+ assert info.get('LSSupportsOpeningDocumentsInPlace', False) is False
+ assert info['UISupportsDocumentBrowser'] is False
  assert info['CFBundleIcons~ipad']['CFBundlePrimaryIcon']['CFBundleIconName'] == 'AppIconPad'
  assert int(re.search(r'\d+', info['DTSDKName']).group()) >= 26
 print(f'{args.platform}: Release 번들·아이콘·문서·개인정보 명세·아키텍처 검증 통과 ({info["CFBundleShortVersionString"]})')
