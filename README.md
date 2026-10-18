@@ -1,3 +1,134 @@
 # BLOG COVER MAKER by SEOLIN
 
-macOS를 주력으로 하고 iPadOS를 함께 지원하는 Swift 표지 편집 앱입니다.
+**macOS를 주력으로 하는 Swift 블로그 표지 편집 앱**입니다. iPadOS는 같은 문서·템플릿·출력 엔진을 공유하며 터치에 맞춘 화면을 제공합니다.
+
+원본 HTML의 50종 디자인, 22종 테마, 사진·문구·레이어·그룹·정렬·폰트 편집과 PNG 분리 출력을 네이티브 코드로 옮겼습니다. 편집 화면은 SwiftUI, 맥 입력은 AppKit, iPad 입력은 UIKit, 공통 그리기는 Core Graphics·Core Text·Core Image를 사용합니다. WebView는 사용하지 않습니다.
+
+## 시작하기
+
+1. `develop` 브랜치를 받습니다.
+2. `BlogCoverMakerBySeolin.xcodeproj`를 Xcode에서 엽니다.
+3. **BlogCoverMakerMac → My Mac**을 선택하고 실행합니다.
+4. 앱을 실행하면 편집기로 들어갑니다. 첫 사용 안내를 닫고 표지를 만듭니다.
+
+- 주력 타깃: `BlogCoverMakerMac` (macOS 14 이상)
+- 보조 타깃: `BlogCoverMakerPad` (iPadOS 17 이상, iPhone 제외)
+- iPad 확인: `BlogCoverMakerPad` 스킴에서 iPad 시뮬레이터를 선택합니다.
+- 실기기 실행·배포 시 Xcode의 Signing & Capabilities에서 본인 개발 팀을 선택합니다.
+- 별도 서버·API 키·외부 Swift 패키지가 필요하지 않습니다. 기본 폰트도 앱에 포함됩니다.
+
+## 사용 튜토리얼
+
+첫 편집 화면을 열면 사진 불러오기부터 PNG 내보내기까지 7단계 안내가 한 번 표시됩니다. 상단 **튜토리얼** 버튼 또는 맥의 **도움말 → 사용 튜토리얼**에서 다시 열 수 있습니다.
+
+- 이전·다음 버튼이나 단계 목록으로 원하는 설명을 봅니다.
+- 중간에 닫으면 보던 단계를 기억합니다. 마지막 단계에서 **편집 시작하기**를 누르면 다음에 처음부터 볼 수 있습니다.
+- 안내 화면은 작업 중인 문서·사진·배치를 변경하지 않습니다.
+- iPad에서는 화면 너비에 따라 단계 목록이 메뉴로 바뀌고 터치 조작을 안내합니다.
+- 편집용 `.seolincover` 저장과 게시용 PNG 내보내기를 각각 안내합니다.
+
+## 작업 흐름
+
+- 노란색 **표지 사진 고르기**로 사진을 넣고 왼쪽에서 디자인을 고릅니다. 로고는 **로고 추가**로 올립니다.
+- 오른쪽에서 문구를 입력하거나 표지의 글씨를 두 번 눌러 직접 고칩니다.
+- 사진을 두 번 누르거나 **위치 맞추기**를 선택하면 틀 안에서 사진을 움직입니다.
+- 우측 레이어 목록에서 순서·표시 상태를 관리합니다.
+- **프로젝트 → 저장하기**로 사진·추가 폰트가 포함된 `.seolincover` 문서를 보관하고 **불러오기**로 다시 엽니다. Mac에서는 기존 파일 메뉴와 ⌘S도 사용할 수 있습니다.
+- 파란색 **사진 내보내기**로 완성된 표지를 PNG로 저장합니다. 배경·글씨·장식 분리 출력은 **보기 → 부분 이미지 내보내기**에 있습니다.
+- 화면 구성이 좁은 iPad에서는 하단 버튼으로 디자인·사진·문구·레이어 패널을 엽니다.
+
+iPad는 폴더 선택 없이 편집기를 열고 창별 작업 초안을 기기에 자동 보관합니다. 다른 표지를 열기 전 미저장 변경은 저장·계속·취소를 선택할 수 있습니다. 이전 버전의 `.seolincover` 파일은 프로젝트 불러오기로 이어서 편집합니다.
+
+프로젝트 저장은 PNG 내보내기와 별개입니다. 원본의 ‘글씨만 저장’은 일부 전경 장식도 포함하므로 앱에서는 **글씨·장식만**으로 표시합니다.
+
+## 맥 조작
+
+| 조작 | 기능 |
+| --- | --- |
+| Command + S / O / N | 문서 저장 / 열기 / 새 문서 |
+| Command + Z / Shift + Command + Z | 실행 취소 / 다시 실행 |
+| Command + D | 선택 요소 복제 |
+| Command + G / Shift + Command + G | 그룹 묶기 / 풀기 |
+| Command + A | 캔버스에서 선택 가능한 요소 전체 선택 |
+| Shift·Command + 클릭 | 다중 선택 |
+| Option + 클릭 | 그룹 안의 개별 요소 선택 |
+| 방향키 / Shift + 방향키 | 1 / 10픽셀 이동 |
+| Delete | 선택 요소 삭제 |
+| 사진 위 마우스 휠 | 사진 확대·축소 |
+| 빈 공간 드래그 | 범위 선택 |
+| Shift + 모서리 드래그 | 사진·도형 비율 유지 |
+
+빠른 편집창은 이동·너비 조절·접기가 가능합니다. 패널의 손잡이를 다른 열로 끌어 작업 화면을 구성할 수 있습니다. 즐겨찾기와 패널 배치·접힘·열 너비는 앱 설정에 보관합니다.
+
+## 구조
+
+```text
+App/
+├── Application/               앱 시작
+├── Configuration/             앱 설정
+├── Documents/                 문서 열기·저장, PNG 파일
+├── Features/
+│   ├── Editor/                 편집 화면·상태·캔버스·빠른 편집
+│   ├── DesignLibrary/          디자인·즐겨찾기·테마
+│   ├── TextEditing/            문구·글꼴 편집
+│   ├── Inspector/              선택 요소 속성·정렬
+│   ├── Layers/                 레이어 목록
+│   ├── Tutorial/              첫 사용 안내·단계별 사용법
+│   └── Workspace/              패널 배치 설정
+├── Platforms/
+│   ├── macOS/                  맥 메뉴·마우스·독립 편집창
+│   └── iPadOS/                 터치·Pencil 입력
+├── Shared/                     공통 조작 UI·확장
+└── Support/                    Debug 앱 검증
+Sources/CoverCore/
+├── Models/                     문서·템플릿·요소 모델
+├── Editing/                    그룹·정렬·사진 등 편집 연산
+├── Rendering/                  캔버스·PNG 그리기
+├── Typography/                 글꼴 로딩·글씨 배치
+└── Resources/                  디자인 데이터·로고·폰트·라이선스
+Tests/                         엔진·문서·출력 검증
+Reference/                     수정하지 않은 원본 HTML
+Scripts/                       데이터 추출·프로젝트 생성·검증
+Marketing/AppStore/            스토어 스크린샷·샘플·등록 설명
+Docs/                          구조·기능 대응표·검증 기록
+.github/                       이슈·PR 양식과 자동 검증
+```
+
+프로젝트 파일은 커밋되어 있어 별도 생성 도구 없이 열 수 있습니다. Swift 소스나 리소스를 추가한 경우 `python3 Scripts/generate_project.py`로 프로젝트 참조를 갱신합니다. Xcode 그룹은 실제 폴더 구조와 동일하게 생성되며, 기존 개발 팀·서명·버전 설정은 유지됩니다.
+
+## 검증
+
+```sh
+swift test
+xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerMac -derivedDataPath .build-output CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerPad -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath .build-output CODE_SIGNING_ALLOWED=NO build
+.build-output/Build/Products/Debug/BlogCoverMakerMac.app/Contents/MacOS/BlogCoverMakerMac --verify-editor .build-output/verification
+```
+
+마지막 명령은 Debug 앱의 문서·Undo 검증 경로입니다. 사용자 문서를 건드리지 않고 지정 폴더에 테스트 프로젝트, PNG 세 종류, 디자인 50종의 미리보기를 만듭니다.
+
+- [기능 대응표](Docs/FeatureParity.md)
+- [검증 기록과 범위](Docs/Validation.md)
+- [구조](Docs/Architecture.md)
+- [배포 점검표](Docs/ReleaseChecklist.md)
+- [App Store 스크린샷](Marketing/AppStore/README.md)
+- [개발 규칙](AGENTS.md)
+
+네이티브 렌더러와 브라우저의 글꼴·그림자 처리 차이가 있어 픽셀 단위의 동일성을 보장하지는 않습니다. 실제 기기별 터치·Pencil 사용성과 모든 디자인의 시각적 미세 조정은 지속 검수 대상입니다.
+
+## Git 규칙
+
+- 출시: `main`, 개발 통합: `develop`
+- 작업 브랜치: `태그/#이슈번호-작업범위`
+- 커밋: `[소문자 태그] 한글 명령조`, 제목 50자 이내
+- 태그: `init`, `feat`, `fix`, `docs`, `setting`, `add`, `refactor`, `chore`
+- 작업 브랜치에 최신 `develop`을 병합하고 검증한 뒤 `develop` 대상 PR로 통합합니다.
+- `init`은 최초 커밋에만 사용합니다.
+
+## 앱 아이콘
+
+표지 카드와 편집 도구를 나타낸 전용 로고에 서린 브랜드를 오른쪽 아래에 배치했습니다. 고해상도 원본과 제작 정보는 [Design/Branding](Design/Branding/README.md)에 있습니다. macOS·iPadOS 아이콘은 `App/Resources/Assets.xcassets`에서 관리합니다.
+
+## 폰트
+
+원본의 Google Fonts 17개 글꼴군과 각 OFL 라이선스를 포함합니다. 다운로드 주소와 SHA-256은 `Sources/CoverCore/Resources/Fonts/font-manifest.json`에 기록되어 있습니다. 사용자 추가 폰트는 프로젝트 문서 안에 보관됩니다.

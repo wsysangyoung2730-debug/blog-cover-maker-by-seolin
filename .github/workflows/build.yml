@@ -1,0 +1,39 @@
+name: Swift 앱 검증
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 30
+    env:
+      NSUnbufferedIO: "YES"
+    steps:
+      - uses: actions/checkout@v4
+      - name: 개발 도구 확인
+        run: |
+          xcodebuild -version
+          swift --version
+      - name: 스토어 스크린샷 검증
+        run: python3 Scripts/verify_store_screenshots.py
+      - name: 공통 엔진 테스트
+        timeout-minutes: 5
+        run: python3 Scripts/verify_core.py
+      - name: macOS 빌드
+        run: xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerMac -configuration Debug -derivedDataPath .build-output CODE_SIGNING_ALLOWED=NO build
+      - name: 앱 문서·출력 검증
+        run: .build-output/Build/Products/Debug/BlogCoverMakerMac.app/Contents/MacOS/BlogCoverMakerMac --verify-editor .build-output/verification
+      - name: iPadOS 시뮬레이터 빌드
+        run: xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerPad -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath .build-output CODE_SIGNING_ALLOWED=NO build
+
+      - name: macOS Release 아카이브
+        run: |
+          xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerMac -configuration Release -destination 'generic/platform=macOS' -derivedDataPath .build-output -archivePath .build-output/Mac.xcarchive CODE_SIGNING_ALLOWED=NO archive
+          python3 Scripts/verify_release.py .build-output/Mac.xcarchive/Products/Applications/BlogCoverMakerMac.app --platform mac
+      - name: iPadOS Release 아카이브
+        run: |
+          xcodebuild -project BlogCoverMakerBySeolin.xcodeproj -scheme BlogCoverMakerPad -configuration Release -destination 'generic/platform=iOS' -derivedDataPath .build-output -archivePath .build-output/Pad.xcarchive CODE_SIGNING_ALLOWED=NO archive
+          python3 Scripts/verify_release.py .build-output/Pad.xcarchive/Products/Applications/BlogCoverMakerPad.app --platform ipad
