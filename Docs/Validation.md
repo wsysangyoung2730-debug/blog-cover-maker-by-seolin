@@ -132,3 +132,10 @@ README의 검증 명령을 실행한다. 시스템 기본 개발 도구가 Comma
 - Mac Debug·iPadOS Debug 시뮬레이터 빌드 성공. Mac 앱의 별도 실행 검사에서 사진 기록 선택·삭제의 실행 취소·다시 실행 및 기존 문서·PNG 3종·디자인 50종 검증을 통과했다.
 - 썸네일 사진은 192픽셀로 줄여 별도 작업에서 디코딩하고, 가로 목록은 보이는 항목을 중심으로 구성한다.
 - iPad 실기기의 썸네일 터치·가로 스크롤·삭제는 출시 전 수동 확인 항목이다. 전체 Release 검사 결과는 연결한 PR CI에 남긴다.
+
+## 2026-10-19 1.1.0 배포 설정 검증
+
+- 버전 변경 PR #58의 전체 CI 성공. 공통 테스트 26개, Mac·iPad Debug, 앱 문서·출력 및 두 플랫폼 Release 검사를 통과했다.
+- Mac 1.1.0(3)의 실제 설치 패키지 인증서 체인과 포함 앱의 Apple 서명·샌드박스·범용 아키텍처를 검사했다. iPad 1.1.0(4)의 IPA 내부 앱·App Store 프로파일·문서 열기 Boolean 선언을 검사했다.
+- iPad 생성 정보 병합 전후의 Info.plist 의미 차이는 CFBundleInfoDictionaryVersion(6.0), LSRequiresIPhoneOS(true), LSSupportsOpeningDocumentsInPlace(false) 세 항목뿐임을 확인했다. 기존 문서 형식과 편집 코드 변경은 없다.
+- 자동 검증은 iPad의 LSSupportsOpeningDocumentsInPlace 키가 명시적으로 false인지 확인하도록 강화했다. 업로드 경고 해소 여부와 심사 상태는 이슈 #59/#57에 기록한다.
