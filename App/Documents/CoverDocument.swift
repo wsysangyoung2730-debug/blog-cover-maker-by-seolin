@@ -32,3 +32,19 @@ struct PNGDocument: FileDocument {
     FileWrapper(regularFileWithContents: data)
   }
 }
+
+/// A frozen export snapshot keeps edits made after Save separate from that file.
+struct CoverProjectFile: FileDocument {
+  static var readableContentTypes: [UTType] { [.seolinCover] }
+  var project: CoverProject
+  init(project: CoverProject) { self.project = project }
+  init(configuration: ReadConfiguration) throws {
+    guard let data = configuration.file.regularFileContents else {
+      throw CocoaError(.fileReadCorruptFile)
+    }
+    project = try CoverProject.decode(data)
+  }
+  func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+    FileWrapper(regularFileWithContents: try project.encoded())
+  }
+}

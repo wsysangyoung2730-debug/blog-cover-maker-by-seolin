@@ -96,7 +96,7 @@ struct DesignPanel: View {
     }
   }
   private func themeGrid(rainbow: Bool) -> some View {
-    LazyVGrid(columns: [GridItem(.adaptive(minimum: 31), spacing: 7)], spacing: 7) {
+    LazyVGrid(columns: [GridItem(.adaptive(minimum: 30), spacing: 6)], spacing: 7) {
       ForEach(CoverCatalog.shared.themes.filter { ($0.rb != nil) == rainbow }) { theme in
         Button {
           store.change("테마 변경") { $0.themeID = theme.id }
@@ -108,7 +108,7 @@ struct DesignPanel: View {
                 Color(cgColor: CoverRenderer.color(theme.main, project: store.project)),
                 Color(cgColor: CoverRenderer.color(theme.accent, project: store.project)),
               ], startPoint: .topLeading, endPoint: .bottomTrailing)
-          ).frame(width: 25, height: 25).padding(3).overlay {
+          ).frame(width: 24, height: 24).padding(3).overlay {
             Circle().stroke(
               store.project.themeID == theme.id ? Color.accentColor : .clear, lineWidth: 2)
             }

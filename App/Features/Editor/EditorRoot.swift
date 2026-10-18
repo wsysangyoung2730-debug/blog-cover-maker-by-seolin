@@ -1,9 +1,20 @@
 import CoreText
 import SwiftUI
 import UniformTypeIdentifiers
+#if os(macOS)
+  import AppKit
+#endif
+
+struct EditorProjectActions {
+  var newProject: () -> Void
+  var openProject: () -> Void
+  var saveProject: () -> Void
+}
 
 struct EditorRoot: View {
   @StateObject private var store: EditorStore
+  private let projectActions: EditorProjectActions?
+  private let documentUndoManager: UndoManager?
   @ObservedObject private var workspace = WorkspaceSettings.shared
   @Environment(\.undoManager) private var undoManager
   @Environment(\.openURL) private var openURL
@@ -23,8 +34,18 @@ struct EditorRoot: View {
     ("인스타그램", "https://www.instagram.com/seolin5_tkd/"), ("스마트플레이스", "https://naver.me/5Gpnv8PK"),
     ("네이버 블로그", "https://blog.naver.com/brinicle4865"),
   ]
-  init(document: CoverDocument) {
+  init(document: CoverDocument, projectActions: EditorProjectActions? = nil, undoManager: UndoManager? = nil) {
     _store = StateObject(wrappedValue: EditorStore(document: document))
+    documentUndoManager = undoManager
+    #if os(macOS)
+      self.projectActions = projectActions ?? EditorProjectActions(
+        newProject: { NSDocumentController.shared.newDocument(nil) },
+        openProject: { NSDocumentController.shared.openDocument(nil) },
+        saveProject: { NSApp.sendAction(#selector(NSDocument.save(_:)), to: nil, from: nil) }
+      )
+    #else
+      self.projectActions = projectActions
+    #endif
   }
   var body: some View {
     GeometryReader { geometry in
@@ -74,8 +95,8 @@ struct EditorRoot: View {
     #endif
     .toolbar { toolbar }
     .onAppear {
-      store.undoManager = undoManager
-      undoManager?.levelsOfUndo = 60
+      store.undoManager = documentUndoManager ?? undoManager
+      store.undoManager?.levelsOfUndo = 60
       store.refreshThumbnails()
       if tutorialVersion < 1 {
         tutorialVersion = 1
@@ -243,6 +264,19 @@ struct EditorRoot: View {
       }.help(links[((linkIndex % 3) + 3) % 3].0 + " 열기")
     }
     ToolbarItemGroup {
+      if let projectActions {
+        Menu {
+          Button("새 표지 만들기", systemImage: "doc.badge.plus") {
+            projectAction(projectActions.newProject)
+          }
+          Button("불러오기…", systemImage: "folder") { projectAction(projectActions.openProject) }
+          Button("저장하기…", systemImage: "square.and.arrow.down") {
+            projectAction(projectActions.saveProject)
+          }
+        } label: {
+          Label("프로젝트", systemImage: "doc")
+        }.accessibilityIdentifier("projectMenu")
+      }
       Button {
         store.importKind = .base
       } label: {
@@ -296,6 +330,12 @@ struct EditorRoot: View {
         Label("보기", systemImage: "sidebar.right")
       }
     }
+  }
+  private func projectAction(_ action: () -> Void) {
+    store.finishText()
+    store.end()
+    store.showQuick = false
+    action()
   }
   private func panelTitle(_ id: String) -> String {
     ["design": "디자인", "properties": "사진·요소", "words": "문구", "layers": "레이어"][id] ?? id
