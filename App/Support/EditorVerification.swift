@@ -12,6 +12,7 @@
       let output = URL(fileURLWithPath: args[i + 1], isDirectory: true)
       do {
         try verifyTouchMovement()
+        try verifyPhotoAlignment()
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
         let document = CoverDocument()
         let store = EditorStore(document: document)
@@ -136,6 +137,50 @@
       interaction.up(start, showsQuickPalette: false)
       guard !store.selection.contains(project.elements[0].id) else {
         throw Failure("다중 선택 모드의 탭 선택 전환 실패")
+      }
+    }
+    private static func verifyPhotoAlignment() throws {
+      var project = CoverProject()
+      let photo = CoverElement([
+        "type": .string("photo"), "x": .number(90), "y": .number(140),
+        "w": .number(800), "h": .number(600), "zoom": .number(1.5),
+        "ox": .number(120), "oy": .number(-90),
+      ])
+      project.elements = [photo]
+      let store = EditorStore(document: CoverDocument(project: project))
+      let interaction = CanvasInteraction(store)
+      let point = CGPoint(x: 400, y: 400)
+      interaction.down(point, double: true)
+      interaction.up(point)
+      guard store.panMode else { throw Failure("사진 더블클릭 내부 편집 진입 실패") }
+      let undo = UndoManager()
+      undo.groupsByEvent = false
+      store.undoManager = undo
+      undo.beginUndoGrouping()
+      store.align("c")
+      undo.endUndoGrouping()
+      guard store.project.elements[0].number("ox") == 0,
+        store.project.elements[0].number("oy") == -90,
+        store.project.elements[0].rect == photo.rect, store.panMode
+      else { throw Failure("사진 내부 가로 가운데 정렬 실패") }
+      undo.undo()
+      guard store.project == project else { throw Failure("사진 내부 정렬 실행 취소 실패") }
+      undo.redo()
+      guard store.project.elements[0].number("ox") == 0 else {
+        throw Failure("사진 내부 정렬 다시 실행 실패")
+      }
+      undo.beginUndoGrouping()
+      store.align("m")
+      undo.endUndoGrouping()
+      guard store.project.elements[0].number("oy") == 0 else {
+        throw Failure("사진 내부 세로 가운데 정렬 실패")
+      }
+      store.panMode = false
+      undo.beginUndoGrouping()
+      store.align("c")
+      undo.endUndoGrouping()
+      guard store.project.elements[0].rect.midX == 540 else {
+        throw Failure("일반 사진 틀 가운데 정렬 실패")
       }
     }
     struct Failure: Error {

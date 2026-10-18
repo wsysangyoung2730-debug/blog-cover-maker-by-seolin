@@ -186,6 +186,11 @@ import UniformTypeIdentifiers
     change("그룹 풀기") { CoverEditing.ungroup(ids, in: &$0) }
   }
   func align(_ how: String) {
+    end()
+    if panMode, selected.count == 1, let photo {
+      change("사진 내부 정렬") { _ = CoverEditing.alignPhotoContent(photo.id, how: how, in: &$0) }
+      return
+    }
     let ids = Set(inspected.map(\.id))
     change("위치 맞추기") { _ = CoverEditing.align(ids, how: how, in: &$0) }
   }
