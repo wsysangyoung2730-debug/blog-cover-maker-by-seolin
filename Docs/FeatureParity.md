@@ -50,6 +50,7 @@
 | 여러 사진 선택 추가 | 파일 선택 창 / EditorStore.importFiles |
 | 파일 드래그 추가·사진 위 드롭 교체 | MacCanvas.performDragOperation / PadCanvas |
 | 기본 사진과 개별 사진 틀 구분 | CoverProject.imageID / LayersPanel |
+| 가로 사진 기록·직접 선택·개별 삭제 | PhotoHistoryStrip / CoverEditing.selectPhoto·removePhoto, 실행 취소와 저장 호환 |
 | 기본 사진/틀별 이전·다음 교체 기록 | PhotoHistory / CoverEditing.stepPhoto |
 | 기록 위치·이전/다음 활성 상태 | PropertiesPanel |
 | 이전 기록에서 새 사진 추가 시 이후 기록 분기 | PhotoHistory.push |

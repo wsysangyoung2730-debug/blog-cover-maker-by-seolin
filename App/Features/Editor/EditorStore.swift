@@ -293,8 +293,19 @@ import UniformTypeIdentifiers
     originalEdit = nil
   }
   func photoStep(_ delta: Int) {
+    end()
     let id = photo?.id
     change("사진 기록 변경") { CoverEditing.stepPhoto(delta, elementID: id, in: &$0) }
+  }
+  func selectPhoto(_ position: Int) {
+    end()
+    let id = photo?.id
+    change("사진 기록 선택") { CoverEditing.selectPhoto(position, elementID: id, in: &$0) }
+  }
+  func removePhoto(at position: Int) {
+    end()
+    let id = photo?.id
+    change("사진 기록 삭제") { CoverEditing.removePhoto(at: position, elementID: id, in: &$0) }
   }
   func resetPhoto() {
     guard let id = photo?.id else { return }

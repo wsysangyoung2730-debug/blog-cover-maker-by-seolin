@@ -13,6 +13,7 @@
       do {
         try verifyTouchMovement()
         try verifyPhotoAlignment()
+        try verifyPhotoHistory()
         try verifyProjectSaveFlow()
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
         let document = CoverDocument()
@@ -91,6 +92,32 @@
         fputs("검증 실패: \(error)\n", stderr)
         exit(1)
       }
+    }
+    private static func verifyPhotoHistory() throws {
+      var project = CoverProject()
+      ["first", "second", "third"].forEach { project.mainPhoto.push($0) }
+      let store = EditorStore(document: CoverDocument(project: project))
+      let undo = UndoManager()
+      undo.groupsByEvent = false
+      store.undoManager = undo
+      undo.beginUndoGrouping()
+      store.selectPhoto(0)
+      undo.endUndoGrouping()
+      let selected = store.project
+      guard store.photoHistory.current == "first" else { throw Failure("사진 기록 직접 선택 실패") }
+      undo.undo()
+      guard store.project == project else { throw Failure("사진 기록 선택 실행 취소 실패") }
+      undo.redo()
+      guard store.project == selected else { throw Failure("사진 기록 선택 다시 실행 실패") }
+      undo.beginUndoGrouping()
+      store.removePhoto(at: 0)
+      undo.endUndoGrouping()
+      guard store.photoHistory.items == ["second", "third"], store.photoHistory.current == "second"
+      else { throw Failure("사진 기록 삭제 후 선택 실패") }
+      undo.undo()
+      guard store.project == selected else { throw Failure("사진 기록 삭제 실행 취소 실패") }
+      undo.redo()
+      guard store.photoHistory.items == ["second", "third"] else { throw Failure("사진 기록 삭제 다시 실행 실패") }
     }
     private static func verifyTouchMovement() throws {
       var project = CoverProject()

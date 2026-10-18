@@ -165,17 +165,29 @@ public struct PhotoHistory: Codable, Equatable, Sendable {
   public var index = -1
   public init() {}
   public mutating func push(_ id: String?) {
-    // A corrupt cursor must never become a negative prefix count.
-    let count = index < 0 ? 0 : min(index, items.count - 1) + 1
-    items = Array(items.prefix(count))
+    // Imported photos form a shelf, independent of the currently selected entry.
     items.append(id)
     index = items.count - 1
   }
+  @discardableResult public mutating func select(_ position: Int) -> Bool {
+    guard items.indices.contains(position), position != index else { return false }
+    index = position
+    return true
+  }
+  @discardableResult public mutating func remove(at position: Int) -> Bool {
+    guard items.indices.contains(position) else { return false }
+    items.remove(at: position)
+    if items.isEmpty { index = -1 }
+    else {
+      if position < index { index -= 1 }
+      index = min(max(0, index), items.count - 1)
+    }
+    return true
+  }
   public mutating func step(_ delta: Int) -> Bool {
     let (next, overflow) = index.addingReportingOverflow(delta)
-    guard !overflow, items.indices.contains(next) else { return false }
-    index = next
-    return true
+    guard !overflow else { return false }
+    return select(next)
   }
   public var current: String? { items.indices.contains(index) ? items[index] : nil }
 }
