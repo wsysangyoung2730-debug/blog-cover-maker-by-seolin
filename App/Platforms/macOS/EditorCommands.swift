@@ -22,8 +22,12 @@ import SwiftUI
         Button("로고 추가…") { store?.importKind = .add }
         Button("폰트 추가…") { store?.importKind = .font }
         Divider()
-        Menu("PNG 내보내기") {
-          ForEach(ExportMode.allCases) { mode in Button(mode.label) { store?.export(mode) } }
+        Button("사진 내보내기…") { store?.export(.all) }
+          .keyboardShortcut("e", modifiers: [.command, .shift])
+        Menu("부분 이미지 내보내기") {
+          ForEach(ExportMode.allCases.filter { $0 != .all }) { mode in
+            Button(mode.label) { store?.export(mode) }
+          }
         }
       }
       CommandMenu("요소") {
