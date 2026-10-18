@@ -12,7 +12,7 @@ struct SwatchPicker: View {
   ]
   var body: some View {
     VStack(alignment: .leading) {
-      LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 8) {
+      LazyVGrid(columns: [GridItem(.adaptive(minimum: 28), spacing: 8)], spacing: 8) {
         ForEach(tokens, id: \.self) { value in
           Button {
             change(value)

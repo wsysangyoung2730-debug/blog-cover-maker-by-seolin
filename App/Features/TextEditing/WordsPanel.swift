@@ -4,6 +4,7 @@ import UniformTypeIdentifiers
 
 struct WordsPanel: View {
   @ObservedObject var store: EditorStore
+  @FocusState private var focusedField: String?
   private let fields = [
     ("line1", "제목 첫 줄"), ("line2", "제목 둘째 줄"), ("hl", "강조할 단어"), ("tag", "태그"), ("sub", "부제목"),
     ("en", "영문 장식 글자"), ("handle", "인스타 계정"),
@@ -40,7 +41,15 @@ struct WordsPanel: View {
                   }
                 }
               }), axis: .vertical
-          ).textFieldStyle(.roundedBorder).disabled(!enabled)
+          ).textFieldStyle(.plain).padding(10)
+            .background(.background, in: RoundedRectangle(cornerRadius: 8))
+            .overlay {
+              RoundedRectangle(cornerRadius: 8).stroke(
+                enabled ? Color.blue.opacity(focusedField == key ? 1 : 0.55)
+                  : Color.secondary.opacity(0.2), lineWidth: focusedField == key ? 2 : 1)
+            }
+            .focused($focusedField, equals: key).disabled(!enabled)
+            .accessibilityLabel(name)
         }
       }
       Divider()
@@ -64,7 +73,9 @@ struct WordsPanel: View {
         }
       }
       Divider()
-      Picker(
+      VStack(alignment: .leading, spacing: 5) {
+        Text("제목 글씨체").font(.caption).foregroundStyle(.secondary)
+        Picker(
         "제목 글씨체",
         selection: Binding(
           get: { store.project.titleFontID },
@@ -77,9 +88,13 @@ struct WordsPanel: View {
               }
             }
           })
-      ) { ForEach(CoverCatalog.shared.titleFonts) { font in Text(font.label).tag(font.id) } }
+        ) { ForEach(CoverCatalog.shared.titleFonts) { font in Text(font.label).tag(font.id) } }
+          .pickerStyle(.menu).labelsHidden().lineLimit(1).frame(maxWidth: .infinity, alignment: .leading)
+      }
       Button("폰트 파일 추가", systemImage: "textformat") { store.importKind = .font }
       Text("추가한 폰트는 프로젝트에 함께 저장됩니다.").font(.caption).foregroundStyle(.secondary)
+    }.onChange(of: focusedField) { _, key in
+      if let key { store.wordTarget = key }
     }
   }
 }
@@ -87,8 +102,9 @@ struct TextStyleControls: View {
   @ObservedObject var store: EditorStore
   var ids: Set<UUID>
   var body: some View {
-    VStack(spacing: 8) {
-      HStack(spacing: 6) {
+    VStack(alignment: .leading, spacing: 10) {
+      Text("스타일").font(.caption).foregroundStyle(.secondary)
+      LazyVGrid(columns: [GridItem(.adaptive(minimum: 64), spacing: 6)], spacing: 6) {
         Button("굵게") {
           let elements = store.project.elements.filter { ids.contains($0.id) }
           let bold = !elements.allSatisfy {
@@ -99,17 +115,17 @@ struct TextStyleControls: View {
             .contains(.traitBold)
           }
           store.setString("fw", bold ? "900" : "400", ids: ids)
-        }
+        }.frame(maxWidth: .infinity)
         ForEach([("it", "기울임"), ("ul", "밑줄"), ("st", "취소선")], id: \.0) { key, label in
-          Button(label) { store.toggle(key, ids: ids) }
+          Button(label) { store.toggle(key, ids: ids) }.frame(maxWidth: .infinity)
         }
       }.font(.caption).buttonStyle(.bordered)
-      HStack {
-        Button("그림자") { store.toggle("shadow", ids: ids) }
-        Spacer()
-        Button("가−") { size(-4) }
-        Button("가+") { size(4) }
-      }
+      Text("효과·크기").font(.caption).foregroundStyle(.secondary)
+      LazyVGrid(columns: [GridItem(.adaptive(minimum: 64), spacing: 6)], spacing: 6) {
+        Button("그림자") { store.toggle("shadow", ids: ids) }.frame(maxWidth: .infinity)
+        Button("가−") { size(-4) }.frame(maxWidth: .infinity).accessibilityLabel("글씨 작게")
+        Button("가+") { size(4) }.frame(maxWidth: .infinity).accessibilityLabel("글씨 크게")
+      }.buttonStyle(.bordered)
       Picker(
         "글씨 정렬",
         selection: Binding(

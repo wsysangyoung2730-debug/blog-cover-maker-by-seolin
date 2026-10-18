@@ -6,7 +6,9 @@ struct FontPicker: View {
   @ObservedObject var store: EditorStore
   var ids: Set<UUID>
   var body: some View {
-    Picker(
+    VStack(alignment: .leading, spacing: 5) {
+      Text("글씨체").font(.caption).foregroundStyle(.secondary)
+      Picker(
       "글씨체",
       selection: Binding(
         get: { store.project.elements.first { ids.contains($0.id) }?.string("ff") ?? "" },
@@ -24,6 +26,8 @@ struct FontPicker: View {
       ForEach(store.project.fonts) { font in Text(font.name + " (추가함)").tag(font.id) }
       Divider()
       Text("폰트 파일 추가…").tag("__add")
+      }.pickerStyle(.menu).labelsHidden().lineLimit(1)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
   }
 }
