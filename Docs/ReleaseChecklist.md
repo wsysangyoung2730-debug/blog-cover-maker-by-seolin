@@ -147,3 +147,13 @@ pkgutil --check-signature .build-output/AppStore-1.0.0/BlogCoverMakerMac.pkg
 - 심사 대기 중 이미지 편집이 잠겨 있어 두 요청을 회수하고, 각 플랫폼에 새 소개 장을 추가해 00→04 순서와 `10개 중 5개의 앱 스크린샷`을 확인했다.
 - 같은 `1.0.0 (2)`로 재제출했다. [macOS 제출 내역](https://appstoreconnect.apple.com/apps/6822050062/distribution/reviewsubmissions/details/ad7bbe1e-4184-4399-aa99-a442559f9dc7)은 06:11 KST, [iPadOS 제출 내역](https://appstoreconnect.apple.com/apps/6822050062/distribution/reviewsubmissions/details/1a560f44-3365-4d1c-836d-bd1ef295d78d)은 06:12 KST에 **심사 대기 중**을 확인했다.
 - 앱 코드·배포 빌드·수동 출시 설정은 유지했다. 이미지 등록 및 재제출 증빙은 개발 Mac의 `.build-output/StoreIntro-45`에 보관한다. 승인이나 공개 출시는 아직 완료되지 않았다.
+
+## 2026-10-19 1.1.0 편집기 업데이트
+
+- 사용자가 중간 버전 번호 증가와 배포를 요청했다. Mac은 `1.1.0 (3)`, iPad는 문서 설정 보완을 포함한 `1.1.0 (4)`를 사용한다. 같은 사용자 표시 버전을 유지하며 플랫폼별 빌드 번호를 관리한다.
+- 버전 설정은 `setting/#57-release110`의 PR #58로 develop에 통합했고 전체 CI가 통과했다. Mac·iPad 빌드 3의 Apple 배포 서명, 프로파일, 최종 번들과 업로드 성공을 확인했다.
+- iPad 빌드 3 업로드에서 Missing Document Configuration 경고를 발견했다. `fix/#59-iPadDocumentConfig`에서 iPad만 `GENERATE_INFOPLIST_FILE = YES`로 기존 Info.plist와 생성 정보를 병합하고 `INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = NO`를 지정했다. Mac은 기존 Info.plist 처리와 DocumentGroup을 유지한다.
+- iPad 빌드 4의 최종 Info.plist에서 Boolean false 문서 선언, 앱 식별자와 팀, App Store 배포 프로파일, 디버깅 권한 제외 및 Release 번들 검사를 확인했다. 검증 스크립트는 해당 키가 빠진 경우 실패한다.
+- App Store Connect에서 두 플랫폼의 1.1.0을 생성하고 새 기능 안내와 변경된 편집·저장 경로를 한국어로 저장했다. 각 플랫폼 기존 설명 이미지 5장과 지원 URL, 수동 출시 설정을 승계했다. [한국어 업데이트 내용](../Marketing/AppStore/ReleaseNotes/1.1.0-ko-KR.txt)을 보존했다.
+- iPad의 추가 사진 기록 터치·가로 스크롤과 파일 제공자·회전의 실기기 검증은 이번 세션에서 수행하지 않았다. 서명·빌드 검사를 실기기 검증으로 간주하지 않는다.
+- 최종 업로드 처리·연결된 빌드·심사 제출 결과와 증빙은 [배포 이슈 #57](https://github.com/wsysangyoung2730-debug/blog-cover-maker-by-seolin/issues/57)에 기록한다. 심사 요청은 Apple 승인이나 공개 출시 완료와 구분한다.
