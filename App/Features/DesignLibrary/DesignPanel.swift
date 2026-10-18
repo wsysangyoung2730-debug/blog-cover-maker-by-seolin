@@ -5,30 +5,18 @@ import UniformTypeIdentifiers
 struct DesignPanel: View {
   @ObservedObject var store: EditorStore
   @ObservedObject var workspace = WorkspaceSettings.shared
-  @State private var category = "all"
+  @State private var onlyFavorites = false
   @State private var search = ""
+  @State private var panelWidth: CGFloat = 220
   private var filtered: [CoverTemplate] {
     CoverCatalog.shared.templates.filter { t in
-      (category == "all" || category == "favorites" && workspace.favorites.contains(t.id)
-        || t.category == category)
+      (!onlyFavorites || workspace.favorites.contains(t.id))
         && (search.isEmpty || t.name.localizedCaseInsensitiveContains(search))
     }
   }
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
       TextField("디자인 검색", text: $search).textFieldStyle(.roundedBorder)
-      Picker("분류", selection: $category) {
-        Text("전체 50종").tag("all")
-        Text("즐겨찾기").tag("favorites")
-        Text("사진 가득").tag("photo")
-        Text("액자·카드").tag("frame")
-        Text("화면 나누기").tag("split")
-      }
-      HStack {
-        Image(systemName: "square.grid.3x3")
-        Slider(value: $workspace.thumbnailSize, in: 70...260)
-        Image(systemName: "square.grid.2x2")
-      }.help("디자인 미리보기 크기").onTapGesture(count: 2) { workspace.thumbnailSize = 116 }
       Divider()
       Text("테마 · \(store.project.theme.name)").font(.subheadline.bold())
       themeGrid(rainbow: false)
@@ -43,7 +31,20 @@ struct DesignPanel: View {
       Button("디자인 처음 상태로", systemImage: "arrow.counterclockwise") { store.resetDesign() }.frame(
         maxWidth: .infinity)
       Divider()
-      LazyVGrid(columns: [GridItem(.adaptive(minimum: workspace.thumbnailSize))], spacing: 12) {
+      Picker("디자인 보기", selection: $onlyFavorites) {
+        Text("전체").tag(false)
+        Text("즐겨찾기").tag(true)
+      }.pickerStyle(.segmented).labelsHidden()
+      HStack {
+        Image(systemName: "square.grid.3x3")
+        Slider(value: $workspace.thumbnailSize, in: 70...260)
+          .accessibilityLabel("디자인 미리보기 크기")
+        Image(systemName: "square.grid.2x2")
+      }.help("디자인 미리보기 크기").onTapGesture(count: 2) { workspace.thumbnailSize = 116 }
+      LazyVGrid(
+        columns: [GridItem(.adaptive(minimum: min(workspace.thumbnailSize, max(70, panelWidth))))],
+        spacing: 12
+      ) {
         ForEach(filtered) { template in
           VStack(alignment: .leading, spacing: 5) {
             ZStack(alignment: .topTrailing) {
@@ -83,18 +84,25 @@ struct DesignPanel: View {
         }
       }
       if filtered.isEmpty {
-        Text("디자인의 별을 눌러 즐겨찾기에 추가하세요.").font(.caption).foregroundStyle(.secondary)
+        Text(search.isEmpty ? "디자인의 별을 눌러 즐겨찾기에 추가하세요." : "검색한 디자인이 없어요.")
+          .font(.caption).foregroundStyle(.secondary)
       }
 
+    }.background {
+      GeometryReader { geometry in
+        Color.clear.onAppear { panelWidth = geometry.size.width }
+          .onChange(of: geometry.size.width) { _, width in panelWidth = width }
+      }
     }
   }
   private func themeGrid(rainbow: Bool) -> some View {
-    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 7) {
+    LazyVGrid(columns: [GridItem(.adaptive(minimum: 31), spacing: 7)], spacing: 7) {
       ForEach(CoverCatalog.shared.themes.filter { ($0.rb != nil) == rainbow }) { theme in
         Button {
           store.change("테마 변경") { $0.themeID = theme.id }
         } label: {
-          Circle().fill(
+          VStack(spacing: 3) {
+            Circle().fill(
             LinearGradient(
               colors: [
                 Color(cgColor: CoverRenderer.color(theme.main, project: store.project)),
@@ -103,7 +111,9 @@ struct DesignPanel: View {
           ).frame(width: 25, height: 25).padding(3).overlay {
             Circle().stroke(
               store.project.themeID == theme.id ? Color.accentColor : .clear, lineWidth: 2)
-          }
+            }
+            if rainbow { Text(theme.name).font(.caption2).lineLimit(1) }
+          }.frame(maxWidth: .infinity, minHeight: 44)
         }.buttonStyle(.plain).help(theme.name).accessibilityLabel(theme.name)
       }
     }
