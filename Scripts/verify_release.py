@@ -48,7 +48,7 @@ else:
  assert arches == ['arm64'], arches
  assert info['MinimumOSVersion'] == '17.0'
  assert info['UIDeviceFamily'] == [2]
- assert info.get('LSSupportsOpeningDocumentsInPlace', False) is False
+ assert info['LSSupportsOpeningDocumentsInPlace'] is False
  assert info['UISupportsDocumentBrowser'] is False
  assert info['CFBundleIcons~ipad']['CFBundlePrimaryIcon']['CFBundleIconName'] == 'AppIconPad'
  assert int(re.search(r'\d+', info['DTSDKName']).group()) >= 26
