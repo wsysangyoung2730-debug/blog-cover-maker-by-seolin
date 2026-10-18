@@ -18,24 +18,7 @@ struct PropertiesPanel: View {
           }.buttonStyle(.borderedProminent).tint(.yellow).foregroundStyle(.black)
           Button("로고 추가", systemImage: "plus") { store.importKind = .add }
           if photo.values["src"]?.string != nil { Button("기본 사진으로 되돌리기") { store.useMainPhoto() } }
-          let history = store.photoHistory
-          if history.items.count > 1 {
-            HStack {
-              Button {
-                store.photoStep(-1)
-              } label: {
-                Image(systemName: "chevron.left")
-              }.disabled(history.index <= 0)
-              Text("\(history.index+1) / \(history.items.count)").monospacedDigit()
-              Button {
-                store.photoStep(1)
-              } label: {
-                Image(systemName: "chevron.right")
-              }.disabled(history.index >= history.items.count - 1)
-              Spacer()
-              Text("사진 기록").font(.caption).foregroundStyle(.secondary)
-            }
-          }
+          PhotoHistoryStrip(store: store)
           VStack(alignment: .leading, spacing: 8) {
             Text(store.panMode ? "사진 안쪽 위치 맞추기" : "사진 위치 맞추기").font(.caption.bold())
             AlignmentControls(store: store)

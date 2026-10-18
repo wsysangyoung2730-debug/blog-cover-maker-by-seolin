@@ -133,7 +133,7 @@ enum TutorialStep: Int, CaseIterable, Identifiable {
   var tip: String {
     switch self {
     case .welcome: "이 화면은 사용법 안내예요. 단계 이동이나 닫기로 작업 중인 표지가 바뀌지 않아요."
-    case .photo: "사진·요소 패널에서 이전·다음 사진 기록을 확인하거나 위치를 처음 상태로 되돌릴 수 있어요."
+    case .photo: "사진 기록의 작은 사진을 누르면 바로 바뀌어요. 옆으로 넘겨 보거나 ×로 기록을 지울 수 있고, 실행 취소로 복원할 수 있어요."
     case .design: "디자인을 바꾸면 수동 배치와 추가 요소가 초기화돼요. 실수했다면 실행 취소로 돌아오세요."
     case .text: "원하는 문구 칸이 비활성화돼 있다면, 그 문구를 사용하는 디자인으로 바꿔보세요."
     case .layout:
