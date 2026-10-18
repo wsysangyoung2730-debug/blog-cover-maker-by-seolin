@@ -95,16 +95,100 @@ final class CoverCoreTests: XCTestCase {
         normalized(option.id == "pen" ? "Nanum Pen" : option.family), option.id)
     }
   }
-  func testPhotoHistoryTruncatesForwardBranch() {
+  func testPhotoHistoryKeepsLaterPhotosWhenImportingFromEarlierEntry() {
     var h = PhotoHistory()
     h.push("a")
     h.push("b")
     h.push("c")
     XCTAssertTrue(h.step(-1))
     h.push("d")
-    XCTAssertEqual(h.items, ["a", "b", "d"])
+    XCTAssertEqual(h.items, ["a", "b", "c", "d"])
     XCTAssertFalse(h.step(1))
     XCTAssertEqual(h.current, "d")
+  }
+  func testPhotoHistoryDirectSelectionAndRemovalKeepCursorValid() {
+    var history = PhotoHistory()
+    ["a", "b", "c", "d"].forEach { history.push($0) }
+    XCTAssertTrue(history.select(2))
+    XCTAssertFalse(history.select(2))
+    XCTAssertFalse(history.select(-1))
+    XCTAssertFalse(history.select(Int.max))
+    XCTAssertTrue(history.remove(at: 0))
+    XCTAssertEqual(history.current, "c")
+    XCTAssertEqual(history.index, 1)
+    XCTAssertTrue(history.remove(at: 2))
+    XCTAssertEqual(history.current, "c")
+    XCTAssertTrue(history.remove(at: 1))
+    XCTAssertEqual(history.current, "b")
+    XCTAssertEqual(history.index, 0)
+    XCTAssertTrue(history.remove(at: 0))
+    XCTAssertEqual(history.index, -1)
+    XCTAssertNil(history.current)
+    XCTAssertFalse(history.remove(at: 0))
+    XCTAssertFalse(history.step(1))
+  }
+  func testRemovingActivePhotoSelectsNextWhenAvailable() {
+    var history = PhotoHistory()
+    ["a", "b", "c"].forEach { history.push($0) }
+    history.select(1)
+    history.remove(at: 1)
+    XCTAssertEqual(history.current, "c")
+    XCTAssertEqual(history.index, 1)
+  }
+  func testMainPhotoShelfUpdatesCropAndPreservesIndependentLayers() throws {
+    var project = CoverProject()
+    let baseID = try XCTUnwrap(project.elements.first { $0.type == "photo" }?.id)
+    let baseIndex = try XCTUnwrap(project.elements.firstIndex { $0.id == baseID })
+    let independent = CoverElement(["type": .string("photo"), "src": .string("logo"),
+                                    "zoom": .number(1.7), "ox": .number(25)])
+    project.elements.append(independent)
+    ["a", "b", "c"].forEach { project.mainPhoto.push($0) }
+    project.elements[baseIndex].set("zoom", 2)
+    project.elements[baseIndex].set("ox", 42)
+    XCTAssertTrue(CoverEditing.removePhoto(at: 0, elementID: baseID, in: &project))
+    XCTAssertEqual(project.mainPhoto.current, "c")
+    XCTAssertEqual(project.elements[baseIndex].number("zoom"), 2)
+    XCTAssertEqual(project.elements[baseIndex].number("ox"), 42)
+    XCTAssertTrue(CoverEditing.selectPhoto(0, elementID: baseID, in: &project))
+    XCTAssertEqual(project.mainPhoto.current, "b")
+    XCTAssertEqual(project.elements[baseIndex].number("zoom"), 1)
+    XCTAssertEqual(project.elements[baseIndex].number("ox"), 0)
+    XCTAssertEqual(project.elements.last, independent)
+    project.images["b"] = Data([1])
+    CoverEditing.removePhoto(at: 0, elementID: baseID, in: &project)
+    CoverEditing.removePhoto(at: 0, elementID: baseID, in: &project)
+    XCTAssertEqual(project.mainPhoto.index, -1)
+    XCTAssertNotNil(project.images["b"])
+    XCTAssertEqual(try CoverProject.decode(project.encoded()), project)
+  }
+  func testFramePhotoShelfSupportsLegacySourceAndFallsBackToMain() throws {
+    var project = CoverProject()
+    project.mainPhoto.push("base")
+    var photo = CoverElement(["type": .string("photo"), "src": .string("first"),
+                              "zoom": .number(2), "ox": .number(42)])
+    var history = PhotoHistory()
+    history.push("first")
+    history.push("second")
+    project.frameHistory[photo.id.uuidString] = history
+    photo.set("src", "second")
+    project.elements = [photo]
+    XCTAssertTrue(CoverEditing.selectPhoto(0, elementID: photo.id, in: &project))
+    XCTAssertEqual(project.imageID(for: project.elements[0]), "first")
+    XCTAssertEqual(project.elements[0].number("zoom"), 1)
+    CoverEditing.stepPhoto(1, elementID: photo.id, in: &project)
+    XCTAssertEqual(project.imageID(for: project.elements[0]), "second")
+    CoverEditing.removePhoto(at: 1, elementID: photo.id, in: &project)
+    XCTAssertEqual(project.imageID(for: project.elements[0]), "first")
+    XCTAssertEqual(project.mainPhoto.current, "base")
+    CoverEditing.removePhoto(at: 0, elementID: photo.id, in: &project)
+    XCTAssertNil(project.frameHistory[photo.id.uuidString])
+    XCTAssertEqual(project.imageID(for: project.elements[0]), "base")
+    XCTAssertEqual(try CoverProject.decode(project.encoded()), project)
+
+    // Older projects may have a source without a frameHistory entry.
+    project.elements[0].set("src", "legacy")
+    XCTAssertTrue(CoverEditing.removePhoto(at: 0, elementID: photo.id, in: &project))
+    XCTAssertEqual(project.imageID(for: project.elements[0]), "base")
   }
   func testDuplicationBreaksTextBindingAndCreatesIndependentGroup() {
     var p = CoverProject()

@@ -222,21 +222,43 @@ public enum CoverEditing {
     resetCrop(&e)
   }
   public static func stepPhoto(_ delta: Int, elementID: UUID?, in p: inout CoverProject) {
+    updatePhotoHistory(elementID: elementID, in: &p) { $0.step(delta) }
+  }
+  @discardableResult public static func selectPhoto(
+    _ position: Int, elementID: UUID?, in p: inout CoverProject
+  ) -> Bool {
+    updatePhotoHistory(elementID: elementID, in: &p) { $0.select(position) }
+  }
+  @discardableResult public static func removePhoto(
+    at position: Int, elementID: UUID?, in p: inout CoverProject
+  ) -> Bool {
+    updatePhotoHistory(elementID: elementID, in: &p) { $0.remove(at: position) }
+  }
+  @discardableResult private static func updatePhotoHistory(
+    elementID: UUID?, in p: inout CoverProject, update: (inout PhotoHistory) -> Bool
+  ) -> Bool {
     if let id = elementID, let i = p.elements.firstIndex(where: { $0.id == id }),
       p.elements[i].values["src"]?.string != nil || p.frameHistory[id.uuidString] != nil
     {
       var h = p.frameHistory[id.uuidString] ?? PhotoHistory()
       if h.items.isEmpty { h.push(p.elements[i].values["src"]?.string) }
-      guard h.step(delta) else { return }
-      p.frameHistory[id.uuidString] = h
+      let previous = h.current
+      guard update(&h) else { return false }
+      p.frameHistory[id.uuidString] = h.items.isEmpty ? nil : h
       p.elements[i].values["src"] = h.current.map(JSONValue.string)
-      resetCrop(&p.elements[i])
-    } else if p.mainPhoto.step(delta) {
-      for i in p.elements.indices
-      where p.elements[i].type == "photo" && p.elements[i].values["src"]?.string == nil {
-        resetCrop(&p.elements[i])
+      if previous != h.current { resetCrop(&p.elements[i]) }
+    } else {
+      let previous = p.mainPhoto.current
+      guard update(&p.mainPhoto) else { return false }
+      if previous != p.mainPhoto.current {
+        for i in p.elements.indices
+        where p.elements[i].type == "photo" && p.elements[i].values["src"]?.string == nil {
+          resetCrop(&p.elements[i])
+        }
       }
     }
+    // Image bytes can still be used by other layers and undo snapshots.
+    return true
   }
 }
 public enum ImageAssets {
