@@ -5,6 +5,45 @@ import XCTest
 @testable import CoverCore
 
 final class CoverCoreTests: XCTestCase {
+  func testPhotoContentAlignmentKeepsCropAndZoom() throws {
+    let context = try XCTUnwrap(CGContext(
+      data: nil, width: 800, height: 400, bitsPerComponent: 8, bytesPerRow: 0,
+      space: CGColorSpace(name: CGColorSpace.sRGB)!,
+      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+    let image = try XCTUnwrap(context.makeImage())
+    var project = CoverProject()
+    let photo = CoverElement([
+      "type": .string("photo"), "x": .number(90), "y": .number(140),
+      "w": .number(300), "h": .number(300), "zoom": .number(2),
+      "ox": .number(45), "oy": .number(-70), "src": .string("photo"),
+    ])
+    project.elements = [photo]
+    project.images["photo"] = try ImageAssets.png(image)
+    for (how, key, expected) in [
+      ("l", "ox", 450.0), ("c", "ox", 0), ("r", "ox", -450),
+      ("t", "oy", 150), ("m", "oy", 0), ("b", "oy", -150),
+    ] {
+      XCTAssertTrue(CoverEditing.alignPhotoContent(photo.id, how: how, in: &project))
+      XCTAssertEqual(project.elements[0].number(key), expected, accuracy: 0.001)
+      XCTAssertEqual(project.elements[0].rect, photo.rect)
+      XCTAssertEqual(project.elements[0].number("zoom"), 2)
+    }
+    let before = project
+    XCTAssertFalse(CoverEditing.alignPhotoContent(photo.id, how: "dh", in: &project))
+    XCTAssertEqual(project, before)
+  }
+
+  func testPagePhotoAlignmentUsesSharedImageTransform() {
+    var project = CoverProject()
+    var first = CoverElement(["type": .string("photo"), "ox": .number(80), "oy": .number(25)])
+    first.set("zoom", 1.5)
+    let page = CoverElement(["type": .string("photo"), "page": .bool(true), "ox": .number(90)])
+    project.elements = [first, page]
+    XCTAssertTrue(CoverEditing.alignPhotoContent(page.id, how: "c", in: &project))
+    XCTAssertEqual(project.elements[0].number("ox"), 0)
+    XCTAssertEqual(project.elements[0].number("oy"), 25)
+    XCTAssertEqual(project.elements[1], page)
+  }
   override class func setUp() { CoverTypography.registerBundledFonts() }
   func testCatalogPreservesEveryTemplateThemeAndFontOption() {
     let catalog = CoverCatalog.shared

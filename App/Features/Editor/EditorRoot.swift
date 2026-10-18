@@ -246,10 +246,11 @@ struct EditorRoot: View {
       Button {
         store.importKind = .base
       } label: {
-        Label("기본 사진", systemImage: "photo.badge.plus")
-      }
+        Label("표지 사진 고르기", systemImage: "photo.badge.plus")
+      }.labelStyle(.titleAndIcon).buttonStyle(.borderedProminent).tint(.yellow).foregroundStyle(.black)
+        .accessibilityIdentifier("chooseCoverPhoto")
       Menu {
-        Button("사진·로고 추가") { store.importKind = .add }
+        Button("로고 추가") { store.importKind = .add }
         Button("글씨 추가") { addText() }
         Button("도형 추가") { addShape() }
         Button("폰트 추가") { store.importKind = .font }

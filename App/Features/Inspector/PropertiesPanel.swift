@@ -13,17 +13,10 @@ struct PropertiesPanel: View {
           Text("마지막 사진 설정 · 요소를 선택하면 바뀝니다.").font(.caption).foregroundStyle(.secondary)
         }
         if let photo = store.photo {
-          HStack {
-            Button("사진 교체") { store.importKind = .replace }
-            Button("사진·로고 추가") { store.importKind = .add }
-          }
-          HStack {
-            Button(store.panMode ? "위치 맞추기 완료" : "위치 맞추기") {
-              store.select(photo.id, individual: true)
-              store.panMode.toggle()
-            }
-            Button("처음 위치로") { store.resetPhoto() }
-          }
+          Button("표지 사진 고르기", systemImage: "photo.badge.plus") {
+            store.importKind = .replace
+          }.buttonStyle(.borderedProminent).tint(.yellow).foregroundStyle(.black)
+          Button("로고 추가", systemImage: "plus") { store.importKind = .add }
           if photo.values["src"]?.string != nil { Button("기본 사진으로 되돌리기") { store.useMainPhoto() } }
           let history = store.photoHistory
           if history.items.count > 1 {
@@ -41,6 +34,14 @@ struct PropertiesPanel: View {
               }.disabled(history.index >= history.items.count - 1)
               Spacer()
               Text("사진 기록").font(.caption).foregroundStyle(.secondary)
+            }
+          }
+          VStack(alignment: .leading, spacing: 8) {
+            Text(store.panMode ? "사진 안쪽 위치 맞추기" : "사진 위치 맞추기").font(.caption.bold())
+            AlignmentControls(store: store)
+            ViewThatFits(in: .horizontal) {
+              HStack { photoPositionButtons(photo) }
+              VStack(alignment: .leading) { photoPositionButtons(photo) }
             }
           }
           numeric("사진 확대", "zoom", 20...300, multiplier: 100, unit: "%")
@@ -65,8 +66,10 @@ struct PropertiesPanel: View {
           numeric("회전", "rot", -180...180, unit: "°")
         }
         Divider()
-        Text("위치 맞추기").font(.caption.bold())
-        AlignmentControls(store: store)
+        if store.photo == nil {
+          Text("요소 위치 맞추기").font(.caption.bold())
+          AlignmentControls(store: store)
+        }
         if !store.selection.isEmpty {
           HStack {
             Button("복제") { store.duplicate() }
@@ -83,9 +86,19 @@ struct PropertiesPanel: View {
         }
       } else {
         Text("사진을 넣거나 표지의 요소를 선택하세요.").foregroundStyle(.secondary)
-        Button("사진·로고 추가") { store.importKind = .add }
+        Button("표지 사진 고르기", systemImage: "photo.badge.plus") {
+          store.importKind = .base
+        }.buttonStyle(.borderedProminent).tint(.yellow).foregroundStyle(.black)
+        Button("로고 추가") { store.importKind = .add }
       }
     }.buttonStyle(.bordered)
+  }
+  @ViewBuilder private func photoPositionButtons(_ photo: CoverElement) -> some View {
+    Button(store.panMode ? "위치 맞추기 완료" : "사진 안쪽 위치 조절") {
+      store.select(photo.id, individual: true)
+      store.panMode.toggle()
+    }
+    Button("처음 위치로") { store.resetPhoto() }
   }
   private func numeric(
     _ title: String, _ key: String, _ range: ClosedRange<Double>, multiplier: Double = 1,

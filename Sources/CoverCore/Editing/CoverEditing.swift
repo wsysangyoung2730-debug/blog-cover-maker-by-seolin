@@ -139,6 +139,33 @@ public enum CoverEditing {
     }
     return true
   }
+  /// Align the image inside its crop, leaving the frame and zoom unchanged.
+  /// Page-clipped photos share the first photo's transform with the renderer.
+  @discardableResult public static func alignPhotoContent(
+    _ id: UUID, how: String, in p: inout CoverProject
+  ) -> Bool {
+    guard let photo = p.elements.first(where: { $0.id == id && $0.type == "photo" }),
+      let ref = photo.flag("page") ? p.elements.first(where: { $0.type == "photo" }) : photo,
+      let index = p.elements.firstIndex(where: { $0.id == ref.id }),
+      ["l", "c", "r", "t", "m", "b"].contains(how)
+    else { return false }
+    let box = photo.flag("page")
+      ? CGRect(x: 0, y: 0, width: CoverConstants.canvasSize, height: CoverConstants.canvasSize)
+      : photo.rect
+    var offset = 0.0
+    if !["c", "m"].contains(how) {
+      guard let imageID = p.imageID(for: ref), let data = p.images[imageID],
+        let image = ImageAssets.image(data) else { return false }
+      let scale = max(box.width / Double(image.width), box.height / Double(image.height))
+        * ref.number("zoom", 1)
+      let horizontal = ["l", "r"].contains(how)
+      let imageLength = Double(horizontal ? image.width : image.height) * scale
+      let boxLength = horizontal ? box.width : box.height
+      offset = (imageLength - boxLength) / 2 * (["l", "t"].contains(how) ? 1 : -1)
+    }
+    p.elements[index].set(["l", "c", "r"].contains(how) ? "ox" : "oy", offset)
+    return true
+  }
   public static func replacePhoto(_ data: Data, elementID: UUID?, in p: inout CoverProject) throws {
     let normalized = try ImageAssets.normalize(data)
     let id = UUID().uuidString
